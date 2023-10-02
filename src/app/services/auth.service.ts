@@ -1,21 +1,31 @@
 import { Injectable } from '@angular/core';
+import { Firestore, addDoc, collection } from '@angular/fire/firestore';
+import { Auth, User } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  auth: any
   constructor(
-    // private auth: AngularFireAuth
+    private firestore: Firestore,
+    private auth: Auth
   ) { }
+
+  addUser(user: User) {
+    const userRef = collection(this.firestore, 'users')
+    return addDoc(userRef, {
+      uid: user.uid,
+      email: user.email
+    })
+  }
 
   isLoggedIn(): boolean {
     return !!this.auth.currentUser;
   }
 
-  async getUserEmail(): Promise<string | null> {
-    const user = await this.auth.currentUser;
-    return user ? user.email : null;
+  getUserEmail(): string | null {
+    const user = this.auth.currentUser;
+    return user?.email || null;
   }
 }

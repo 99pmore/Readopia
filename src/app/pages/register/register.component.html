@@ -4,7 +4,7 @@
 
 <main>
     <h2>Introduce tus datos</h2>
-    <form (formGroup)="registerForm" (ngSubmit)="register()">
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
         <input type="email" formControlName="email" placeholder="Correo electrónico">
         <input type="password" formControlName="password" placeholder="Contraseña">
         <button type="submit">Registrarse</button>

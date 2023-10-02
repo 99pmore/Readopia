@@ -1,10 +1,9 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-// import { AngularFirestore } from '@angular/fire/compat/firestore';
-// import { AngularFireAuth } from '@angular/fire/compat/auth';
-// import { Auth, createUserWithEmailAndPassword } from '@angular/fire/auth';
-// import { Firestore, addDoc, collection } from '@angular/fire/firestore';
+import { Auth, createUserWithEmailAndPassword } from '@angular/fire/auth';
+import { Firestore, addDoc, collection } from '@angular/fire/firestore';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -15,11 +14,9 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    // private db: AngularFirestore,
-    // private auth: AngularFireAuth,
     private router: Router,
-    // private auth: Auth = inject(Auth),
-    // private db: Firestore = inject(Firestore),
+    private authService: AuthService,
+    private auth: Auth,
   ) { }
 
   registerForm!: FormGroup
@@ -32,25 +29,19 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    // const email = this.registerForm.get('email')?.value
-    // const password = this.registerForm.get('password')?.value
+    const email = this.registerForm.get('email')?.value
+    const password = this.registerForm.get('password')?.value
 
-    // try {
-    //   createUserWithEmailAndPassword(this.auth, email, password)
-    //   .then((userCredential) => {
-    //     const user = userCredential.user
-    //     if (user) {
-    //       const usersCollection = collection(this.db, 'users')
-    //       addDoc(usersCollection, {
-    //         uid: user.uid,
-    //         email: email,
-    //       })
-    //     }
-    //     this.router.navigate(['/'])
-    //   })
-
-    // } catch (error) {
-    //   console.error('Error durante el registro:', error)
-    // }
+    createUserWithEmailAndPassword(this.auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user
+        if (user) {
+          this.authService.addUser(user)
+        }
+        this.router.navigate(['/'])
+      })
+      .catch((error) => {
+        console.log('Error: ', error)
+      })
   }
 }

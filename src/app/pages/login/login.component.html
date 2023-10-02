@@ -4,7 +4,7 @@
 
 <main>
     <h2>Introduce tus datos</h2>
-    <form (formGroup)="loginForm" (ngSubmit)="login()">
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
         <input type="email" formControlName="email" placeholder="Correo electrónico">
         <input type="password" formControlName="password" placeholder="Contraseña">
         <button type="submit">Iniciar sesión</button>
