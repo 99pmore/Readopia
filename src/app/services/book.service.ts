@@ -17,11 +17,10 @@ export class BookService {
 
   public getBooks(query: string): Observable<Book[]> {
     const params = new HttpParams().set('q', query).set('key', this.API_KEY);
-    
     return this.httpClient.get<Book[]>(this.URL, { params })
   }
   
-  public getBook(id: string): Observable<Book[]> {
-    return this.httpClient.get<Book[]>(`${this.URL}/${id}`)
+  public getBook(id: string): Observable<Book> {
+    return this.httpClient.get<Book>(`${this.URL}/${id}`)
   }
 }
