@@ -1,0 +1,75 @@
+@import '../../../mixins';
+
+main {
+    background: linear-gradient(rgba($color: snow, $alpha: 0.5), rgba($color: snow, $alpha: 0.5)), url(../../../assets/images/bg.png) no-repeat 0% 0% / cover;
+    height: 100vh;
+    margin-top: 90px;
+    padding: 5% 10%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    .searchbar-container {
+        width: 100%;
+        
+        display: flex;
+        justify-content: center;
+
+        form {
+            width: 100%;
+
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+
+            input[type=search] {
+                box-shadow: 0 0 10px rgba($color: #000, $alpha: 0.2);
+                border-radius: 5px;
+                border: none;
+                outline: none;
+                
+                padding: 10px;
+                width: 400px;
+                
+                transition: all 0.3s ease-in-out;
+                
+                // &:focus {
+                    //     box-shadow: 0 0 10px rgba($color: #000, $alpha: 0.25);
+                    //     width: 75%;
+                    // }
+            }
+                
+            button {
+                cursor: pointer;
+                background-color: transparent;
+                border: 1px solid $main;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba($color: #000, $alpha: 0.2);
+
+                width: 35px;
+                padding: 5px;
+
+                transition: transform 0.3s;
+
+                &:hover {
+                    background-color: $main;
+
+                    svg {
+                        fill: #fff;
+                    }
+                }
+
+                svg {
+                    fill: $main;
+                }
+            }
+        }
+    }
+
+    .books {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-gap: 20px;
+    }
+}

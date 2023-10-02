@@ -1,0 +1,42 @@
+<app-header></app-header>
+<main>
+
+    <ng-template #loginForm>
+        <div class="login">
+            <h3>Inicia sesión para ver tus libros</h3>
+            <a routerLink="/login">Ir</a>
+        </div>
+    </ng-template>
+
+    <div class="lists" *ngIf="userEmail; else loginForm">
+        <section class="books">
+            <header class="books-list-header">
+                <h2>Leyendo</h2>
+                <a routerLink="/reading">Ver todos</a>
+            </header>
+            <div class="books-list">
+                <!-- <app-book-card *ngFor="let book of readingBooks" [book]="book"></app-book-card> -->
+            </div>
+        </section>
+        <section class="books">
+            <header class="books-list-header">
+                <h2>Leídos</h2>
+                <a routerLink="/read">Ver todos</a>
+            </header>
+            <div class="books-list">
+                <!-- <app-book-card *ngFor="let book of readBooks" [book]="book"></app-book-card> -->
+            </div>
+        </section>
+        <section class="books">
+            <header class="books-list-header">
+                <h2>Quiero leer</h2>
+                <a routerLink="/wish">Ver todos</a>
+            </header>
+            <div class="books-list">
+                <!-- <app-book-card *ngFor="let book of wishBooks" [book]="book"></app-book-card> -->
+            </div>
+        </section>
+    </div>
+
+</main>
+

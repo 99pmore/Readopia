@@ -1,0 +1,21 @@
+@import './variables';
+
+@mixin underline() {
+    &::before {
+        margin-left: auto;
+    }
+    
+    &::after, &::before {
+        margin: 4px 0;
+        content: '';
+        width: 0%;
+        height: 2px;
+        background-color: $main;
+        display: block;
+        transition: 0.3s;
+    }
+    
+    &:hover::after, &:hover::before {
+        width: 100%;
+      }
+}

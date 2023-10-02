@@ -1,0 +1,117 @@
+main {
+    background: linear-gradient(rgba($color: snow, $alpha: 0.5), rgba($color: snow, $alpha: 0.5)), url(../../../assets/images/bg.png) no-repeat 0% 0% / cover;
+
+    margin-top: 90px;
+    padding: 5% 10%;
+    height: 100vh;
+
+    .book {
+        width: 100%;
+        height: 100%;
+
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+
+        .cover {
+            height: 400px;
+            aspect-ratio: 2/3;
+            
+            position: relative;
+            perspective: 1000px;
+
+            .book-card__book {
+                height: 100%;
+    
+                transform-style: preserve-3d;
+                transition: all 250ms ease;
+    
+                .book-card__book-front {
+                    height: 100%;
+                    width: 100%;
+    
+                    position: absolute;
+    
+                    .book-card__img {
+                        background-color: #e1e1e1;
+    
+                        height: 100%;
+                        width: 100%;
+    
+                        object-fit: cover;
+                        object-position: center;
+                    }
+                }
+            }
+
+            &:hover {
+                .book-card__book{
+                    transform: rotate3d(0, -1, 0, 30deg) translate(-15px, -25px);
+                }
+              
+                .book-card__book-back {
+                    box-shadow: 5px 10px 15px rgba($color: #000, $alpha: 0.25);
+                }
+              
+                .book-card__book-side {
+                    opacity: 1;
+                }
+            }
+        }
+
+        .book-card__book-back {
+            height: 100%;
+            width: 100%;
+    
+            position: absolute;
+            top: 0;
+    
+            transform: translateZ(-40px);
+        }
+
+        .book-card__book-side {
+            background-image: linear-gradient(to right, #ccc 35%, #e1e1e1 35%);
+            background-color: #e1e1e1;
+            background-size: 5px;
+            opacity: 0;
+    
+            width: 60px;
+    
+            position: absolute;
+            top: 7px;
+            bottom: 5px;
+            right: -42px;
+            
+            transform: rotate3d(0, 1, 0, 90deg);
+        }
+    }
+      
+    .info {
+        width: 70%;
+
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+
+        .main-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            .rating {
+                display: flex;
+                gap: 10px;
+            }
+        }
+        .sec-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+
+            .description {
+                height: 180px;
+                overflow: auto;
+            }
+        }
+    }
+}

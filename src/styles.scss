@@ -1,1 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
+@import './variables';
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+
+    body {
+        background: snow;
+        font-family: $font;
+        font-weight: 500;
+    }
+
+    &::-webkit-scrollbar {
+        background-color: transparent;
+        width: 8px;
+    }
+
+    &::-webkit-scrollbar:horizontal {
+        height: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: $main;
+
+        &:hover {
+            background-color: $main-dark;
+        }
+    }
+}

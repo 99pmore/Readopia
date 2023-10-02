@@ -1,0 +1,11 @@
+header {
+    // <a href="https://www.freepik.es/vector-gratis/ilustracion-pila-libros-acuarela_24017287.htm">Imagen de pikisuperstar</a> en Freepik
+    background: url(../../../assets/images/watercolor-header.png) no-repeat 0% 10% / cover;
+
+    box-shadow: 0 0 20px rgba($color: #000, $alpha: 0.2);
+    height: 35vh;
+    width: 100%;
+
+    position: relative;
+    z-index: 10;
+}
