@@ -2,8 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Auth, createUserWithEmailAndPassword } from '@angular/fire/auth';
-import { Firestore, addDoc, collection } from '@angular/fire/firestore';
-import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +14,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private authService: AuthService,
+    private userService: UserService,
     private auth: Auth,
   ) { }
 
@@ -36,7 +35,7 @@ export class RegisterComponent implements OnInit {
       .then((userCredential) => {
         const user = userCredential.user
         if (user) {
-          this.authService.addUser(user)
+          this.userService.addUser(user)
         }
         this.router.navigate(['/'])
       })
