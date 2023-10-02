@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Book } from 'src/app/models/book.interface';
+import { BookDbService } from 'src/app/services/book-db.service';
 import { BookService } from 'src/app/services/book.service';
 
 @Component({
@@ -15,7 +16,8 @@ export class BookInfoComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private bookService: BookService
+    private bookService: BookService,
+    private bookDBService: BookDbService
   ) { 
     this.book = {
       volumeInfo: {}
@@ -24,6 +26,11 @@ export class BookInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.getBook()
+  }
+  
+  read() {
+    this.id = this.route.snapshot.paramMap.get('id')!
+    this.bookDBService.addReadBook(this.id)
   }
 
   private getBook() {
