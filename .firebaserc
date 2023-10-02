@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "itsreadopia": {
+      "hosting": {
+        "Readopia": [
+          "itsreadopia"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "itsreadopia"
+  }
+}
