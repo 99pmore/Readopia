@@ -15,8 +15,6 @@ export class MenuComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.authService.getUserEmail().then(email => {
-      this.userEmail = email;
-    })
+    this.userEmail = this.authService.getUserEmail()
   }
 }
