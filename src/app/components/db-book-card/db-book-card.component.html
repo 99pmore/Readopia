@@ -1,0 +1,15 @@
+<div class="book-card" [routerLink]="['/books', book.id]">
+    <div class="book-card__cover">
+        <div class="book-card__book">
+            <div class="book-card__book-front">
+                <img class="book-card__img" [src]="book.cover || '../../../assets/images/sin-imagen.webp'" [alt]="book.title + ' cover'">
+            </div>
+            <div class="book-card__book-back"></div>
+            <div class="book-card__book-side"></div>
+        </div>
+    </div>
+    <!-- <div class="book-card__info">
+        <h3>{{ book.title }}</h3>
+        <h4 *ngFor="let author of book.authors">{{ author }}</h4>
+    </div> -->
+</div>
