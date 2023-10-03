@@ -13,9 +13,9 @@ export class HomeComponent implements OnInit {
   isUserLoggedIn: boolean = false
   userEmail!: string | null
 
-  readBooks!: BookDB[]
-  readingBooks!: BookDB[]
-  wishBooks!: BookDB[]
+  readBooks: BookDB[] = []
+  readingBooks: BookDB[] = []
+  wishBooks: BookDB[] = []
   
   constructor(
     private authService: AuthService,
