@@ -15,7 +15,12 @@
                 <a routerLink="/reading">Ver todos</a>
             </header>
             <div class="books-list">
-                <!-- <app-book-card *ngFor="let book of readingBooks" [book]="book"></app-book-card> -->
+                <ng-container *ngIf="readingBooks.length > 0; else messageReading">
+                    <app-db-book-card *ngFor="let book of readingBooks" [book]="book"></app-db-book-card>
+                </ng-container>
+                <ng-template #messageReading>
+                    <p>No estás leyendo ningún libro</p>
+                </ng-template>
             </div>
         </section>
         <section class="books">
@@ -24,7 +29,12 @@
                 <a routerLink="/read">Ver todos</a>
             </header>
             <div class="books-list">
-                <app-book-card *ngFor="let book of readBooks" [book]="book"></app-book-card>
+                <ng-container *ngIf="readBooks.length > 0; else messageRead">
+                    <app-db-book-card *ngFor="let book of readBooks" [book]="book"></app-db-book-card>
+                </ng-container>
+                <ng-template #messageRead>
+                    <p>No has leído ningún libros</p>
+                </ng-template>
             </div>
         </section>
         <section class="books">
@@ -33,7 +43,12 @@
                 <a routerLink="/wish">Ver todos</a>
             </header>
             <div class="books-list">
-                <!-- <app-book-card *ngFor="let book of wishBooks" [book]="book"></app-book-card> -->
+                <ng-container *ngIf="wishBooks.length > 0; else messageWish">
+                    <app-db-book-card *ngFor="let book of wishBooks" [book]="book"></app-db-book-card>
+                </ng-container>
+                <ng-template #messageWish>
+                    <p>No quieres leer ningún libro</p>
+                </ng-template>
             </div>
         </section>
     </div>
