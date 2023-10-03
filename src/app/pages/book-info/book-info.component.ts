@@ -14,8 +14,10 @@ export class BookInfoComponent implements OnInit {
 
   book!: Book
   id!: string
+  allBooks: BookDB[] = []
 
-  public selectedOption: string = ''
+  public selected: string = ''
+  public option: string = ''
 
   constructor(
     private route: ActivatedRoute,
@@ -26,31 +28,71 @@ export class BookInfoComponent implements OnInit {
       volumeInfo: {}
     }
   }
+  
+  async ngOnInit(): Promise<void> {
+    await this.getBook()
+    await this.getBookState()
+  }
 
-  ngOnInit(): void {
-    this.getBook()
+  addBookToList() {
+    if (this.selected === 'read') {
+      this.read()
+
+    } else if (this.selected === 'reading') {
+      this.reading()
+
+    } else if (this.selected === 'wish') {
+      this.wish()
+    }
   }
   
-  read() {
+  private read() {
     const bookDB = this.setBook()
     this.bookDBService.addBook(bookDB, 'readBooks')
   }
 
-  reading() {
+  private reading() {
     const bookDB = this.setBook()
     this.bookDBService.addBook(bookDB, 'readingBooks')
   }
 
-  wish() {
+  private wish() {
     const bookDB = this.setBook()
     this.bookDBService.addBook(bookDB, 'wishBooks')
   }
 
-  private getBook() {
+  private async getBook() {
     this.id = this.route.snapshot.paramMap.get('id')!
     this.bookService.getBook(this.id).subscribe((data) => {
       this.book = data
     })
+  }
+
+  private async getBookState() {
+    try {
+      this.allBooks = await this.bookDBService.getAllBooks()
+      
+      const matchingBook = this.allBooks.find((book) => book.id === this.id)
+  
+      if (matchingBook) {
+        if (matchingBook.state === 'reading') {
+          this.option = 'reading'
+
+        } else if (matchingBook.state === 'read') {
+          this.option = 'read'
+
+        } else if (matchingBook.state === 'wish') {
+          this.option = 'wish'
+
+        }
+
+      } else {
+        this.option = ''
+      }
+  
+    } catch (error) {
+      console.error('Error al obtener los libros del usuario:', error)
+    }
   }
 
   private setBook(): BookDB {

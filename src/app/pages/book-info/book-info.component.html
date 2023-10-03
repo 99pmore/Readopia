@@ -20,7 +20,6 @@
                 <div class="rating">
                     <app-rating [rating]="book.volumeInfo?.averageRating || 0"></app-rating>
                     <span>( {{ book.volumeInfo?.ratingsCount || 0 }} )</span>
-                    <i class="fa-solid fa-star"></i>
                 </div>
             </div>
             <div class="sec-info">
@@ -31,9 +30,16 @@
         </div>
     </div>
     <div class="actions">
-        <button (click)="read()">Marcar como leído</button>
-        <button (click)="reading()">Marcar como leyendo</button>
-        <button (click)="wish()">Marcar como quiero leer</button>
+        <form action="" (ngSubmit)="addBookToList()">
+            <div class="select">
+                <label for="bookState">Marcar libro como:</label>
+                <select [(ngModel)]="selected" name="bookState">
+                    <option value="reading" [selected]="option === 'reading'">Leyendo</option>
+                    <option value="read" [selected]="option === 'read'">Leído</option>
+                    <option value="wish" [selected]="option === 'wish'">Quiero leer</option>
+                </select>
+            </div>
+            <button type="submit">Aceptar</button>
+        </form>
     </div>
 </main>
-
