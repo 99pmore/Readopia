@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
 import { Firestore, arrayUnion, doc, getDoc, updateDoc } from '@angular/fire/firestore';
+import { BookDB } from '../models/bookDB.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -12,12 +13,12 @@ export class BookDbService {
     private auth: Auth
   ) { }
 
-  async addReadBook(bookId: string) {
+  async addBook(book: BookDB, booksList: string) {
     const user = this.auth.currentUser
     if (user) {
       const userRef = doc(this.firestore, `users/${user.uid}`)
       await updateDoc(userRef, {
-        readBooks: arrayUnion(bookId)
+        [booksList]: arrayUnion(book)
       })
 
     } else {
@@ -25,7 +26,7 @@ export class BookDbService {
     }
   }
 
-  async getReadBooks() {
+  async getBooks(booksList: string) {
     try {
       const user = this.auth.currentUser
 
@@ -36,9 +37,8 @@ export class BookDbService {
         if (userDoc.exists()) {
           const userData = userDoc.data()
 
-          if (userData && userData['readBooks']) {
-            console.log(userData['readBooks'])
-            return userData['readBooks']
+          if (userData && userData[booksList]) {
+            return userData[booksList]
           }
         }
       }
