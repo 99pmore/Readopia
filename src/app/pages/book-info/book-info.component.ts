@@ -15,6 +15,8 @@ export class BookInfoComponent implements OnInit {
   book!: Book
   id!: string
 
+  public selectedOption: string = ''
+
   constructor(
     private route: ActivatedRoute,
     private bookService: BookService,
@@ -30,48 +32,28 @@ export class BookInfoComponent implements OnInit {
   }
   
   read() {
-    this.id = this.route.snapshot.paramMap.get('id')!
-
-    this.bookService.getBook(this.id).subscribe((data) => {
-      this.book = data
-    })
-
-    const bookDB: BookDB = {
-      id: this.id,
-      cover: this.book.volumeInfo?.imageLinks?.thumbnail || '',
-      title: this.book.volumeInfo?.title || '',
-      authors: this.book.volumeInfo?.authors || [],
-      categories: this.book.volumeInfo?.categories || [],
-      rating: this.book.volumeInfo?.averageRating || 0,
-      description: this.book.volumeInfo?.description || '',
-      state: 'read',
-    }
-
+    const bookDB = this.setBook()
     this.bookDBService.addBook(bookDB, 'readBooks')
   }
 
   reading() {
-    this.id = this.route.snapshot.paramMap.get('id')!
-
-    this.bookService.getBook(this.id).subscribe((data) => {
-      this.book = data
-    })
-
-    const bookDB: BookDB = {
-      id: this.id,
-      cover: this.book.volumeInfo?.imageLinks?.thumbnail || '',
-      title: this.book.volumeInfo?.title || '',
-      authors: this.book.volumeInfo?.authors || [],
-      categories: this.book.volumeInfo?.categories || [],
-      rating: this.book.volumeInfo?.averageRating || 0,
-      description: this.book.volumeInfo?.description || '',
-      state: 'reading',
-    }
-
+    const bookDB = this.setBook()
     this.bookDBService.addBook(bookDB, 'readingBooks')
   }
 
   wish() {
+    const bookDB = this.setBook()
+    this.bookDBService.addBook(bookDB, 'wishBooks')
+  }
+
+  private getBook() {
+    this.id = this.route.snapshot.paramMap.get('id')!
+    this.bookService.getBook(this.id).subscribe((data) => {
+      this.book = data
+    })
+  }
+
+  private setBook(): BookDB {
     this.id = this.route.snapshot.paramMap.get('id')!
 
     this.bookService.getBook(this.id).subscribe((data) => {
@@ -89,14 +71,7 @@ export class BookInfoComponent implements OnInit {
       state: 'wish',
     }
 
-    this.bookDBService.addBook(bookDB, 'wishBooks')
-  }
-
-  private getBook() {
-    this.id = this.route.snapshot.paramMap.get('id')!
-    this.bookService.getBook(this.id).subscribe((data) => {
-      this.book = data
-    })
+    return bookDB
   }
 
 }
