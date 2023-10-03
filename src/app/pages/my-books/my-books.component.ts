@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Book } from 'src/app/models/book.interface';
+import { BookDB } from 'src/app/models/bookDB.interface';
+import { BookDbService } from 'src/app/services/book-db.service';
 
 @Component({
   selector: 'app-my-books',
@@ -8,13 +9,32 @@ import { Book } from 'src/app/models/book.interface';
 })
 export class MyBooksComponent implements OnInit {
 
+  readBooks: BookDB[] = []
+  readingBooks: BookDB[] = []
+  wishBooks: BookDB[] = []
+  allBooks: BookDB[] = []
+
   public selectedOption: string = 'all'
-  
-  // public allBooks: Book[] = this.readingBooks.concat(this.readBooks, this.wishBooks)
 
-  constructor() { }
+  constructor(
+    private bookDBService: BookDbService,
+  ) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    await this.getBooks()
+  }
+
+  async getBooks() {
+    try {
+      this.readBooks = await this.bookDBService.getBooks('readBooks')
+      this.readingBooks = await this.bookDBService.getBooks('readingBooks')
+      this.wishBooks = await this.bookDBService.getBooks('wishBooks')
+
+      this.allBooks = this.readingBooks.concat(this.readBooks, this.wishBooks)
+
+    } catch (error) {
+      console.error('Error al obtener los libros leídos:', error)
+    }
   }
 
 }

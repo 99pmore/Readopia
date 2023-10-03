@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Book } from 'src/app/models/book.interface';
+import { BookDB } from 'src/app/models/bookDB.interface';
 
 @Component({
   selector: 'app-book-row',
@@ -7,5 +7,5 @@ import { Book } from 'src/app/models/book.interface';
   styleUrls: ['./book-row.component.scss']
 })
 export class BookRowComponent {
-  @Input() book!: Book
+  @Input() book!: BookDB
 }
