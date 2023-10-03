@@ -30,7 +30,7 @@ export class MyBooksComponent implements OnInit {
       this.readingBooks = await this.bookDBService.getBooks('readingBooks')
       this.wishBooks = await this.bookDBService.getBooks('wishBooks')
 
-      this.allBooks = this.readingBooks.concat(this.readBooks, this.wishBooks)
+      this.allBooks = await this.bookDBService.getAllBooks()
 
     } catch (error) {
       console.error('Error al obtener los libros leídos:', error)

@@ -50,4 +50,18 @@ export class BookDbService {
       throw error
     }
   }
+
+  async getAllBooks(): Promise<BookDB[]> {
+    try {
+      const readBooks = await this.getBooks('readBooks')
+      const readingBooks = await this.getBooks('readingBooks')
+      const wishBooks = await this.getBooks('wishBooks')
+
+      return readingBooks.concat(readBooks, wishBooks)
+
+    } catch (error) {
+      console.error('Error al obtener todos los libros del usuario:', error)
+      return []
+    }
+  }
 }
