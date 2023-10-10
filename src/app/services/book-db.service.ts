@@ -46,7 +46,7 @@ export class BookDbService {
       return []
 
     } catch (error) {
-      console.error('(getReadBooks()): Error al obtener los libros leídos:', error)
+      console.log('Error al obtener los libros:', error)
       throw error
     }
   }
@@ -60,7 +60,7 @@ export class BookDbService {
       return readingBooks.concat(readBooks, wishBooks)
 
     } catch (error) {
-      console.error('Error al obtener todos los libros del usuario:', error)
+      console.log('Error al obtener todos los libros del usuario:', error)
       return []
     }
   }
