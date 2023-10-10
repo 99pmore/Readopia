@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Auth } from '@angular/fire/auth';
+import { Auth, User } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +11,10 @@ export class AuthService {
   ) { }
 
   isLoggedIn(): boolean {
-    return !!this.auth.currentUser;
+    return !!this.auth.currentUser
   }
 
-  getUserEmail(): string | null {
-    const user = this.auth.currentUser;
-    return user?.email || null;
+  getUser(): User | null {
+    return this.auth.currentUser
   }
 }
