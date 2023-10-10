@@ -24,8 +24,8 @@
                 <a routerLink="/">Perfil</a>
             </li>
         </ul>
-        <div class="user" *ngIf="userEmail">
-            <p>{{ userEmail }}</p>
+        <div class="user" *ngIf="user">
+            <p>Hola, {{ name }}</p>
             <button title="Cerrar sesión" (click)="logout()"><fa-icon [icon]="faLogout"></fa-icon></button>
         </div>
     </nav>
