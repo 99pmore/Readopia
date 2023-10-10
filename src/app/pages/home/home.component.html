@@ -8,7 +8,7 @@
         </div>
     </ng-template>
 
-    <div class="lists" *ngIf="userEmail; else loginForm">
+    <div class="lists" *ngIf="isUserLoggedIn; else loginForm">
         <section class="books">
             <header class="books-list-header">
                 <h2>Leyendo</h2>
