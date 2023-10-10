@@ -1,11 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { BookDB } from 'src/app/models/bookDB.interface';
 import { BookDbService } from 'src/app/services/book-db.service';
+import { BookRowComponent } from '../../components/book-row/book-row.component';
+import { NgIf, NgFor } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { MenuComponent } from '../../components/menu/menu.component';
 
 @Component({
-  selector: 'app-my-books',
-  templateUrl: './my-books.component.html',
-  styleUrls: ['./my-books.component.scss']
+    selector: 'app-my-books',
+    templateUrl: './my-books.component.html',
+    styleUrls: ['./my-books.component.scss'],
+    standalone: true,
+    imports: [MenuComponent, FormsModule, NgIf, NgFor, BookRowComponent]
 })
 export class MyBooksComponent implements OnInit {
 

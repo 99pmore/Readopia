@@ -4,11 +4,17 @@ import { Book } from 'src/app/models/book.interface';
 import { BookDB } from 'src/app/models/bookDB.interface';
 import { BookDbService } from 'src/app/services/book-db.service';
 import { BookService } from 'src/app/services/book.service';
+import { FormsModule } from '@angular/forms';
+import { RatingComponent } from '../../components/rating/rating.component';
+import { NgFor } from '@angular/common';
+import { MenuComponent } from '../../components/menu/menu.component';
 
 @Component({
-  selector: 'app-book-info',
-  templateUrl: './book-info.component.html',
-  styleUrls: ['./book-info.component.scss']
+    selector: 'app-book-info',
+    templateUrl: './book-info.component.html',
+    styleUrls: ['./book-info.component.scss'],
+    standalone: true,
+    imports: [MenuComponent, NgFor, RatingComponent, FormsModule]
 })
 export class BookInfoComponent implements OnInit {
 
@@ -47,17 +53,17 @@ export class BookInfoComponent implements OnInit {
   }
   
   private read() {
-    const bookDB = this.setBook()
+    const bookDB = this.setBook('read')
     this.bookDBService.addBook(bookDB, 'readBooks')
   }
 
   private reading() {
-    const bookDB = this.setBook()
+    const bookDB = this.setBook('reading')
     this.bookDBService.addBook(bookDB, 'readingBooks')
   }
 
   private wish() {
-    const bookDB = this.setBook()
+    const bookDB = this.setBook('wish')
     this.bookDBService.addBook(bookDB, 'wishBooks')
   }
 
@@ -77,10 +83,10 @@ export class BookInfoComponent implements OnInit {
       if (matchingBook) {
         if (matchingBook.state === 'reading') {
           this.option = 'reading'
-
+          
         } else if (matchingBook.state === 'read') {
           this.option = 'read'
-
+          
         } else if (matchingBook.state === 'wish') {
           this.option = 'wish'
 
@@ -91,11 +97,11 @@ export class BookInfoComponent implements OnInit {
       }
   
     } catch (error) {
-      console.error('Error al obtener los libros del usuario:', error)
+      console.log('Error al obtener los libros del usuario:', error)
     }
   }
 
-  private setBook(): BookDB {
+  private setBook(state: string): BookDB {
     this.id = this.route.snapshot.paramMap.get('id')!
 
     this.bookService.getBook(this.id).subscribe((data) => {
@@ -110,7 +116,7 @@ export class BookInfoComponent implements OnInit {
       categories: this.book.volumeInfo?.categories || [],
       rating: this.book.volumeInfo?.averageRating || 0,
       description: this.book.volumeInfo?.description || '',
-      state: 'wish',
+      state: state,
     }
 
     return bookDB
