@@ -5,6 +5,8 @@ import { BookRowComponent } from '../../components/book-row/book-row.component';
 import { NgIf, NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MenuComponent } from '../../components/menu/menu.component';
+import { AuthService } from 'src/app/services/auth.service';
+import { User } from '@angular/fire/auth';
 
 @Component({
     selector: 'app-my-books',
@@ -15,6 +17,9 @@ import { MenuComponent } from '../../components/menu/menu.component';
 })
 export class MyBooksComponent implements OnInit {
 
+  userLoggedIn: boolean = false
+  user!: User | null
+  
   readBooks: BookDB[] = []
   readingBooks: BookDB[] = []
   wishBooks: BookDB[] = []
@@ -24,17 +29,25 @@ export class MyBooksComponent implements OnInit {
 
   constructor(
     private bookDBService: BookDbService,
+    private authService: AuthService
   ) { }
 
-  async ngOnInit(): Promise<void> {
-    await this.getBooks()
+  ngOnInit(): void {
+    this.authService.authChanges().subscribe((user) => {
+      this.user = user
+      this.userLoggedIn = !!user
+
+      if (this.userLoggedIn) {
+        this.getUserBooks()
+      }
+    })
   }
 
-  async getBooks() {
+  async getUserBooks() {
     try {
-      this.readBooks = await this.bookDBService.getBooks('readBooks')
-      this.readingBooks = await this.bookDBService.getBooks('readingBooks')
-      this.wishBooks = await this.bookDBService.getBooks('wishBooks')
+      this.readBooks = await this.bookDBService.getUserBooks('readBooks')
+      this.readingBooks = await this.bookDBService.getUserBooks('readingBooks')
+      this.wishBooks = await this.bookDBService.getUserBooks('wishBooks')
 
       this.allBooks = await this.bookDBService.getAllBooks()
 

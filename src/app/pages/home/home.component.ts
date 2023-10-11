@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '@angular/fire/auth';
+import { Auth, User } from '@angular/fire/auth';
 import { BookDB } from 'src/app/models/bookDB.interface';
 import { AuthService } from 'src/app/services/auth.service';
 import { BookDbService } from 'src/app/services/book-db.service';
@@ -17,7 +17,7 @@ import { HeaderComponent } from '../../components/header/header.component';
 })
 export class HomeComponent implements OnInit {
 
-  isUserLoggedIn: boolean = false
+  userLoggedIn: boolean = false
   user!: User | null
 
   readBooks: BookDB[] = []
@@ -29,18 +29,22 @@ export class HomeComponent implements OnInit {
     private bookDBService: BookDbService,
   ) {}
 
-  async ngOnInit(): Promise<void> {
-    this.isUserLoggedIn = this.authService.isLoggedIn()
-    this.user = this.authService.getUser()
+  ngOnInit(): void {
+    this.authService.authChanges().subscribe((user) => {
+      this.user = user
+      this.userLoggedIn = !!user
 
-    await this.getBooks()
+      if (this.userLoggedIn) {
+        this.getUserBooks()
+      }
+    })
   }
 
-  async getBooks() {
+  async getUserBooks() {
     try {
-      this.readBooks = await this.bookDBService.getBooks('readBooks')
-      this.readingBooks = await this.bookDBService.getBooks('readingBooks')
-      this.wishBooks = await this.bookDBService.getBooks('wishBooks')
+      this.readBooks = await this.bookDBService.getUserBooks('readBooks')
+      this.readingBooks = await this.bookDBService.getUserBooks('readingBooks')
+      this.wishBooks = await this.bookDBService.getUserBooks('wishBooks')
 
     } catch (error) {
       console.error('Error al obtener los libros leídos:', error)
