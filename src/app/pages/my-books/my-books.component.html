@@ -2,38 +2,47 @@
     <app-menu></app-menu>
 </header>
 <main>
-    <header>
-        <h2>Mis libros</h2>
-        <select [(ngModel)]="selectedOption">
-            <option value="all">Todos</option>
-            <option value="reading">Leyendo</option>
-            <option value="read">Leídos</option>
-            <option value="wish">Quiero leer</option>
-        </select>
-    </header>
+    <div class="lists" *ngIf="userLoggedIn; else loginForm">
+        <header>
+            <h2>Mis libros</h2>
+            <select [(ngModel)]="selectedOption">
+                <option value="all">Todos</option>
+                <option value="reading">Leyendo</option>
+                <option value="read">Leídos</option>
+                <option value="wish">Quiero leer</option>
+            </select>
+        </header>
+    
+        <section *ngIf="selectedOption === 'all'" class="books">
+            <h3>Todos</h3>
+            <div class="books-list">
+                <app-book-row *ngFor="let book of allBooks" [book]="book"></app-book-row>
+            </div>
+        </section>
+        <section *ngIf="selectedOption === 'reading'" class="books">
+            <h3>Leyendo</h3>
+            <div class="books-list">
+                <app-book-row *ngFor="let book of readingBooks" [book]="book"></app-book-row>
+            </div>
+        </section>
+        <section *ngIf="selectedOption === 'read'" class="books">
+            <h3>Leídos</h3>
+            <div class="books-list">
+                <app-book-row *ngFor="let book of readBooks" [book]="book"></app-book-row>
+            </div>
+        </section>
+        <section *ngIf="selectedOption === 'wish'" class="books">
+            <h3>Quiero leer</h3>
+            <div class="books-list">
+                <app-book-row *ngFor="let book of wishBooks" [book]="book"></app-book-row>
+            </div>
+        </section>
+    </div>
 
-    <section *ngIf="selectedOption === 'all'" class="books">
-        <h3>Todos</h3>
-        <div class="books-list">
-            <app-book-row *ngFor="let book of allBooks" [book]="book"></app-book-row>
+    <ng-template #loginForm>
+        <div class="login">
+            <h3>Inicia sesión para ver tus libros</h3>
+            <a routerLink="/login">Ir</a>
         </div>
-    </section>
-    <section *ngIf="selectedOption === 'reading'" class="books">
-        <h3>Leyendo</h3>
-        <div class="books-list">
-            <app-book-row *ngFor="let book of readingBooks" [book]="book"></app-book-row>
-        </div>
-    </section>
-    <section *ngIf="selectedOption === 'read'" class="books">
-        <h3>Leídos</h3>
-        <div class="books-list">
-            <app-book-row *ngFor="let book of readBooks" [book]="book"></app-book-row>
-        </div>
-    </section>
-    <section *ngIf="selectedOption === 'wish'" class="books">
-        <h3>Quiero leer</h3>
-        <div class="books-list">
-            <app-book-row *ngFor="let book of wishBooks" [book]="book"></app-book-row>
-        </div>
-    </section>
+    </ng-template>
 </main>
