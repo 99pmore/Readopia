@@ -15,6 +15,7 @@ export class UserService {
 
   addUser(user: User) {
     const userRef = doc(this.firestore, 'users', user.uid)
+
     return setDoc(userRef, {
       name: user.displayName?.split(' ')[0],
       lastname: user.displayName?.split(' ')[1].concat(' ', user.displayName.split(' ')[2]),
@@ -28,10 +29,10 @@ export class UserService {
 
   async getUser(): Promise<UserDB> {
     try {
-      const user = this.auth.currentUser
+      const userId = this.auth.currentUser?.uid
 
-      if (user) {
-        const userRef = doc(this.firestore, `users/${user.uid}`)
+      if (userId) {
+        const userRef = doc(this.firestore, `users/${userId}`)
         const userDoc = getDoc(userRef)
 
         if ((await userDoc).exists()) {
