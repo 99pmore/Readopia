@@ -1,8 +1,8 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
-import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
+import { RouterLink } from '@angular/router';
 import { MenuComponent } from '../../components/menu/menu.component';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
     selector: 'app-login',
@@ -18,8 +18,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private router: Router,
-    private auth: Auth
+    private authService: AuthService
   ) { }
 
   loginForm!: FormGroup
@@ -35,12 +34,6 @@ export class LoginComponent implements OnInit {
     const email = this.loginForm.get('email')?.value
     const password = this.loginForm.get('password')?.value
 
-    signInWithEmailAndPassword(this.auth, email, password)
-      .then(() => {
-        this.router.navigate(['/'])
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+    this.authService.login(email, password)
   }
 }

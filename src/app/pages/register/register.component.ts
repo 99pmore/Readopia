@@ -1,9 +1,8 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
-import { Auth, createUserWithEmailAndPassword, updateProfile } from '@angular/fire/auth';
-import { UserService } from 'src/app/services/user.service';
+import { RouterLink } from '@angular/router';
 import { MenuComponent } from '../../components/menu/menu.component';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
     selector: 'app-register',
@@ -16,9 +15,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private router: Router,
-    private userService: UserService,
-    private auth: Auth,
+    private authService: AuthService,
   ) { }
 
   registerForm!: FormGroup
@@ -38,26 +35,6 @@ export class RegisterComponent implements OnInit {
     const email = this.registerForm.get('email')?.value
     const password = this.registerForm.get('password')?.value
 
-    createUserWithEmailAndPassword(this.auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user
-
-        if (user) {
-          updateProfile(user, {
-            displayName: `${name} ${lastname}`,
-          })
-          .then(() => {
-            this.userService.addUser(user)
-            this.router.navigate(['/'])
-          })
-          .catch((error) => {
-            console.log('Error añadiento datos del usuario: ', error)
-          })
-        }
-
-      })
-      .catch((error) => {
-        console.log('Error en el registro: ', error)
-      })
+    this.authService.register(name, lastname, email, password)
   }
 }
