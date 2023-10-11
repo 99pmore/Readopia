@@ -9,38 +9,6 @@ main {
     
     position: relative;
 
-    .login {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        gap: 30px;
-
-        a {
-            text-decoration: none;
-            background-color: transparent;
-            color: $main;
-            border: 1px solid $main;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba($color: #000, $alpha: 0.2);
-    
-            height: 35px;
-            width: 70px;
-            padding: 10px;
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-    
-            transition: transform 0.3s;
-    
-            &:hover {
-                background-color: $main;
-                color: #fff;
-            }
-        }
-    }
-
     .lists {
         display: flex;
         flex-direction: column;

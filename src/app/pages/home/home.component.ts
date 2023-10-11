@@ -7,13 +7,14 @@ import { DbBookCardComponent } from '../../components/db-book-card/db-book-card.
 import { NgIf, NgFor } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { HeaderComponent } from '../../components/header/header.component';
+import { LoginLinkComponent } from 'src/app/components/login-link/login-link.component';
 
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss'],
     standalone: true,
-    imports: [HeaderComponent, RouterLink, NgIf, NgFor, DbBookCardComponent]
+    imports: [HeaderComponent, RouterLink, NgIf, NgFor, DbBookCardComponent, LoginLinkComponent]
 })
 export class HomeComponent implements OnInit {
 
