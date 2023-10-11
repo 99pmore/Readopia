@@ -24,7 +24,7 @@
                 <a routerLink="/">Perfil</a>
             </li>
         </ul>
-        <div class="user" *ngIf="user">
+        <div class="user" *ngIf="userLoggedIn">
             <p>Hola, {{ name }}</p>
             <button title="Cerrar sesión" (click)="logout()"><fa-icon [icon]="faLogout"></fa-icon></button>
         </div>
