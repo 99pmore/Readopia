@@ -6,15 +6,17 @@ import { BookDbService } from 'src/app/services/book-db.service';
 import { BookService } from 'src/app/services/book.service';
 import { FormsModule } from '@angular/forms';
 import { RatingComponent } from '../../components/rating/rating.component';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { MenuComponent } from '../../components/menu/menu.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-book-info',
     templateUrl: './book-info.component.html',
     styleUrls: ['./book-info.component.scss'],
     standalone: true,
-    imports: [MenuComponent, NgFor, RatingComponent, FormsModule]
+    imports: [MenuComponent, NgFor, NgIf, RatingComponent, FormsModule, FontAwesomeModule]
 })
 export class BookInfoComponent implements OnInit {
 
@@ -24,6 +26,9 @@ export class BookInfoComponent implements OnInit {
 
   public selected: string = ''
   public option: string = ''
+  public hasBook: boolean = false
+
+  faTrash = faTrash
 
   constructor(
     private route: ActivatedRoute,
@@ -38,6 +43,32 @@ export class BookInfoComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     await this.getBook()
     await this.getBookState()
+  }
+
+  async deleteBook() {
+    let bookList!: string
+
+    this.allBooks = await this.bookDBService.getAllBooks()
+    const matchingBook = this.allBooks.find((book) => book.id === this.book.id)
+
+    if (matchingBook) {
+      if (matchingBook.state === 'reading') {
+        bookList = 'readingBooks'
+        
+      } else if (matchingBook.state === 'read') {
+        bookList = 'readBooks'
+        
+      } else if (matchingBook.state === 'wish') {
+        bookList = 'wishBooks'
+
+      }
+
+    } else {
+      bookList = ''
+    }
+
+    this.option = ''
+    this.bookDBService.deleteBook(matchingBook as BookDB, bookList)
   }
 
   addBookToList() {
@@ -92,8 +123,11 @@ export class BookInfoComponent implements OnInit {
 
         }
 
+        this.hasBook = true
+
       } else {
         this.option = ''
+        this.hasBook = false
       }
   
     } catch (error) {

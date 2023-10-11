@@ -125,12 +125,13 @@ main {
     .actions {
         width: 266.66px;
         display: flex;
+        justify-content: space-between;
+        align-items: end;
 
         form {
             width: 100%;
 
             display: flex;
-            justify-content: space-between;
             align-items: end;
             gap: 20px;
 
@@ -170,6 +171,28 @@ main {
                     background-color: $main;
                     color: #fff;
                 }
+            }
+        }
+
+        button {
+            cursor: pointer;
+            background-color: transparent;
+            color: rgba($color: #ff4646, $alpha: 0.75);
+            border: 1px solid rgba($color: #ff4646, $alpha: 0.75);
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba($color: #000, $alpha: 0.2);
+
+            padding: 10px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+    
+            transition: transform 0.3s;
+    
+            &:hover {
+                background-color: rgba($color: #ff4646, $alpha: 0.85);
+                color: #fff;
             }
         }
     }
