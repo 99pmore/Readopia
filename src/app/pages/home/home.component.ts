@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Auth, User } from '@angular/fire/auth';
+import { User } from '@angular/fire/auth';
 import { BookDB } from 'src/app/models/bookDB.interface';
 import { AuthService } from 'src/app/services/auth.service';
 import { BookDbService } from 'src/app/services/book-db.service';
