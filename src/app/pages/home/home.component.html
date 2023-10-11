@@ -1,14 +1,6 @@
 <app-header></app-header>
 <main>
-
-    <ng-template #loginForm>
-        <div class="login">
-            <h3>Inicia sesión para ver tus libros</h3>
-            <a routerLink="/login">Ir</a>
-        </div>
-    </ng-template>
-
-    <div class="lists" *ngIf="isUserLoggedIn; else loginForm">
+    <div class="lists" *ngIf="userLoggedIn; else loginForm">
         <section class="books">
             <header class="books-list-header">
                 <h2>Leyendo</h2>
@@ -53,5 +45,11 @@
         </section>
     </div>
 
+    <ng-template #loginForm>
+        <div class="login">
+            <h3>Inicia sesión para ver tus libros</h3>
+            <a routerLink="/login">Ir</a>
+        </div>
+    </ng-template>
 </main>
 
