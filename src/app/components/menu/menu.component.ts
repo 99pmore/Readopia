@@ -5,6 +5,8 @@ import { Auth, User, signOut } from '@angular/fire/auth';
 import { Router, RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgIf } from '@angular/common';
+import { UserDB } from 'src/app/models/userDB.interface';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
     selector: 'app-menu',
@@ -15,28 +17,26 @@ import { NgIf } from '@angular/common';
 })
 export class MenuComponent implements OnInit {
 
+  userLoggedIn: boolean = false
   user!: User | null
-  name!: string | undefined
+  name!: string | null | undefined
 
   faLogout = faArrowRightFromBracket
 
   constructor(
     private authService: AuthService,
-    private auth: Auth,
-    private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.user = this.authService.getUser()
-    this.name = this.getName()
+    this.authService.authChanges().subscribe((user) => {
+      this.userLoggedIn = !!user
+      this.user = user
+      this.name = this.getName()
+    })
   }
 
   logout() {
-    signOut(this.auth).then(() => {
-      this.router.navigate(['/'])
-    }).catch((error) => {
-      console.log('Error cerrando sesión: ', error)
-    })
+    this.authService.logout()
   }
 
   private getName(): string | undefined {
