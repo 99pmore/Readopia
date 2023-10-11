@@ -8,7 +8,7 @@
     scroll-behavior: smooth;
 
     body {
-        background: snow;
+        background: linear-gradient(rgba($color: snow, $alpha: 0.5), rgba($color: snow, $alpha: 0.5)), url(./assets/images/bg.png) no-repeat 0% 0% / cover;
         font-family: $font;
         font-weight: 500;
     }

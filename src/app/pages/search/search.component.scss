@@ -1,10 +1,8 @@
 @import '../../../mixins';
 
 main {
-    background: linear-gradient(rgba($color: snow, $alpha: 0.5), rgba($color: snow, $alpha: 0.5)), url(../../../assets/images/bg.png) no-repeat 0% 0% / cover;
-    height: 100vh;
-    margin-top: 90px;
     padding: 5% 10%;
+    margin-top: 90px;
 
     display: flex;
     flex-direction: column;
