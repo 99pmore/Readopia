@@ -52,6 +52,10 @@ export class MyBooksComponent implements OnInit {
 
       this.allBooks = await this.bookDBService.getAllBooks()
 
+      this.readBooks.reverse()
+      this.readingBooks.reverse()
+      this.wishBooks.reverse()
+
     } catch (error) {
       console.error('Error al obtener los libros leídos:', error)
     }

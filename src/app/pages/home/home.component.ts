@@ -47,6 +47,10 @@ export class HomeComponent implements OnInit {
       this.readingBooks = await this.bookDBService.getUserBooks('readingBooks')
       this.wishBooks = await this.bookDBService.getUserBooks('wishBooks')
 
+      this.readBooks.reverse()
+      this.readingBooks.reverse()
+      this.wishBooks.reverse()
+
     } catch (error) {
       console.error('Error al obtener los libros leídos:', error)
     }

@@ -58,6 +58,10 @@ export class BookDbService {
       const readingBooks = await this.getUserBooks('readingBooks')
       const wishBooks = await this.getUserBooks('wishBooks')
 
+      readBooks.reverse()
+      readingBooks.reverse()
+      wishBooks.reverse()
+      
       return readingBooks.concat(readBooks, wishBooks)
 
     } catch (error) {
