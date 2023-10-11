@@ -14,9 +14,10 @@ export class BookDbService {
   ) { }
 
   async addBook(book: BookDB, booksList: string) {
-    const user = this.auth.currentUser
-    if (user) {
-      const userRef = doc(this.firestore, `users/${user.uid}`)
+    const userId = this.auth.currentUser?.uid
+    
+    if (userId) {
+      const userRef = doc(this.firestore, `users/${userId}`)
       await updateDoc(userRef, {
         [booksList]: arrayUnion(book)
       })
@@ -26,12 +27,12 @@ export class BookDbService {
     }
   }
 
-  async getBooks(booksList: string) {
+  async getUserBooks(booksList: string) {
     try {
-      const user = this.auth.currentUser
+      const userId = this.auth.currentUser?.uid
 
-      if (user) {
-        const userRef = doc(this.firestore, `users/${user.uid}`)
+      if (userId) {
+        const userRef = doc(this.firestore, `users/${userId}`)
         const userDoc = await getDoc(userRef)
 
         if (userDoc.exists()) {
@@ -53,9 +54,9 @@ export class BookDbService {
 
   async getAllBooks(): Promise<BookDB[]> {
     try {
-      const readBooks = await this.getBooks('readBooks')
-      const readingBooks = await this.getBooks('readingBooks')
-      const wishBooks = await this.getBooks('wishBooks')
+      const readBooks = await this.getUserBooks('readBooks')
+      const readingBooks = await this.getUserBooks('readingBooks')
+      const wishBooks = await this.getUserBooks('wishBooks')
 
       return readingBooks.concat(readBooks, wishBooks)
 
