@@ -5,6 +5,7 @@ export interface BookDB {
     authors?: string[];
     categories?: string[];
     rating?: number;
+    ratingCount?: number;
     description?: string;
     state?: string;
 }

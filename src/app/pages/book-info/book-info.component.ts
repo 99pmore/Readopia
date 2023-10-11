@@ -115,6 +115,7 @@ export class BookInfoComponent implements OnInit {
       authors: this.book.volumeInfo?.authors || [],
       categories: this.book.volumeInfo?.categories || [],
       rating: this.book.volumeInfo?.averageRating || 0,
+      ratingCount: this.book.volumeInfo?.ratingsCount || 0,
       description: this.book.volumeInfo?.description || '',
       state: state,
     }
