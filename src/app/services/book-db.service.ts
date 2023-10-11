@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
-import { Firestore, arrayUnion, doc, getDoc, updateDoc } from '@angular/fire/firestore';
+import { Firestore, arrayRemove, arrayUnion, doc, getDoc, updateDoc } from '@angular/fire/firestore';
 import { BookDB } from '../models/bookDB.interface';
 
 @Injectable({
@@ -63,6 +63,20 @@ export class BookDbService {
     } catch (error) {
       console.log('Error al obtener todos los libros del usuario:', error)
       return []
+    }
+  }
+
+  async deleteBook(book: BookDB, booksList: string) {
+    const userId = this.auth.currentUser?.uid
+    
+    if (userId) {
+      const userRef = doc(this.firestore, `users/${userId}`)
+      await updateDoc(userRef, {
+        [booksList]: arrayRemove(book)
+      })
+
+    } else {
+      return alert('El usuario no está auntenticado')
     }
   }
 }

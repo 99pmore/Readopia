@@ -99,6 +99,8 @@
 
         .description {
             overflow: auto;
+
+            min-width: 90px;
             width: 100%;
             height: 120px;
 
@@ -121,9 +123,12 @@
         }
 
         .actions {
+            min-width: 90px;
+
             display: flex;
+            align-items: end;
             flex-direction: column;
-            justify-content: space-between;
+            gap: 20px;
 
             button {
                 cursor: pointer;

@@ -25,11 +25,19 @@
         <div class="description">
             <p [innerHTML]="book.description"></p>
         </div>
-        <div class="actions">
+        <!-- <div class="actions">
             <button>Leído</button>
             <button>Leyendo</button>
             <button>Quiero</button>
             <button>Eliminar</button>
+        </div> -->
+        <div class="actions">
+            <div class="state">
+                <p *ngIf="option === 'reading'">Leyendo</p>
+                <p *ngIf="option === 'read'">Leído</p>
+                <p *ngIf="option === 'wish'">Quiero leer</p>
+            </div>
+            <button (click)="deleteBook()">Eliminar</button>
         </div>
     </div>
 </div>
