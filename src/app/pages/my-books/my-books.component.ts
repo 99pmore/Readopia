@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { MenuComponent } from '../../components/menu/menu.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from '@angular/fire/auth';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-my-books',
@@ -30,7 +31,8 @@ export class MyBooksComponent implements OnInit {
 
   constructor(
     private bookDBService: BookDbService,
-    private authService: AuthService
+    private authService: AuthService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -41,6 +43,10 @@ export class MyBooksComponent implements OnInit {
       if (this.userLoggedIn) {
         this.getUserBooks()
       }
+
+      this.route.queryParams.subscribe((queryParams) => {
+        this.selectedOption = queryParams['selectedOption'] || 'all';
+      })
     })
   }
 

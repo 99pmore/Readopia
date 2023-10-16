@@ -4,7 +4,7 @@
         <section class="books">
             <header class="books-list-header">
                 <h2>Leyendo</h2>
-                <a routerLink="/reading">Ver todos</a>
+                <a [routerLink]="['/mybooks']" [queryParams]="{ selectedOption: 'reading' }">Ver todos</a>
             </header>
             <div class="books-list">
                 <ng-container *ngIf="readingBooks.length > 0; else messageReading">
@@ -18,7 +18,7 @@
         <section class="books">
             <header class="books-list-header">
                 <h2>Leídos</h2>
-                <a routerLink="/read">Ver todos</a>
+                <a [routerLink]="['/mybooks']" [queryParams]="{ selectedOption: 'read' }">Ver todos</a>
             </header>
             <div class="books-list">
                 <ng-container *ngIf="readBooks.length > 0; else messageRead">
@@ -32,7 +32,7 @@
         <section class="books">
             <header class="books-list-header">
                 <h2>Quiero leer</h2>
-                <a routerLink="/wish">Ver todos</a>
+                <a [routerLink]="['/mybooks']" [queryParams]="{ selectedOption: 'wish' }">Ver todos</a>
             </header>
             <div class="books-list">
                 <ng-container *ngIf="wishBooks.length > 0; else messageWish">
