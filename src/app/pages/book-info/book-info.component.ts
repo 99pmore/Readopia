@@ -10,6 +10,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { MenuComponent } from '../../components/menu/menu.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
     selector: 'app-book-info',
@@ -20,6 +21,8 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 })
 export class BookInfoComponent implements OnInit {
 
+  userLoggedIn: boolean = false
+  
   book!: Book
   id!: string
   allBooks: BookDB[] = []
@@ -33,16 +36,23 @@ export class BookInfoComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private bookService: BookService,
-    private bookDBService: BookDbService
+    private bookDBService: BookDbService,
+    private authService: AuthService
   ) { 
     this.book = {
       volumeInfo: {}
     }
   }
   
-  async ngOnInit(): Promise<void> {
-    await this.getBook()
-    await this.getBookState()
+  ngOnInit(): void {
+    this.authService.authChanges().subscribe((user) => {
+      this.userLoggedIn = !!user
+      this.getBook()
+
+      if (this.userLoggedIn) {
+        this.getBookState()
+      }
+    })
   }
 
   async deleteBook() {
