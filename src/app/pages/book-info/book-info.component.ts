@@ -68,7 +68,7 @@ export class BookInfoComponent implements OnInit {
     }
 
     this.option = ''
-    this.bookDBService.deleteBook(matchingBook as BookDB, bookList)
+    this.bookDBService.deleteBook(matchingBook as BookDB, bookList, true)
   }
 
   addBookToList() {

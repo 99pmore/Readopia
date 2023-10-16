@@ -48,7 +48,7 @@ export class BookRowComponent implements OnInit {
       bookList = ''
     }
 
-    this.bookDBService.deleteBook(this.book, bookList)
+    this.bookDBService.deleteBook(this.book, bookList, true)
   }
 
   private async getBookState() {
