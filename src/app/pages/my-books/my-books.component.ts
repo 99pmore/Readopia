@@ -45,7 +45,7 @@ export class MyBooksComponent implements OnInit {
       }
 
       this.route.queryParams.subscribe((queryParams) => {
-        this.selectedOption = queryParams['selectedOption'] || 'all';
+        this.selectedOption = queryParams['option'] || 'all';
       })
     })
   }
