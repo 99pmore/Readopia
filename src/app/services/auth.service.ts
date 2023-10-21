@@ -80,12 +80,4 @@ export class AuthService {
       console.log('Error cerrando sesión: ', error)
     })
   }
-
-  isLoggedIn(): boolean {
-    return this.loggedIn
-  }
-
-  getUser(): User | null {
-    return this.user
-  }
 }
