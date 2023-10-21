@@ -13,7 +13,7 @@ import { NgFor } from '@angular/common';
 })
 export class RatingComponent implements OnInit {
 
-  @Input() rating!: number
+  @Input() rating!: number | undefined
 
   faStarSol = faStarSol
   faStarReg = faStarReg

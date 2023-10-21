@@ -1,3 +1,3 @@
 <ng-container *ngFor="let _ of [1, 2, 3, 4, 5]; let i = index">
-    <fa-icon [icon]="i < rating ? faStarSol : faStarReg"></fa-icon>
+    <fa-icon [icon]="rating && i < rating ? faStarSol : faStarReg"></fa-icon>
 </ng-container>
