@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Firestore, doc } from '@angular/fire/firestore';
 import Swal from 'sweetalert2';
 import { ReviewsService } from 'src/app/services/reviews.service';
 import { User } from '@angular/fire/auth';
@@ -29,7 +28,6 @@ export class AddReviewComponent implements OnInit {
   constructor (
     private fb: FormBuilder,
     private reviewService: ReviewsService,
-    private firestore: Firestore,
   ) {}
   
   reviewForm!: FormGroup
@@ -46,11 +44,11 @@ export class AddReviewComponent implements OnInit {
   }
 
   addReview() {
-    const userRef = doc(this.firestore, 'users', this.user.uid)
+    const userId = this.user.uid
     const bookId = this.bookId
 
     const review = {
-      userId: userRef,
+      userId: userId,
       bookId: bookId,
       rating: this.selectedRating,
       comment: this.reviewForm.get('comment')?.value
