@@ -1,0 +1,10 @@
+<div class="container" *ngFor="let review of reviews">
+    <div class="user">
+        <img [src]="'../../../assets/images/profile.webp'" alt="">
+        <p>{{ userNames[review.userId] }}</p>
+    </div>
+    <div class="review">
+        <app-rating [rating]="review.rating"></app-rating>
+        <div class="text">{{ review.comment }}</div>
+    </div>
+</div>

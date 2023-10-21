@@ -1,0 +1,27 @@
+.container {
+    margin: auto;
+    width: 75%;
+
+    display: flex;
+    gap: 40px;
+
+    .user {
+        width: 150px;
+
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        img {
+            width: 40px;
+        }
+    }
+
+    .review {
+        width: 100%;
+
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+}
