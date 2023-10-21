@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Auth, User } from '@angular/fire/auth';
-import { Firestore, addDoc, collection, doc, getDoc, setDoc } from '@angular/fire/firestore';
+import { User } from '@angular/fire/auth';
+import { Firestore, doc, getDoc, setDoc } from '@angular/fire/firestore';
 import { UserDB } from '../models/userDB.interface';
 
 @Injectable({
@@ -10,15 +10,16 @@ export class UserService {
 
   constructor(
     private firestore: Firestore,
-    private auth: Auth
   ) { }
 
   addUser(user: User) {
     const userRef = doc(this.firestore, 'users', user.uid)
 
+    const lastname = user.displayName?.split(' ')[2] ? user.displayName?.split(' ')[1].concat(' ', user.displayName.split(' ')[2]) : user.displayName?.split(' ')[1]
+
     return setDoc(userRef, {
       name: user.displayName?.split(' ')[0],
-      lastname: user.displayName?.split(' ')[1].concat(' ', user.displayName.split(' ')[2]),
+      lastname: lastname,
       email: user.email,
       readBooks: [],
       readingBooks: [],
@@ -27,20 +28,15 @@ export class UserService {
     })
   }
 
-  async getUser(): Promise<UserDB> {
+  async getUserById(userId: string): Promise<UserDB> {
     try {
-      const userId = this.auth.currentUser?.uid
-
       if (userId) {
         const userRef = doc(this.firestore, `users/${userId}`)
-        const userDoc = getDoc(userRef)
+        const userDoc = await getDoc(userRef)
 
-        if ((await userDoc).exists()) {
-          const userData = (await userDoc).data()
-
-          if (userData && userData) {
-            return userData
-          }
+        if (userDoc.exists()) {
+          const userData = userDoc.data()
+          return userData
         }
       }
 
