@@ -11,16 +11,23 @@ import { MenuComponent } from '../../components/menu/menu.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/services/auth.service';
+import { ReviewComponent } from 'src/app/components/review/review.component';
+import { User } from '@angular/fire/auth';
+import { AddReviewComponent } from 'src/app/components/add-review/add-review.component';
 
 @Component({
     selector: 'app-book-info',
     templateUrl: './book-info.component.html',
     styleUrls: ['./book-info.component.scss'],
     standalone: true,
-    imports: [MenuComponent, NgFor, NgIf, RatingComponent, FormsModule, FontAwesomeModule]
+    imports: [MenuComponent, NgFor, NgIf, RatingComponent, FormsModule, FontAwesomeModule, ReviewComponent, AddReviewComponent]
 })
 export class BookInfoComponent implements OnInit {
 
+  formVisible: boolean = false
+  buttonText: string = 'Crear reseña'
+
+  user!: User
   userLoggedIn: boolean = false
   
   book!: Book
@@ -37,7 +44,7 @@ export class BookInfoComponent implements OnInit {
     private route: ActivatedRoute,
     private bookService: BookService,
     private bookDBService: BookDbService,
-    private authService: AuthService
+    private authService: AuthService,
   ) { 
     this.book = {
       volumeInfo: {}
@@ -46,7 +53,10 @@ export class BookInfoComponent implements OnInit {
   
   ngOnInit(): void {
     this.authService.authChanges().subscribe((user) => {
+      this.user = user as User
       this.userLoggedIn = !!user
+
+      this.id = this.route.snapshot.paramMap.get('id')!
       this.getBook()
 
       if (this.userLoggedIn) {
@@ -109,7 +119,6 @@ export class BookInfoComponent implements OnInit {
   }
 
   private async getBook() {
-    this.id = this.route.snapshot.paramMap.get('id')!
     this.bookService.getBook(this.id).subscribe((data) => {
       this.book = data
     })
@@ -146,8 +155,6 @@ export class BookInfoComponent implements OnInit {
   }
 
   private setBook(state: string): BookDB {
-    this.id = this.route.snapshot.paramMap.get('id')!
-
     this.bookService.getBook(this.id).subscribe((data) => {
       this.book = data
     })
@@ -165,6 +172,11 @@ export class BookInfoComponent implements OnInit {
     }
 
     return bookDB
+  }
+
+  toggleForm() {
+    this.formVisible = !this.formVisible
+    this.buttonText = this.formVisible ? 'Cerrar' : 'Crear reseña'
   }
 
 }

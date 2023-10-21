@@ -2,45 +2,55 @@
     <app-menu></app-menu>
 </header>
 <main>
-    <div class="book">
-        <div class="cover">
-            <div class="book-card__book">
-                <div class="book-card__book-front">
-                    <img class="book-card__img" [src]="book.volumeInfo?.imageLinks?.thumbnail || '../../../assets/images/sin-imagen.webp'" [alt]="book.volumeInfo?.title + ' cover'">
-                </div>
-                <div class="book-card__book-back"></div>
-                <div class="book-card__book-side"></div>
-            </div>
-        </div>
-        <div class="info">
-            <div class="main-info">
-                <h2>{{ book.volumeInfo?.title }}</h2>
-                <h3 *ngFor="let author of book.volumeInfo?.authors">{{ author }}</h3>
-    
-                <div class="rating">
-                    <app-rating [rating]="book.volumeInfo?.averageRating || 0"></app-rating>
-                    <span>( {{ book.volumeInfo?.ratingsCount || 0 }} )</span>
+    <section class="info">
+        <div class="book">
+            <div class="cover">
+                <div class="book-card__book">
+                    <div class="book-card__book-front">
+                        <img class="book-card__img" [src]="book.volumeInfo?.imageLinks?.thumbnail || '../../../assets/images/sin-imagen.webp'" [alt]="book.volumeInfo?.title + ' cover'">
+                    </div>
+                    <div class="book-card__book-back"></div>
+                    <div class="book-card__book-side"></div>
                 </div>
             </div>
-            <div class="sec-info">
-                <p>Páginas: {{ book.volumeInfo?.pageCount }}</p>
-                <p>Publicación: {{ book.volumeInfo?.publishedDate }}</p>
-                <p class="description" [innerHTML]="book.volumeInfo?.description"></p>
+            <div class="info">
+                <div class="main-info">
+                    <h2>{{ book.volumeInfo?.title }}</h2>
+                    <h3 *ngFor="let author of book.volumeInfo?.authors">{{ author }}</h3>
+        
+                    <div class="rating">
+                        <app-rating [rating]="book.volumeInfo?.averageRating || 0"></app-rating>
+                        <span>( {{ book.volumeInfo?.ratingsCount || 0 }} )</span>
+                    </div>
+                </div>
+                <div class="sec-info">
+                    <p>Páginas: {{ book.volumeInfo?.pageCount }}</p>
+                    <p>Publicación: {{ book.volumeInfo?.publishedDate }}</p>
+                    <p class="description" [innerHTML]="book.volumeInfo?.description"></p>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="actions">
-        <form action="" (ngSubmit)="addBookToList()">
-            <div class="select">
-                <label for="bookState">Marcar como:</label>
-                <select [(ngModel)]="selected" name="bookState">
-                    <option value="reading" [selected]="option === 'reading'">Leyendo</option>
-                    <option value="read" [selected]="option === 'read'">Leído</option>
-                    <option value="wish" [selected]="option === 'wish'">Quiero leer</option>
-                </select>
-            </div>
-            <button type="submit">Aceptar</button>
-        </form>
-        <button *ngIf="hasBook" (click)="deleteBook()" title="Eliminar de la lista"><fa-icon [icon]="faTrash"></fa-icon></button>
-    </div>
+        <div class="actions">
+            <form action="" (ngSubmit)="addBookToList()">
+                <div class="select">
+                    <label for="bookState">Marcar como:</label>
+                    <select [(ngModel)]="selected" name="bookState">
+                        <option value="reading" [selected]="option === 'reading'">Leyendo</option>
+                        <option value="read" [selected]="option === 'read'">Leído</option>
+                        <option value="wish" [selected]="option === 'wish'">Quiero leer</option>
+                    </select>
+                </div>
+                <button type="submit">Aceptar</button>
+            </form>
+            <button *ngIf="hasBook" (click)="deleteBook()" title="Eliminar de la lista"><fa-icon [icon]="faTrash"></fa-icon></button>
+        </div>
+    </section>
+    <section class="reviews-section">
+        <h2>Reseñas y valoraciones</h2>
+        <div class="reviews">
+            <button class="toggle-button" (click)="toggleForm()">{{ buttonText }}</button>
+            <app-add-review class="add-review" *ngIf="formVisible" [bookId]="id" [user]="user"></app-add-review>
+            <app-review class="review"></app-review>
+        </div>
+    </section>
 </main>

@@ -1,163 +1,189 @@
 @import '../../../variables';
 
 main {
-    background: linear-gradient(rgba($color: snow, $alpha: 0.5), rgba($color: snow, $alpha: 0.5)), url(../../../assets/images/bg.png) no-repeat 0% 0% / cover;
-
     margin-top: 90px;
     padding: 5% 10%;
 
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: 60px;
 
-    .book {
-        width: 100%;
-
+    .info {
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
         gap: 40px;
-
-        .cover {
-            height: 400px;
-            aspect-ratio: 2/3;
-            
-            position: relative;
-            perspective: 1000px;
-
-            .book-card__book {
-                height: 100%;
     
-                transform-style: preserve-3d;
-                transition: all 250ms ease;
+        .book {
+            width: 100%;
     
-                .book-card__book-front {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+    
+            .cover {
+                height: 400px;
+                aspect-ratio: 2/3;
+                
+                position: relative;
+                perspective: 1000px;
+    
+                .book-card__book {
                     height: 100%;
-                    width: 100%;
-    
-                    position: absolute;
-    
-                    .book-card__img {
-                        background-color: #e1e1e1;
-    
+        
+                    transform-style: preserve-3d;
+                    transition: all 250ms ease;
+        
+                    .book-card__book-front {
                         height: 100%;
                         width: 100%;
+        
+                        position: absolute;
+        
+                        .book-card__img {
+                            background-color: #e1e1e1;
+        
+                            height: 100%;
+                            width: 100%;
+        
+                            object-fit: cover;
+                            object-position: center;
+                        }
+                    }
+                }
     
-                        object-fit: cover;
-                        object-position: center;
+                &:hover {
+                    .book-card__book{
+                        transform: rotate3d(0, -1, 0, 30deg) translate(-15px, -25px);
+                    }
+                  
+                    .book-card__book-back {
+                        box-shadow: 5px 10px 15px rgba($color: #000, $alpha: 0.25);
+                    }
+                  
+                    .book-card__book-side {
+                        opacity: 1;
                     }
                 }
             }
-
-            &:hover {
-                .book-card__book{
-                    transform: rotate3d(0, -1, 0, 30deg) translate(-15px, -25px);
+    
+            .book-card__book-back {
+                height: 100%;
+                width: 100%;
+        
+                position: absolute;
+                top: 0;
+        
+                transform: translateZ(-40px);
+            }
+    
+            .book-card__book-side {
+                background-image: linear-gradient(to right, #ccc 35%, #e1e1e1 35%);
+                background-color: #e1e1e1;
+                background-size: 5px;
+                opacity: 0;
+        
+                width: 60px;
+        
+                position: absolute;
+                top: 7px;
+                bottom: 5px;
+                right: -42px;
+                
+                transform: rotate3d(0, 1, 0, 90deg);
+            }
+    
+            .info {
+                width: 75%;
+        
+                display: flex;
+                flex-direction: column;
+                gap: 40px;
+                
+                .main-info {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 20px;
+        
+                    .rating {
+                        display: flex;
+                        gap: 10px;
+                    }
                 }
-              
-                .book-card__book-back {
-                    box-shadow: 5px 10px 15px rgba($color: #000, $alpha: 0.25);
-                }
-              
-                .book-card__book-side {
-                    opacity: 1;
+                
+                .sec-info {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 15px;
+        
+                    .description {
+                        height: 176px;
+                        // height: 507px;
+                        overflow: auto;
+                    }
                 }
             }
         }
-
-        .book-card__book-back {
-            height: 100%;
-            width: 100%;
     
-            position: absolute;
-            top: 0;
-    
-            transform: translateZ(-40px);
-        }
-
-        .book-card__book-side {
-            background-image: linear-gradient(to right, #ccc 35%, #e1e1e1 35%);
-            background-color: #e1e1e1;
-            background-size: 5px;
-            opacity: 0;
-    
-            width: 60px;
-    
-            position: absolute;
-            top: 7px;
-            bottom: 5px;
-            right: -42px;
-            
-            transform: rotate3d(0, 1, 0, 90deg);
-        }
-
-        .info {
-            width: 75%;
-    
+        .actions {
+            width: 266.66px;
             display: flex;
-            flex-direction: column;
-            gap: 40px;
-            
-            .main-info {
+            justify-content: space-between;
+            align-items: end;
+    
+            form {
+                width: 100%;
+    
                 display: flex;
-                flex-direction: column;
+                align-items: end;
                 gap: 20px;
     
-                .rating {
+                .select {
                     display: flex;
+                    flex-direction: column;
                     gap: 10px;
-                }
-            }
-            
-            .sec-info {
-                display: flex;
-                flex-direction: column;
-                gap: 15px;
     
-                .description {
-                    height: 176px;
-                    // height: 507px;
-                    overflow: auto;
+                    select {
+                        box-shadow: 0 0 10px rgba($color: #000, $alpha: 0.2);
+                        border-radius: 5px;
+                        border: none;
+                        outline: none;
+                        
+                        padding: 10px;
+                    }
                 }
-            }
-        }
-    }
-
-    .actions {
-        width: 266.66px;
-        display: flex;
-        justify-content: space-between;
-        align-items: end;
-
-        form {
-            width: 100%;
-
-            display: flex;
-            align-items: end;
-            gap: 20px;
-
-            .select {
-                display: flex;
-                flex-direction: column;
-                gap: 10px;
-
-                select {
-                    box-shadow: 0 0 10px rgba($color: #000, $alpha: 0.2);
+    
+                button {
+                    cursor: pointer;
+                    background-color: transparent;
+                    color: $main;
+                    border: 1px solid $main;
                     border-radius: 5px;
-                    border: none;
-                    outline: none;
-                    
+                    box-shadow: 0 0 10px rgba($color: #000, $alpha: 0.2);
+            
+                    width: 70px;
                     padding: 10px;
+        
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+            
+                    transition: transform 0.3s;
+            
+                    &:hover {
+                        background-color: $main;
+                        color: #fff;
+                    }
                 }
             }
-
+    
             button {
                 cursor: pointer;
                 background-color: transparent;
-                color: $main;
-                border: 1px solid $main;
+                color: rgba($color: #ff4646, $alpha: 0.75);
+                border: 1px solid rgba($color: #ff4646, $alpha: 0.75);
                 border-radius: 5px;
                 box-shadow: 0 0 10px rgba($color: #000, $alpha: 0.2);
-        
-                width: 70px;
+    
                 padding: 10px;
     
                 display: flex;
@@ -167,33 +193,46 @@ main {
                 transition: transform 0.3s;
         
                 &:hover {
-                    background-color: $main;
+                    background-color: rgba($color: #ff4646, $alpha: 0.85);
                     color: #fff;
                 }
             }
         }
+          
+    }
 
-        button {
-            cursor: pointer;
-            background-color: transparent;
-            color: rgba($color: #ff4646, $alpha: 0.75);
-            border: 1px solid rgba($color: #ff4646, $alpha: 0.75);
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba($color: #000, $alpha: 0.2);
+    .reviews-section {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
 
-            padding: 10px;
-
+        .reviews {
             display: flex;
-            justify-content: center;
             align-items: center;
+            flex-direction: column;
+            gap: 30px;
+
+            .toggle-button {
+                cursor: pointer;
+                background-color: transparent;
+                color: $main;
+                border: 1px solid $main;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba($color: #000, $alpha: 0.2);
     
-            transition: transform 0.3s;
-    
-            &:hover {
-                background-color: rgba($color: #ff4646, $alpha: 0.85);
-                color: #fff;
+                padding: 10px;
+                width: 100px;
+            }
+
+            .add-review, .review {
+                width: 100%;
+            }
+
+            .review {
+                display: flex;
+                flex-direction: column;
+                gap: 60px;
             }
         }
     }
-      
 }
