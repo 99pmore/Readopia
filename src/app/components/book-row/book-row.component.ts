@@ -4,19 +4,23 @@ import { RatingComponent } from '../rating/rating.component';
 import { NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { BookDbService } from 'src/app/services/book-db.service';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faEdit } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
     selector: 'app-book-row',
     templateUrl: './book-row.component.html',
     styleUrls: ['./book-row.component.scss'],
     standalone: true,
-    imports: [NgFor, NgIf, RatingComponent, RouterLink]
+    imports: [NgFor, NgIf, RatingComponent, RouterLink, FontAwesomeModule]
 })
 export class BookRowComponent implements OnInit {
   @Input() book!: BookDB
 
   allBooks: BookDB[] = []
   public option: string = ''
+
+  faEdit = faEdit
 
   constructor(
     private bookDBService: BookDbService

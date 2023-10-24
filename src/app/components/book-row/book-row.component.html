@@ -15,9 +15,6 @@
         <div class="author item">
             <p *ngFor="let author of book.authors">{{ author }}</p>
         </div>
-        <!-- <div class="categories item">
-            <p *ngFor="let category of book.categories">{{ category }}</p>
-        </div> -->
         <div class="rate">
             <app-rating [rating]="book.rating || 0"></app-rating>
             <span>( {{ book.ratingCount || 0 }} )</span>
@@ -25,17 +22,10 @@
         <div class="description">
             <p [innerHTML]="book.description"></p>
         </div>
-        <!-- <div class="actions">
-            <button>Leído</button>
-            <button>Leyendo</button>
-            <button>Quiero</button>
-            <button>Eliminar</button>
-        </div> -->
         <div class="actions">
             <div class="state">
-                <p *ngIf="option === 'reading'">Leyendo</p>
-                <p *ngIf="option === 'read'">Leído</p>
-                <p *ngIf="option === 'wish'">Quiero leer</p>
+                <p>{{ option === 'reading' ? 'Leyendo' : option === 'read' ? 'Leído' : 'Quiero leer' }}</p>
+                <a [routerLink]="['/books', book.id]"><fa-icon [icon]="faEdit"></fa-icon></a>
             </div>
             <button (click)="deleteBook()">Eliminar</button>
         </div>
