@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { BookDB } from 'src/app/models/bookDB.interface';
 import { RatingComponent } from '../rating/rating.component';
+import { SmCoverComponent } from '../sm-cover/sm-cover.component';
 import { NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { BookDbService } from 'src/app/services/book-db.service';
@@ -12,7 +13,7 @@ import { faEdit } from '@fortawesome/free-regular-svg-icons';
     templateUrl: './book-row.component.html',
     styleUrls: ['./book-row.component.scss'],
     standalone: true,
-    imports: [NgFor, NgIf, RatingComponent, RouterLink, FontAwesomeModule]
+    imports: [NgFor, NgIf, RatingComponent, SmCoverComponent, RouterLink, FontAwesomeModule]
 })
 export class BookRowComponent implements OnInit {
   @Input() book!: BookDB
