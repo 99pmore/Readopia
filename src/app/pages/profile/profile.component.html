@@ -1,0 +1,27 @@
+<app-menu></app-menu>
+<main>
+    <ng-container class="profile" *ngIf="userLoggedIn; else loginForm">
+        <section class="info">
+            <div class="user">
+                <img [src]="user?.photoURL ? user?.photoURL : '../../../assets/images/profile.webp'" alt="">
+                <h2>{{ fullName }}</h2>
+                <p>{{ email }}</p>
+            </div>
+            <div class="reading">
+                <h3>Leyendo ahora:</h3>
+                <ng-container *ngIf="readingBooks.length > 0; else messageReading">
+                    <app-sm-cover *ngFor="let book of readingBooks" [book]="book"></app-sm-cover>
+                </ng-container>
+                <ng-template #messageReading>
+                    <p>No estás leyendo ningún libro</p>
+                </ng-template>
+            </div>
+        </section>
+        <section class="follows">
+            <h3>Seguidores</h3>
+        </section>
+    </ng-container>
+    <ng-template #loginForm>
+        <app-login-link></app-login-link>
+    </ng-template>
+</main>
