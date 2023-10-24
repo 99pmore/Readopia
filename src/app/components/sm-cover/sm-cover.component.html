@@ -1,0 +1,11 @@
+<div class="cover">
+    <div class="book-card__cover" [routerLink]="['/books', book.id]">
+        <div class="book-card__book">
+            <div class="book-card__book-front">
+                <img class="book-card__img" [src]="book.cover" [alt]="book.title + ' cover'">
+            </div>
+            <div class="book-card__book-back"></div>
+            <div class="book-card__book-side"></div>
+        </div>
+    </div>
+</div>
