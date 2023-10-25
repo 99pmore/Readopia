@@ -1,0 +1,57 @@
+@import '../../../variables';
+
+.card {
+    padding: 20px;
+    border: 1px solid $main;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba($color: $main, $alpha: 0.2);
+
+    width: 200px;
+    height: 250px;
+
+    .user {
+        cursor: pointer;
+        border-bottom: 1px solid rgba($color: $main, $alpha: 0.2);
+        padding-bottom: 10px;
+    
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 20px;
+    
+        img {
+            width: 60px;
+        }
+    
+        .info {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            gap: 5px;
+        }
+    }
+
+    .actions {
+        width: 100%;
+        height: 50%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        button {
+            cursor: pointer;
+            background-color: rgba($color: $main, $alpha: 0.5);
+            border: none;
+            border-radius: 5px;
+            
+            padding: 5px 10px;
+            
+            transition: all 0.2s;
+            
+            &:hover {
+                background-color: rgba($color: $main, $alpha: 0.75);
+            }
+        }
+    }
+}

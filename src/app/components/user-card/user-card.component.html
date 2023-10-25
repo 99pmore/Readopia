@@ -1,0 +1,12 @@
+<div class="card">
+    <div class="user" [routerLink]="['/profile', user.id]">
+        <img [src]="user.photo ? user.photo : '../../../assets/images/profile.webp'" alt="">
+        <div class="info">
+            <p>{{ user.name }}</p>
+            <p>{{ user.lastname }}</p>
+        </div>
+    </div>
+    <div class="actions">
+        <button (click)="followUser(user.id)">{{ isFollowing ? 'Dejar de seguir' : 'Seguir' }}</button>
+    </div>
+</div>
