@@ -14,7 +14,7 @@ export const routes: Routes = [
     { path: 'search', component: SearchComponent},
     { path: 'login', component: LoginComponent},
     { path: 'register', component: RegisterComponent},
-    { path: 'profile', component: ProfileComponent},
+    { path: 'profile/:id', component: ProfileComponent},
     // { path: 'error-404', component: Error404Component},
     { path: '**', pathMatch: 'full', redirectTo: 'error-404'}
 ];
