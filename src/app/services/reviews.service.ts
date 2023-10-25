@@ -54,10 +54,33 @@ export class ReviewsService {
     }
   }
 
+  async getUserReviews(userId: string): Promise<Review[]> {
+    try {
+      const reviewRef = collection(this.firestore, 'reviews')
+      const q = query(reviewRef, where('userId', '==', userId))
+      const querySnapshot = await getDocs(q)
+
+      const reviews: Review[] = []
+
+      querySnapshot.forEach((doc) => {
+        const reviewData = doc.data();
+        const review = this.convertToReview(reviewData);
+        reviews.push(review)
+      })
+
+      return reviews
+
+    } catch (error) {
+      console.log('Error al obtener las reviews: ', error)
+      throw error
+    }
+  }
+
   private convertToReview(documentData: DocumentData): Review {
     return {
       userId: documentData['userId'],
       bookId: documentData['bookId'],
+      bookTitle: documentData['bookTitle'],
       rating: documentData['rating'],
       comment: documentData['comment'],
     }
