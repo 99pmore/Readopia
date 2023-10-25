@@ -1,0 +1,72 @@
+@import '../../../variables';
+
+main {
+    padding: 5% 10%;
+    margin-top: 90px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    .searchbar-container {
+        width: 100%;
+        
+        display: flex;
+        justify-content: center;
+
+        form {
+            width: 100%;
+
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+
+            input[type=search] {
+                box-shadow: 0 0 10px rgba($color: #000, $alpha: 0.2);
+                border-radius: 5px;
+                border: none;
+                outline: none;
+                
+                padding: 10px;
+                width: 400px;
+                
+                transition: all 0.3s ease-in-out;
+            }
+                
+            button {
+                cursor: pointer;
+                background-color: transparent;
+                border: 1px solid $main;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba($color: #000, $alpha: 0.2);
+
+                width: 35px;
+                padding: 5px;
+
+                transition: transform 0.3s;
+
+                &:hover {
+                    background-color: $main;
+
+                    svg {
+                        fill: #fff;
+                    }
+                }
+
+                svg {
+                    fill: $main;
+                }
+            }
+        }
+    }
+
+    .users {
+        padding-top: 60px;
+
+        display: flex;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 50px;
+    }
+}
