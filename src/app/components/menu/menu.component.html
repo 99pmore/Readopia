@@ -21,7 +21,7 @@
                 <a routerLink="/search">Buscar</a>
             </li>
             <li>
-                <a routerLink="/profile">Perfil</a>
+                <a [routerLink]="['/profile', id]">Perfil</a>
             </li>
         </ul>
         <div class="user" *ngIf="userLoggedIn">
