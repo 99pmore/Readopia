@@ -18,6 +18,7 @@ import { faStar as faStarReg } from '@fortawesome/free-regular-svg-icons';
 export class AddReviewComponent implements OnInit {
 
   @Input() bookId!: string
+  @Input() bookTitle!: string | undefined
   @Input() user!: User
 
   faStarSol = faStarSol
@@ -46,10 +47,12 @@ export class AddReviewComponent implements OnInit {
   addReview() {
     const userId = this.user.uid
     const bookId = this.bookId
+    const bookTitle = this.bookTitle as string
 
     const review = {
       userId: userId,
       bookId: bookId,
+      bookTitle: bookTitle,
       rating: this.selectedRating,
       comment: this.reviewForm.get('comment')?.value
     }

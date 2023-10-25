@@ -49,7 +49,7 @@
         <h2>Reseñas y valoraciones</h2>
         <div class="reviews">
             <button class="toggle-button" (click)="toggleForm()">{{ buttonText }}</button>
-            <app-add-review class="add-review" *ngIf="formVisible" [bookId]="id" [user]="user"></app-add-review>
+            <app-add-review class="add-review" *ngIf="formVisible" [bookId]="id" [bookTitle]="book.volumeInfo?.title" [user]="user"></app-add-review>
             <app-review class="review"></app-review>
         </div>
     </section>
