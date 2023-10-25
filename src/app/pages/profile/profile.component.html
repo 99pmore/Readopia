@@ -1,5 +1,5 @@
 <app-menu></app-menu>
-<main>
+<main [ngClass]="{'user-logged-in': userLoggedIn, 'user-not-logged-in': !userLoggedIn}">
     <ng-container class="profile" *ngIf="userLoggedIn; else loginForm">
         <section class="info">
             <div class="user">
@@ -7,18 +7,57 @@
                 <h2>{{ fullName }}</h2>
                 <p>{{ email }}</p>
             </div>
-            <div class="reading">
-                <h3>Leyendo ahora:</h3>
-                <ng-container *ngIf="readingBooks.length > 0; else messageReading">
-                    <app-sm-cover *ngFor="let book of readingBooks" [book]="book"></app-sm-cover>
+            <div class="follows">
+                <div class="following">
+                    <h3>Siguiendo <a href="">(Buscar usuarios)</a></h3>
+                    <ng-container *ngIf="following.length > 0; else messageFollowing">
+                        <div class="user-follow" *ngFor="let follow of following" [routerLink]="['/profile', follow.id]">
+                            <img [src]="follow?.photo ? follow?.photo : '../../../assets/images/profile.webp'" alt="">
+                            <p>{{ follow.name }}</p>
+                        </div>
+                    </ng-container>
+                    <ng-template #messageFollowing>
+                        <p>No hay usuarios seguidos</p>
+                    </ng-template>
+                </div>
+                <div class="followers">
+                    <h3>Seguidores <a href="">(Buscar usuarios)</a></h3>
+                    <ng-container *ngIf="followers.length > 0; else messageFollowers">
+                        <div class="user-follow" *ngFor="let follower of followers" [routerLink]="['/profile', follower.id]">
+                            <img [src]="follower?.photo ? follower?.photo : '../../../assets/images/profile.webp'" alt="">
+                            <p>{{ follower.name }}</p>
+                        </div>
+                    </ng-container>
+                    <ng-template #messageFollowers>
+                        <p>No hay seguidores</p>
+                    </ng-template>
+                </div>
+            </div>
+            <div class="reviews">
+                <h3>Reseñas y valoraciones</h3>
+                <ng-container *ngIf="reviews.length > 0; else messageReviews">
+                    <div class="review" *ngFor="let review of reviews">
+                        <p>{{ review.bookTitle }}</p>
+                        <app-rating [rating]="review.rating"></app-rating>
+                        <p>{{ review.comment }}</p>
+                    </div>
                 </ng-container>
-                <ng-template #messageReading>
-                    <p>No estás leyendo ningún libro</p>
+                <ng-template #messageReviews>
+                    <p>No hay reseñas y valoraciones</p>
                 </ng-template>
             </div>
         </section>
-        <section class="follows">
-            <h3>Seguidores</h3>
+        <section class="reading">
+            <h3>Leyendo ahora:</h3>
+            <ng-container *ngIf="readingBooks.length > 0; else messageReading">
+                <div class="reading-book" *ngFor="let book of readingBooks">
+                    <app-sm-cover [book]="book"></app-sm-cover>
+                    <h4>{{ book.title }}</h4>
+                </div>
+            </ng-container>
+            <ng-template #messageReading>
+                <p>No estás leyendo ningún libro</p>
+            </ng-template>
         </section>
     </ng-container>
     <ng-template #loginForm>

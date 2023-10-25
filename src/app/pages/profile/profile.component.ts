@@ -7,12 +7,16 @@ import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from '@angular/fire/auth';
 import { BookDB } from 'src/app/models/bookDB.interface';
-import { BookDbService } from 'src/app/services/book-db.service';
+import { UserDB } from 'src/app/models/userDB.interface';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ReviewsService } from 'src/app/services/reviews.service';
+import { Review } from 'src/app/models/review.interface';
+import { RatingComponent } from 'src/app/components/rating/rating.component';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, MenuComponent, LoginLinkComponent, SmCoverComponent],
+  imports: [CommonModule, MenuComponent, LoginLinkComponent, SmCoverComponent, RatingComponent, RouterLink],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
@@ -24,59 +28,84 @@ export class ProfileComponent implements OnInit {
   userId!: string | undefined
   fullName!: string | undefined
   email!: string | undefined
+  
+  followingIds!: string[]
+  followersIds!: string[]
+
+  following: UserDB[] = []
+  followers: UserDB[] = []
 
   readBooks: BookDB[] = []
   readingBooks: BookDB[] = []
   wishBooks: BookDB[] = []
+
+  reviews: Review[] = []
   
   constructor (
     private userService: UserService,
     private authService: AuthService,
-    private bookDBService: BookDbService
+    private reviewsService: ReviewsService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.getUser()
-  }
-
-  private getUser() {
     this.authService.authChanges().subscribe((user) => {
       this.user = user
       this.userLoggedIn = !!user
-      this.userId = user?.uid
-
-      this.getUserData()
 
       if (this.userLoggedIn) {
-        this.getUserBooks()
+        this.route.paramMap.subscribe((paramMap) => {
+          const userId = paramMap.get('id')
+
+          if (userId) {
+            this.userId = userId
+            this.getUserData()
+            this.getUserReviews()
+          }
+        })
       }
     })
   }
 
-  private getUserData() {
+  private async getUserData() {
     if (this.userId) {
-      this.userService.getUserById(this.userId).then((user) => {
-        const name = user.name
-        const lastName = user.lastname
-        this.fullName = `${name} ${lastName}`
-        this.email = user.email
-      })
+      const user = await this.userService.getUserById(this.userId)
+
+      const { name, lastname, email, following, followers, readBooks, readingBooks, wishBooks } = user
+
+      this.fullName = `${name} ${lastname}`
+      this.email = email
+      this.followingIds = following || []
+      this.followersIds = followers || []
+
+      if (this.followingIds && this.followersIds) {
+        this.getUserFollows()
+      }
+
+      this.readBooks = readBooks?.reverse() || []
+      this.readingBooks = readingBooks?.reverse() || []
+      this.wishBooks = wishBooks?.reverse() || []
     }
   }
 
-  private async getUserBooks() {
+  private async getUserFollows() {
     try {
-      this.readBooks = await this.bookDBService.getUserBooks('readBooks')
-      this.readingBooks = await this.bookDBService.getUserBooks('readingBooks')
-      this.wishBooks = await this.bookDBService.getUserBooks('wishBooks')
+      const followingPromises = this.followingIds.map((id) => this.userService.getUserById(id))
+      const followerPromises = this.followersIds.map((id) => this.userService.getUserById(id))
 
-      this.readBooks.reverse()
-      this.readingBooks.reverse()
-      this.wishBooks.reverse()
+      const followingResults = await Promise.all(followingPromises)
+      const followerResults = await Promise.all(followerPromises)
+
+      this.following = followingResults.filter((user) => user !== null)
+      this.followers = followerResults.filter((user) => user !== null)
 
     } catch (error) {
-      console.error('Error al obtener los libros leídos:', error)
+      console.error('Error al obtener seguidores/seguidos: ', error)
     }
+  }
+
+  private async getUserReviews() {
+    if (this.userId) this.reviews = await this.reviewsService.getUserReviews(this.userId)
   }
 
 }

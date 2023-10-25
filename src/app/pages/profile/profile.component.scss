@@ -1,16 +1,17 @@
 @import '../../../variables';
 
-main {
-    padding: 5% 10%;
+main.user-logged-in {
+    padding: 5% 20%;
     margin-top: 90px;
 
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
     gap: 60px;
 
     .info {
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
+        gap: 60px;
 
         .user {
             display: flex;
@@ -22,10 +23,62 @@ main {
             }
         }
 
-        .reading {
+        .follows {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+
+            .following, .followers {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+
+                h3 a {
+                    color: $main;
+                    font-weight: 400;
+                    font-size: smaller;
+                }
+
+                .user-follow {
+                    cursor: pointer;
+
+                    img {
+                        width: 40px;
+                    }
+                }
+            }
+        }
+
+        .reviews {
             display: flex;
             flex-direction: column;
             gap: 20px;
+
+            .review {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
         }
     }
+
+    .reading {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .reading-book {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+    }
+}
+
+main.user-not-logged-in {
+    padding: 5% 10%;
+    margin-top: 90px;
+
+    display: flex;
+    justify-content: center;
 }
