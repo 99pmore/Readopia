@@ -6,12 +6,14 @@ import { SearchComponent } from './pages/search/search.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { SearchUsersComponent } from './pages/search-users/search-users.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent},
     { path: 'mybooks', component: MyBooksComponent},
     { path: 'books/:id', component: BookInfoComponent},
     { path: 'search', component: SearchComponent},
+    { path: 'searchUsers', component: SearchUsersComponent},
     { path: 'login', component: LoginComponent},
     { path: 'register', component: RegisterComponent},
     { path: 'profile/:id', component: ProfileComponent},
