@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User } from '@angular/fire/auth';
+import { Auth, User } from '@angular/fire/auth';
 import { Firestore, doc, getDoc, setDoc } from '@angular/fire/firestore';
 import { UserDB } from '../models/userDB.interface';
 
@@ -10,6 +10,7 @@ export class UserService {
 
   constructor(
     private firestore: Firestore,
+    private auth: Auth
   ) { }
 
   addUser(user: User) {
@@ -18,13 +19,16 @@ export class UserService {
     const lastname = user.displayName?.split(' ')[2] ? user.displayName?.split(' ')[1].concat(' ', user.displayName.split(' ')[2]) : user.displayName?.split(' ')[1]
 
     return setDoc(userRef, {
+      id: user.uid,
       name: user.displayName?.split(' ')[0],
       lastname: lastname,
       email: user.email,
       readBooks: [],
       readingBooks: [],
       wishBooks: [],
-      favorites: []
+      favorites: [],
+      following: [],
+      followers: []
     })
   }
 
