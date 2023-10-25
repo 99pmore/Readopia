@@ -28,7 +28,7 @@ main.user-logged-in {
             flex-direction: column;
             gap: 40px;
 
-            .following, .followers {
+            .following-container, .followers-container {
                 display: flex;
                 flex-direction: column;
                 gap: 20px;
@@ -39,11 +39,16 @@ main.user-logged-in {
                     font-size: smaller;
                 }
 
-                .user-follow {
-                    cursor: pointer;
-
-                    img {
-                        width: 40px;
+                .followers, .following {
+                    display: flex;
+                    gap: 15px;
+                    
+                    .user-follow {
+                        cursor: pointer;
+    
+                        img {
+                            width: 40px;
+                        }
                     }
                 }
             }
