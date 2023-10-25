@@ -2,7 +2,7 @@
     <app-menu></app-menu>
 </header>
 <main>
-    <div class="searchbar-container">
+    <section class="searchbar-container">
         <form class="search-bar" (ngSubmit)="searchBooks()">
             <input type="search" name="search" placeholder="Buscar ..." [(ngModel)]="search" />
             <button type="submit" title="Buscar">
@@ -11,11 +11,11 @@
                 </svg>
             </button>
         </form>
-    </div>
+    </section>
 
     <p *ngIf="search">Resultados para: {{ search }}</p>
     
-    <div class="books">
+    <section class="books">
         <app-book-card *ngFor="let book of books" [book]="book"></app-book-card>
-    </div>
+    </section>
 </main>
