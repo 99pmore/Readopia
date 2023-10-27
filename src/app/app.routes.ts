@@ -7,6 +7,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { SearchUsersComponent } from './pages/search-users/search-users.component';
+import { EditUserComponent } from './pages/edit-user/edit-user.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent},
@@ -17,6 +18,7 @@ export const routes: Routes = [
     { path: 'login', component: LoginComponent},
     { path: 'register', component: RegisterComponent},
     { path: 'profile/:id', component: ProfileComponent},
+    { path: 'editUser', component: EditUserComponent},
     // { path: 'error-404', component: Error404Component},
     { path: '**', pathMatch: 'full', redirectTo: 'error-404'}
 ];
