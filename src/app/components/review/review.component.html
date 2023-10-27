@@ -1,6 +1,6 @@
 <div class="container" *ngFor="let review of reviews">
     <div class="user">
-        <img [src]="'../../../assets/images/profile.webp'" alt="">
+        <img [src]="userPhotos[review.userId] || '../../../assets/images/profile.webp'" alt="">
         <p>{{ userNames[review.userId] }}</p>
     </div>
     <div class="review">

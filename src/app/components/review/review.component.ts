@@ -19,6 +19,7 @@ export class ReviewComponent implements OnInit {
   name!: string | undefined
   lastName!: string | undefined
   userNames: { [key: string]: string } = {}
+  userPhotos: { [key: string]: string } = {}
 
   constructor (
     private route: ActivatedRoute,
@@ -39,6 +40,7 @@ export class ReviewComponent implements OnInit {
       if (review.userId) {
         const user = await this.userService.getUserById(review.userId)
         this.userNames[review.userId] = `${user.name} ${user.lastname}`
+        if (user.photo) this.userPhotos[review.userId] = user.photo
       }
     })
   }
