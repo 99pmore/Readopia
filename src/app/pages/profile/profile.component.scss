@@ -20,7 +20,7 @@ main.user-logged-in {
 
             img {
                 border-radius: 50%;
-                width: 100px;
+                width: 120px;
             }
         }
 
@@ -46,6 +46,12 @@ main.user-logged-in {
                     
                     .user-follow {
                         cursor: pointer;
+
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        flex-direction: column;
+                        gap: 5px;
     
                         img {
                             border-radius: 50%;
@@ -65,6 +71,10 @@ main.user-logged-in {
                 display: flex;
                 flex-direction: column;
                 gap: 10px;
+
+                .title {
+                    font-weight: 600;
+                }
             }
         }
     }

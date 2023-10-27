@@ -28,6 +28,7 @@ export class ProfileComponent implements OnInit {
   userId!: string | undefined
   fullName!: string | undefined
   email!: string | undefined
+  photo!: string | undefined
   
   followingIds!: string[]
   followersIds!: string[]
@@ -71,10 +72,11 @@ export class ProfileComponent implements OnInit {
     if (this.userId) {
       const user = await this.userService.getUserById(this.userId)
 
-      const { name, lastname, email, following, followers, readBooks, readingBooks, wishBooks } = user
+      const { name, lastname, email, photo, following, followers, readBooks, readingBooks, wishBooks } = user
 
       this.fullName = `${name} ${lastname}`
       this.email = email
+      this.photo = photo
       this.followingIds = following || []
       this.followersIds = followers || []
 

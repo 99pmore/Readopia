@@ -3,7 +3,7 @@
     <ng-container class="profile" *ngIf="userLoggedIn; else loginForm">
         <section class="info">
             <div class="user">
-                <img [src]="user?.photoURL ? user?.photoURL : '../../../assets/images/profile.webp'" alt="">
+                <img [src]="photo || '../../../assets/images/profile.webp'" alt="">
                 <h2>{{ fullName }}</h2>
                 <p>{{ email }}</p>
             </div>
@@ -37,7 +37,7 @@
                 <h3>Reseñas y valoraciones</h3>
                 <ng-container *ngIf="reviews.length > 0; else messageReviews">
                     <div class="review" *ngFor="let review of reviews">
-                        <p>{{ review.bookTitle }}</p>
+                        <p class="title">{{ review.bookTitle }}</p>
                         <app-rating [rating]="review.rating"></app-rating>
                         <p>{{ review.comment }}</p>
                     </div>
