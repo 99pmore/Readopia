@@ -24,6 +24,7 @@ export class UserService {
       name: user.displayName?.split(' ')[0],
       lastname: lastname,
       email: user.email,
+      photo: user.photoURL,
       readBooks: [],
       readingBooks: [],
       wishBooks: [],
