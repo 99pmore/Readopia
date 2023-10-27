@@ -46,6 +46,11 @@
             align-items: center;
             gap: 15px;
 
+            img {
+                border-radius: 50%;
+                width: 40px;
+            }
+
             button {
                 cursor: pointer;
                 border: none;

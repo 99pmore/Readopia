@@ -19,6 +19,7 @@ export class MenuComponent implements OnInit {
   user!: User | null
   id!: string | undefined
   name!: string | null | undefined
+  photo!: string | null | undefined
 
   faLogout = faArrowRightFromBracket
 
@@ -32,6 +33,7 @@ export class MenuComponent implements OnInit {
       this.user = user
       this.id = user?.uid
       this.name = this.getName()
+      this.photo = user?.photoURL
     })
   }
 

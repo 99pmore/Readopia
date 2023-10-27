@@ -25,6 +25,7 @@
             </li>
         </ul>
         <div class="user" *ngIf="userLoggedIn">
+            <img [src]="photo || '../../../assets/images/profile.webp'" alt="">
             <p>Hola, {{ name }}</p>
             <button title="Cerrar sesión" (click)="logout()"><fa-icon [icon]="faLogout"></fa-icon></button>
         </div>
