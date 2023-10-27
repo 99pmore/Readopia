@@ -45,7 +45,7 @@ export class AuthService {
     })
   }
   
-  register(name: string, lastname: string, email: string, password: string) {
+  register(photo: string, name: string, lastname: string, email: string, password: string) {
     createUserWithEmailAndPassword(this.auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user
@@ -53,6 +53,7 @@ export class AuthService {
       if (user) {
         updateProfile(user, {
           displayName: `${name} ${lastname}`,
+          photoURL: photo
         })
         .then(() => {
           this.userService.addUser(user)
