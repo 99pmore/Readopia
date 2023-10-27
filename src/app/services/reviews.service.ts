@@ -27,6 +27,7 @@ export class ReviewsService {
     return addDoc(reviewRef, {
       userId: review.userId,
       bookId: review.bookId,
+      bookTitle: review.bookTitle,
       rating: review.rating,
       comment: review.comment
     })
