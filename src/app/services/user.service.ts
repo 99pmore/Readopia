@@ -14,24 +14,33 @@ export class UserService {
     private auth: Auth
   ) { }
 
-  addUser(user: User) {
+  async addUser(user: User) {
     const userRef = doc(this.firestore, 'users', user.uid)
-
     const lastname = user.displayName?.split(' ')[2] ? user.displayName?.split(' ')[1].concat(' ', user.displayName.split(' ')[2]) : user.displayName?.split(' ')[1]
 
-    return setDoc(userRef, {
-      id: user.uid,
-      name: user.displayName?.split(' ')[0],
-      lastname: lastname,
-      email: user.email,
-      photo: user.photoURL,
-      readBooks: [],
-      readingBooks: [],
-      wishBooks: [],
-      favorites: [],
-      following: [],
-      followers: []
-    })
+    try {
+      return await setDoc(userRef, {
+        id: user.uid,
+        name: user.displayName?.split(' ')[0],
+        lastname: lastname,
+        email: user.email,
+        photo: user.photoURL,
+        readBooks: [],
+        readingBooks: [],
+        wishBooks: [],
+        favorites: [],
+        following: [],
+        followers: []
+      })
+
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: `${error}`,
+      })
+
+    }
   }
 
   async getUsers(): Promise<UserDB[]> {
@@ -50,7 +59,11 @@ export class UserService {
       return users
 
     } catch (error) {
-      console.log('Error al obtener los usuarios: ', error)
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: `${error}`,
+      })
       throw error
     }
   }
@@ -70,7 +83,11 @@ export class UserService {
       return {}
 
     } catch (error) {
-      console.log('Error al obtener los usuarios: ', error)
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: `${error}`,
+      })
       throw(error)
     }
   }
@@ -85,10 +102,24 @@ export class UserService {
         await updateDoc(userRef, {
           following: arrayUnion(followId)
         })
+        .catch((error) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: `${error}`,
+          })
+        })
 
         const userRefFollow = doc(this.firestore, `users/${followId}`)
         await updateDoc(userRefFollow, {
           followers: arrayUnion(userId)
+        })
+        .catch((error) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: `${error}`,
+          })
         })
 
         Swal.fire({
@@ -107,9 +138,6 @@ export class UserService {
           footer: '<a href="/login">Iniciar sesión</a>'
         })
       }
-
-    } else {
-
     }
   }
 
@@ -142,10 +170,24 @@ export class UserService {
           await updateDoc(userRef, {
             following: arrayRemove(followId)
           })
+          .catch((error) => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: `${error}`,
+            })
+          })
 
           const userRefFollow = doc(this.firestore, `users/${followId}`)
           await updateDoc(userRefFollow, {
             followers: arrayRemove(userId)
+          })
+          .catch((error) => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: `${error}`,
+            })
           })
     
         } else {
@@ -164,5 +206,41 @@ export class UserService {
         )
       }
     })
+  }
+
+  editUser(userId: string, name: string | undefined, lastname: string | undefined, photo: string | null) {
+    const userRef = doc(this.firestore, 'users', userId)
+
+    try {
+      updateDoc(userRef, {
+        name: name,
+        lastname: lastname,
+        photo: photo
+      })
+      .then(() => {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Datos actualizados',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: `${error}`,
+        })
+      })
+
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: `${error}`,
+      })
+      throw(error)
+    }
   }
 }
