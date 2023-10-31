@@ -9,6 +9,7 @@ import { MenuComponent } from '../../components/menu/menu.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from '@angular/fire/auth';
 import { ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
     selector: 'app-my-books',
@@ -63,7 +64,11 @@ export class MyBooksComponent implements OnInit {
       this.wishBooks.reverse()
 
     } catch (error) {
-      console.error('Error al obtener los libros leídos:', error)
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: `${error}`,
+      })
     }
   }
 
