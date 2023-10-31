@@ -3,16 +3,23 @@ import { Auth } from '@angular/fire/auth';
 import { Firestore, arrayRemove, arrayUnion, doc, getDoc, updateDoc } from '@angular/fire/firestore';
 import { BookDB } from '../models/bookDB.interface';
 import Swal from 'sweetalert2';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BookDbService {
 
+  private updatedBooksSubject = new Subject<void>()
+
   constructor(
     private firestore: Firestore,
     private auth: Auth
   ) { }
+
+  getUpdatedBooks(): Observable<void> {
+    return this.updatedBooksSubject.asObservable()
+  }
 
   async addBook(book: BookDB, booksList: string) {
     const allBooks = await this.getAllBooks()
@@ -163,6 +170,9 @@ export class BookDbService {
       const userRef = doc(this.firestore, `users/${userId}`)
       await updateDoc(userRef, {
         [booksList]: arrayRemove(book)
+      })
+      .then(() => {
+        this.updatedBooksSubject.next()
       })
       .catch((error) => {
         Swal.fire({

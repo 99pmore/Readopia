@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { User } from '@angular/fire/auth';
 import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-my-books',
@@ -30,6 +31,8 @@ export class MyBooksComponent implements OnInit {
 
   public selectedOption: string = 'all'
 
+  private booksSubscription: Subscription | undefined
+
   constructor(
     private bookDBService: BookDbService,
     private authService: AuthService,
@@ -43,12 +46,22 @@ export class MyBooksComponent implements OnInit {
 
       if (this.userLoggedIn) {
         this.getUserBooks()
+
+        this.booksSubscription = this.bookDBService.getUpdatedBooks().subscribe(() => {
+          this.getUserBooks()
+        })
       }
 
       this.route.queryParams.subscribe((queryParams) => {
         this.selectedOption = queryParams['option'] || 'all';
       })
     })
+  }
+
+  ngOnDestroy(): void {
+    if (this.booksSubscription) {
+      this.booksSubscription.unsubscribe()
+    }
   }
 
   async getUserBooks() {
