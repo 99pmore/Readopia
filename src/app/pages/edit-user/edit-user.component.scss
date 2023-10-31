@@ -1,0 +1,136 @@
+@import '../../../mixins';
+
+main {
+    padding: 5% 10%;
+    margin-top: 90px;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 60px;
+
+    .photo-selection {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+
+        .selected-photo {
+            cursor: pointer;
+            border-radius: 50%;
+            width: 130px;
+
+            transition: all 0.2s;
+
+            &:hover {
+                filter: contrast(0.5);
+            }
+        }
+
+        .character-selection {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            gap: 20px;
+
+            .characters {
+                display: grid;
+                grid-template-columns: repeat(9, 1fr);
+                grid-gap: 20px;
+
+                .character {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    &:hover {
+                        .name {
+                            text-shadow: 0 0 6px rgba($color: #000, $alpha: 0.5);
+                            background-color: rgba($color: $main, $alpha: 0.6);
+                            backdrop-filter: blur(2px);
+                            color: #fff;
+                            transform: scale(1);
+                        }
+                    }
+                    
+                    .photo {
+                        border-radius: 50%;
+
+                        width: 115px;
+                        height: 115px;
+
+                        position: relative;
+                    }
+
+                    .name {
+                        cursor: pointer;
+                        font-size: smaller;
+                        font-weight: 700;
+                        text-align: center;
+                        border-radius: 50%;
+                        background-color: rgba($color: $main, $alpha: 0);
+                        backdrop-filter: blur(0px);
+                        color: #ffffff00;
+                        
+                        width: 115px;
+                        height: 115px;
+                        
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        
+                        position: absolute;
+                        overflow: hidden;
+
+                        transform: scale(0.5);
+                        transition: all 0.2s;
+                    }
+                }
+            }
+        }
+    }
+
+    form, .pwd {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 20px;
+    
+        input {
+            box-shadow: 0 0 10px rgba($color: #000, $alpha: 0.2);
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            
+            padding: 10px;
+            width: 400px;
+            
+            transition: all 0.3s ease-in-out;
+        }
+
+        label {
+            cursor: pointer;
+            align-self: self-start;
+            margin-top: 10px;
+        }
+    
+        button {
+            cursor: pointer;
+            background-color: transparent;
+            color: $main;
+            border: 1px solid $main;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba($color: #000, $alpha: 0.2);
+    
+            height: 35px;
+            padding: 10px;
+    
+            transition: transform 0.3s;
+    
+            &:hover {
+                background-color: $main;
+                color: #fff;
+            }
+        }
+    }
+}
