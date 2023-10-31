@@ -133,7 +133,7 @@ export class BookDbService {
         text: `Se eliminará ${book.title} de ${listName}`,
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#9e9682',
+        confirmButtonColor: '#90abc4',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Eliminar',
         cancelButtonText: 'Cancelar'
