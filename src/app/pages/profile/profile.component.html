@@ -3,6 +3,7 @@
     <ng-container class="profile" *ngIf="userLoggedIn; else loginForm">
         <section class="info">
             <div class="user">
+                <a *ngIf="id === userId" routerLink="/editUser" title="Editar perfil"><fa-icon [icon]="faEdit"></fa-icon></a>
                 <img [src]="photo || '../../../assets/images/profile.webp'" alt="">
                 <h2>{{ fullName }}</h2>
                 <p>{{ email }}</p>

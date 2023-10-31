@@ -18,9 +18,29 @@ main.user-logged-in {
             flex-direction: column;
             gap: 20px;
 
+            position: relative;
+
+            a {
+                color: $main;
+                position: absolute;
+                left: 120px;
+
+                transition: color 0.2s;
+
+                &:hover {
+                    color: $main-dark;
+                }
+            }
+
             img {
                 border-radius: 50%;
                 width: 120px;
+
+                transition: transform 0.2s;
+
+                &:hover {
+                    transform: scale(1.1);
+                }
             }
         }
 
@@ -38,6 +58,12 @@ main.user-logged-in {
                     color: $main;
                     font-weight: 400;
                     font-size: smaller;
+
+                    transition: color 0.2s;
+
+                    &:hover {
+                        color: $main-dark;
+                    }
                 }
 
                 .followers, .following {
@@ -56,6 +82,12 @@ main.user-logged-in {
                         img {
                             border-radius: 50%;
                             width: 40px;
+
+                            transition: all 0.2s;
+
+                            &:hover {
+                                transform: scale(1.1);
+                            }
                         }
                     }
                 }

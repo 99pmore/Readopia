@@ -12,11 +12,13 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ReviewsService } from 'src/app/services/reviews.service';
 import { Review } from 'src/app/models/review.interface';
 import { RatingComponent } from 'src/app/components/rating/rating.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faEdit } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, MenuComponent, LoginLinkComponent, SmCoverComponent, RatingComponent, RouterLink],
+  imports: [CommonModule, MenuComponent, LoginLinkComponent, SmCoverComponent, RatingComponent, RouterLink, FontAwesomeModule],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
@@ -24,6 +26,7 @@ export class ProfileComponent implements OnInit {
 
   userLoggedIn: boolean = false
   user!: User | null
+  id!: string | undefined
 
   userId!: string | undefined
   fullName!: string | undefined
@@ -41,6 +44,8 @@ export class ProfileComponent implements OnInit {
   wishBooks: BookDB[] = []
 
   reviews: Review[] = []
+
+  faEdit = faEdit
   
   constructor (
     private userService: UserService,
@@ -53,6 +58,7 @@ export class ProfileComponent implements OnInit {
     this.authService.authChanges().subscribe((user) => {
       this.user = user
       this.userLoggedIn = !!user
+      this.id = user?.uid
 
       if (this.userLoggedIn) {
         this.route.paramMap.subscribe((paramMap) => {
