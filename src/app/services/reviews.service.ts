@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { DocumentData, Firestore, addDoc, collection, getDocs, query, where } from '@angular/fire/firestore';
 import { AuthService } from './auth.service';
-import { Auth, User } from '@angular/fire/auth';
+import { User } from '@angular/fire/auth';
 import { Review } from '../models/review.interface';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -14,23 +15,31 @@ export class ReviewsService {
   constructor(
     private firestore: Firestore,
     private authService: AuthService,
-    private auth: Auth
   ) {
     this.authService.authChanges().subscribe((user) => {
       this.user = user
     })
   }
 
-  addReview(review: Review) {
+  async addReview(review: Review) {
     const reviewRef = collection(this.firestore, 'reviews')
 
-    return addDoc(reviewRef, {
-      userId: review.userId,
-      bookId: review.bookId,
-      bookTitle: review.bookTitle,
-      rating: review.rating,
-      comment: review.comment
-    })
+    try {
+      return await addDoc(reviewRef, {
+        userId: review.userId,
+        bookId: review.bookId,
+        bookTitle: review.bookTitle,
+        rating: review.rating,
+        comment: review.comment
+      })
+      
+    } catch (error) {
+      return Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: `${error}`,
+      })
+    }
   }
 
   async getReviews(bookId: string): Promise<Review[]> {
@@ -50,7 +59,11 @@ export class ReviewsService {
       return reviews
 
     } catch (error) {
-      console.log('Error al obtener las reviews: ', error)
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: `${error}`,
+      })
       throw error
     }
   }
@@ -72,7 +85,11 @@ export class ReviewsService {
       return reviews
 
     } catch (error) {
-      console.log('Error al obtener las reviews: ', error)
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: `${error}`,
+      })
       throw error
     }
   }

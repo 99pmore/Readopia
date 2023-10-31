@@ -27,13 +27,21 @@ export class BookDbService {
         await updateDoc(userRef, {
           [booksList]: arrayUnion(book)
         })
-
-        Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: `${book.title} añadido a ${listName}`,
-          showConfirmButton: false,
-          timer: 1500
+        .then(() => {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: `${book.title} añadido a ${listName}`,
+            showConfirmButton: false,
+            timer: 1500
+          })
+        })
+        .catch((error) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: `${error}`,
+          })
         })
   
       } else {
@@ -44,7 +52,7 @@ export class BookDbService {
           footer: '<a href="/login">Iniciar sesión</a>'
         })
       }
-
+      
     } else {
       const nowList = this.getListType(matchingBook)
       
@@ -54,14 +62,14 @@ export class BookDbService {
           title: 'Error',
           text: `${book.title} ya está en ${listName}`,
         })
-
+        
       } else {
         this.moveBook(matchingBook, nowList, booksList)
       }
-
+      
     }
   }
-
+  
   async getUserBooks(booksList: string) {
     try {
       const userId = this.auth.currentUser?.uid
@@ -71,15 +79,23 @@ export class BookDbService {
 
         if (userDoc.exists()) {
           const userData = userDoc.data()
-
+          
           if (userData && userData[booksList]) {
             return userData[booksList]
           }
         }
+
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'El usuario no está autenticado',
+          footer: '<a href="/login">Iniciar sesión</a>'
+        })
       }
-
+      
       return []
-
+      
     } catch (error) {
       console.log('Error al obtener los libros:', error)
       throw error
@@ -99,7 +115,11 @@ export class BookDbService {
       return readingBooks.concat(readBooks, wishBooks)
 
     } catch (error) {
-      console.log('Error al obtener todos los libros del usuario:', error)
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: `${error}`,
+      })
       return []
     }
   }
@@ -118,10 +138,18 @@ export class BookDbService {
         confirmButtonText: 'Eliminar',
         cancelButtonText: 'Cancelar'
         
-      }).then(async (result) => {
+      })
+      .then(async (result) => {
         if (result.isConfirmed) {
           this.performDelete(book, booksList)
         }
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: `${error}`,
+        })
       })
 
     } else {
@@ -135,6 +163,13 @@ export class BookDbService {
       const userRef = doc(this.firestore, `users/${userId}`)
       await updateDoc(userRef, {
         [booksList]: arrayRemove(book)
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: `${error}`,
+        })
       })
 
     } else {

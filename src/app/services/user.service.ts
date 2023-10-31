@@ -39,7 +39,6 @@ export class UserService {
         title: 'Error',
         text: `${error}`,
       })
-
     }
   }
 
