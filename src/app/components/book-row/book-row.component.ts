@@ -7,6 +7,7 @@ import { RouterLink } from '@angular/router';
 import { BookDbService } from 'src/app/services/book-db.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faEdit } from '@fortawesome/free-regular-svg-icons';
+import Swal from 'sweetalert2';
 
 @Component({
     selector: 'app-book-row',
@@ -16,6 +17,7 @@ import { faEdit } from '@fortawesome/free-regular-svg-icons';
     imports: [NgFor, NgIf, RatingComponent, SmCoverComponent, RouterLink, FontAwesomeModule]
 })
 export class BookRowComponent implements OnInit {
+  
   @Input() book!: BookDB
 
   allBooks: BookDB[] = []
@@ -78,7 +80,11 @@ export class BookRowComponent implements OnInit {
       }
   
     } catch (error) {
-      console.log('Error al obtener los libros del usuario:', error)
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: `${error}`,
+      })
     }
   }
 }
