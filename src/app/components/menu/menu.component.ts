@@ -5,6 +5,7 @@ import { User } from '@angular/fire/auth';
 import { RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgIf } from '@angular/common';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
     selector: 'app-menu',
@@ -25,15 +26,16 @@ export class MenuComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
     this.authService.authChanges().subscribe((user) => {
       this.userLoggedIn = !!user
-      this.user = user
-      this.id = user?.uid
-      this.name = this.getName()
-      this.photo = user?.photoURL
+
+      if (user) {
+        this.getUser(user.uid)
+      }
     })
   }
 
@@ -41,7 +43,12 @@ export class MenuComponent implements OnInit {
     this.authService.logout()
   }
 
-  private getName(): string | undefined {
-    return this.user?.displayName?.split(' ')[0]
+  private getUser(id: string) {
+    this.userService.getUserById(id)
+    .then((user) => {
+      this.id = user.id
+      this.name = user.name
+      this.photo = user.photo
+    })
   }
 }
