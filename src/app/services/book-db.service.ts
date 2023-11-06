@@ -13,7 +13,7 @@ export class BookDbService {
   private updatedBooksSubject = new Subject<void>()
   public updatedBooks$ = this.updatedBooksSubject.asObservable()
 
-  public hasBook = signal(false)
+  public hasBook = signal<boolean>(false)
 
   constructor(
     private firestore: Firestore,
