@@ -36,7 +36,8 @@ export class BookInfoComponent implements OnInit {
 
   public selected: string = ''
   public option: string = ''
-  public hasBook: boolean = false
+
+  public hasBook = this.bookDBService.hasBook
 
   faTrash = faTrash
 
@@ -87,8 +88,10 @@ export class BookInfoComponent implements OnInit {
       bookList = ''
     }
 
-    this.option = ''
     this.bookDBService.deleteBook(matchingBook as BookDB, bookList, true)
+    .then(() => {
+      this.selected = ''
+    })
   }
 
   addBookToList() {
@@ -142,11 +145,11 @@ export class BookInfoComponent implements OnInit {
 
         }
 
-        this.hasBook = true
+        this.hasBook.set(true)
 
       } else {
         this.option = ''
-        this.hasBook = false
+        this.hasBook.set(false)
       }
   
     } catch (error) {
