@@ -1,10 +1,13 @@
 <div class="container" *ngFor="let review of reviews">
-    <div class="user">
+    <div class="user" [routerLink]="['/profile', review.userId]">
         <img [src]="userPhotos[review.userId] || '../../../assets/images/profile.webp'" alt="">
         <p>{{ userNames[review.userId] }}</p>
     </div>
     <div class="review">
         <app-rating [rating]="review.rating"></app-rating>
         <div class="text">{{ review.comment }}</div>
+    </div>
+    <div *ngIf="review.userId === authId" class="delete">
+        <button (click)="deleteReview(review?.id)">Eliminar</button>
     </div>
 </div>
