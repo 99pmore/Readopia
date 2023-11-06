@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { DocumentData, Firestore, addDoc, collection, getDocs, query, where } from '@angular/fire/firestore';
+import { DocumentData, Firestore, addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, updateDoc, where } from '@angular/fire/firestore';
 import { AuthService } from './auth.service';
 import { User } from '@angular/fire/auth';
 import { Review } from '../models/review.interface';
 import Swal from 'sweetalert2';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,9 @@ import Swal from 'sweetalert2';
 export class ReviewsService {
 
   user!: User | null
+
+  private updatedReviewsSubject = new Subject<void>()
+  public updatedReviews$ = this.updatedReviewsSubject.asObservable()
 
   constructor(
     private firestore: Firestore,
@@ -21,20 +25,25 @@ export class ReviewsService {
     })
   }
 
-  async addReview(review: Review) {
+  public async addReview(review: Review) {
     const reviewRef = collection(this.firestore, 'reviews')
 
     try {
-      return await addDoc(reviewRef, {
+      const reviewDoc = await addDoc(reviewRef, {
         userId: review.userId,
         bookId: review.bookId,
         bookTitle: review.bookTitle,
         rating: review.rating,
         comment: review.comment
       })
+
+      updateDoc(reviewDoc, {
+        id: reviewDoc.id
+      })
+      this.updatedReviewsSubject.next()
       
     } catch (error) {
-      return Swal.fire({
+      Swal.fire({
         icon: 'error',
         title: 'Error',
         text: `${error}`,
@@ -42,7 +51,7 @@ export class ReviewsService {
     }
   }
 
-  async getReviews(bookId: string): Promise<Review[]> {
+  public async getReviews(bookId: string): Promise<Review[]> {
     try {
       const reviewRef = collection(this.firestore, 'reviews')
       const q = query(reviewRef, where('bookId', '==', bookId))
@@ -68,7 +77,7 @@ export class ReviewsService {
     }
   }
 
-  async getUserReviews(userId: string): Promise<Review[]> {
+  public async getUserReviews(userId: string): Promise<Review[]> {
     try {
       const reviewRef = collection(this.firestore, 'reviews')
       const q = query(reviewRef, where('userId', '==', userId))
@@ -94,8 +103,37 @@ export class ReviewsService {
     }
   }
 
+  public deleteReview(reviewId: string) {
+    const reviewRef = doc(this.firestore, `reviews/${reviewId}`)
+    Swal.fire({
+      title: '¿Estás seguro/a?',
+      text: `Se eliminará tu reseña`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#90abc4',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: 'Cancelar'
+      
+    })
+    .then((result) => {
+      if (result.isConfirmed) {
+        deleteDoc(reviewRef)
+      }
+      this.updatedReviewsSubject.next()
+    })
+    .catch((error) => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: `${error}`,
+      })
+    })
+  }
+
   private convertToReview(documentData: DocumentData): Review {
     return {
+      id: documentData['id'],
       userId: documentData['userId'],
       bookId: documentData['bookId'],
       bookTitle: documentData['bookTitle'],
