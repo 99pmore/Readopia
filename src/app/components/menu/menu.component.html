@@ -6,7 +6,7 @@
                 <a routerLink="/">Inicio</a>
             </li>
             <li>
-                <a routerLink="/mybooks">Mis libros</a>
+                <a routerLink="/search">Buscar</a>
             </li>
         </ul>
     </nav>
@@ -14,18 +14,18 @@
     <div class="logo" routerLink="/">
         <img src="../../../assets/images/logo.svg" alt="Logo">
     </div>
-
+    
     <nav class="right">
         <ul class="links">
             <li>
-                <a routerLink="/search">Buscar</a>
+                <a routerLink="/mybooks">Mis libros</a>
             </li>
             <li>
                 <a [routerLink]="['/profile', id]">Perfil</a>
             </li>
         </ul>
         <div class="user" *ngIf="userLoggedIn">
-            <img [src]="photo || '../../../assets/images/profile.webp'" alt="">
+            <img [src]="photo || '../../../assets/images/profile.webp'" [routerLink]="['/profile', id]" alt="Foto de perfil" title="Ver perfil">
             <p>Hola, {{ name }}</p>
             <button title="Cerrar sesión" (click)="logout()"><fa-icon [icon]="faLogout"></fa-icon></button>
         </div>
