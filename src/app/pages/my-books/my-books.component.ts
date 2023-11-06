@@ -31,7 +31,7 @@ export class MyBooksComponent implements OnInit {
 
   public selectedOption: string = 'all'
 
-  private booksSubscription: Subscription | undefined
+  private booksSubscription!: Subscription
 
   constructor(
     private bookDBService: BookDbService,
@@ -47,7 +47,8 @@ export class MyBooksComponent implements OnInit {
       if (this.userLoggedIn) {
         this.getUserBooks()
 
-        this.booksSubscription = this.bookDBService.getUpdatedBooks().subscribe(() => {
+        this.booksSubscription = this.bookDBService.updatedBooks$
+        .subscribe(() => {
           this.getUserBooks()
         })
       }
