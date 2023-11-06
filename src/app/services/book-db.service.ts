@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
 import { Firestore, arrayRemove, arrayUnion, doc, getDoc, updateDoc } from '@angular/fire/firestore';
 import { BookDB } from '../models/bookDB.interface';
@@ -11,15 +11,14 @@ import { Observable, Subject } from 'rxjs';
 export class BookDbService {
 
   private updatedBooksSubject = new Subject<void>()
+  public updatedBooks$ = this.updatedBooksSubject.asObservable()
+
+  public hasBook = signal(false)
 
   constructor(
     private firestore: Firestore,
     private auth: Auth
   ) { }
-
-  getUpdatedBooks(): Observable<void> {
-    return this.updatedBooksSubject.asObservable()
-  }
 
   async addBook(book: BookDB, booksList: string) {
     const allBooks = await this.getAllBooks()
@@ -35,6 +34,8 @@ export class BookDbService {
           [booksList]: arrayUnion(book)
         })
         .then(() => {
+          this.hasBook.update((value: boolean) => !value)
+
           Swal.fire({
             position: 'top-end',
             icon: 'success',
@@ -104,7 +105,11 @@ export class BookDbService {
       return []
       
     } catch (error) {
-      console.log('Error al obtener los libros:', error)
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: `${error}`,
+      })
       throw error
     }
   }
@@ -146,7 +151,7 @@ export class BookDbService {
         cancelButtonText: 'Cancelar'
         
       })
-      .then(async (result) => {
+      .then((result) => {
         if (result.isConfirmed) {
           this.performDelete(book, booksList)
         }
@@ -173,6 +178,7 @@ export class BookDbService {
       })
       .then(() => {
         this.updatedBooksSubject.next()
+        this.hasBook.update((value: boolean) => !value)
       })
       .catch((error) => {
         Swal.fire({
