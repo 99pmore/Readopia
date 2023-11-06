@@ -42,7 +42,7 @@
                 </div>
                 <button type="submit">Aceptar</button>
             </form>
-            <button *ngIf="hasBook" (click)="deleteBook()" title="Eliminar de la lista"><fa-icon [icon]="faTrash"></fa-icon></button>
+            <button *ngIf="hasBook()" (click)="deleteBook()" title="Eliminar de la lista"><fa-icon [icon]="faTrash"></fa-icon></button>
         </div>
     </section>
     <section class="reviews-section">
