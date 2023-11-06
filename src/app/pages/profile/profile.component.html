@@ -1,4 +1,3 @@
-<app-menu></app-menu>
 <main [ngClass]="{'user-logged-in': userLoggedIn, 'user-not-logged-in': !userLoggedIn}">
     <ng-container class="profile" *ngIf="userLoggedIn; else loginForm">
         <section class="info">
