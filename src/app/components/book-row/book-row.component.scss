@@ -1,4 +1,4 @@
-@import '../../../variables';
+@import '../../../mixins.scss';
 
 .row {
     border-bottom: 1px solid #000;
@@ -67,27 +67,7 @@
             }
 
             button {
-                cursor: pointer;
-                background-color: #f0f0f0;
-                border: none;
-                border-radius: 5px;
-                
-                padding: 5px 10px;
-                
-                transition: all 0.2s;
-
-                &:hover {
-                    background-color: #e7e7e7;
-                }
-                
-                &:last-child {
-                    background-color: rgba($color: #ff4646, $alpha: 0.5);
-                    transition: all 0.2s;
-                    
-                    &:hover {
-                        background-color: rgba($color: #ff4646, $alpha: 0.75);
-                    }
-                }
+                @include deleteButton();
             }
         }
     }
