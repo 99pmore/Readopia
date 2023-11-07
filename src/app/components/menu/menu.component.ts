@@ -6,6 +6,7 @@ import { RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgIf } from '@angular/common';
 import { UserService } from 'src/app/services/user.service';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-menu',
@@ -22,6 +23,8 @@ export class MenuComponent implements OnInit {
   name!: string | null | undefined
   photo!: string | null | undefined
 
+  userSubscription!: Subscription
+
   faLogout = faArrowRightFromBracket
 
   constructor(
@@ -32,14 +35,27 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void {
     this.authService.authChanges().subscribe((user) => {
       this.userLoggedIn = !!user
-
+      
       if (user) {
         this.getUser(user.uid)
       }
+
+      this.userSubscription = this.authService.userUpdated$
+      .subscribe((user) => {
+        if (user) {
+          this.getUser(user.uid)
+        }
+      })
     })
   }
 
-  logout() {
+  ngOnDestroy(): void {
+    if (this.userSubscription) {
+      this.userSubscription.unsubscribe()
+    }
+  }
+
+  public logout() {
     this.authService.logout()
   }
 

@@ -1,9 +1,8 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Auth, User, browserLocalPersistence, createUserWithEmailAndPassword, onAuthStateChanged, sendEmailVerification, signInWithEmailAndPassword, signOut, updateEmail, updatePassword, updateProfile } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { UserService } from './user.service';
-import { Observable } from 'rxjs';
-import { UserDB } from '../models/userDB.interface';
+import { Observable, Subject } from 'rxjs';
 import Swal from 'sweetalert2';
 
 @Injectable({
@@ -11,8 +10,8 @@ import Swal from 'sweetalert2';
 })
 export class AuthService {
 
-  loggedIn: boolean = false
-  user: User | null = null
+  private userUpdatedSubject = new Subject<User>()
+  public userUpdated$ = this.userUpdatedSubject.asObservable()
   
   constructor(
     private auth: Auth,
@@ -22,11 +21,9 @@ export class AuthService {
     auth.setPersistence(browserLocalPersistence)
   }
 
-  authChanges(): Observable<User | null> {
+  public authChanges(): Observable<User | null> {
     return new Observable((observer) => {
       const unsubscribe = onAuthStateChanged(this.auth, (user) => {
-        this.loggedIn = !!user
-        this.user = user
         observer.next(user)
         
       }, (error) => {
@@ -40,10 +37,9 @@ export class AuthService {
     })
   }
 
-  login(email: string, password: string) {
+  public login(email: string, password: string) {
     signInWithEmailAndPassword(this.auth, email, password)
     .then(() => {
-      this.loggedIn = true
       this.router.navigate(['/'])
     })
     .catch((error) => {
@@ -55,7 +51,7 @@ export class AuthService {
     })
   }
   
-  register(photo: string, name: string, lastname: string, email: string, password: string) {
+  public register(photo: string, name: string, lastname: string, email: string, password: string) {
     createUserWithEmailAndPassword(this.auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user
@@ -68,8 +64,6 @@ export class AuthService {
         })
         .then(() => {
           this.userService.addUser(user)
-          
-          this.loggedIn = true
           this.router.navigate(['/'])
         })
         .catch((error) => {
@@ -87,10 +81,9 @@ export class AuthService {
     })
   }
   
-  logout() {
+  public logout() {
     signOut(this.auth)
     .then(() => {
-      this.loggedIn = false
       this.router.navigate(['/'])
     })
     .catch((error) => {
@@ -102,7 +95,7 @@ export class AuthService {
     })
   }
 
-  editUser(name: string, lastname: string, photo: string) {
+  public editUser(name: string, lastname: string, photo: string) {
     const user = this.auth.currentUser
 
     if (user) {
@@ -121,6 +114,7 @@ export class AuthService {
         })
         .then(() => {
           this.userService.editUser(user.uid, newName, newLastname, newPhoto)
+          this.userUpdatedSubject.next(user)
         })
         .catch((error) => {
           Swal.fire({
@@ -140,7 +134,7 @@ export class AuthService {
     }
   }
 
-  changePassword(password: string, passwordRep: string) {
+  public changePassword(password: string, passwordRep: string) {
     const user = this.auth.currentUser
 
     if (user) {
