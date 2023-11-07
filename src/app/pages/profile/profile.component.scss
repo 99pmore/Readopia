@@ -1,4 +1,4 @@
-@import '../../../variables';
+@import '../../../mixins.scss';
 
 main.user-logged-in {
     padding: 5% 20%;
@@ -29,6 +29,24 @@ main.user-logged-in {
 
                 &:hover {
                     color: $main-dark;
+                }
+            }
+
+            button {
+                cursor: pointer;
+                background-color: rgba($color: $main, $alpha: 0.5);
+                border: none;
+                border-radius: 5px;
+                
+                padding: 5px 10px;
+
+                position: absolute;
+                left: 120px;
+
+                transition: color 0.2s;
+
+                &:hover {
+                    background-color: rgba($color: $main, $alpha: 0.75);
                 }
             }
 
@@ -100,6 +118,9 @@ main.user-logged-in {
             gap: 20px;
 
             .review {
+                border-bottom: 1px solid rgba($color: $main, $alpha: 0.25);
+                padding: 10px 0;
+
                 display: flex;
                 flex-direction: column;
                 gap: 10px;
