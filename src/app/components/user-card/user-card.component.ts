@@ -1,8 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { UserDB } from 'src/app/models/userDB.interface';
-import { UserService } from 'src/app/services/user.service';
+import { FollowService } from 'src/app/services/follow.service';
 
 @Component({
   selector: 'app-user-card',
@@ -15,24 +15,30 @@ export class UserCardComponent implements OnInit {
 
   @Input() user!: UserDB
   
-  public follows = this.userService.follows
+  public follows!: boolean
+  public followsignal = signal<boolean>(this.follows)
 
   constructor (
-    private userService: UserService,
-  ) { }
-
-  async ngOnInit(): Promise<void> {
-    this.follows()
+    private followService: FollowService
+    ) { }
+    
+    async ngOnInit(): Promise<void> {
+      this.follows = await this.followService.isFollowing(this.user.id as string)
+      this.followsignal.set(this.follows)
   }
 
   public followUser(userId: string | undefined) {
     if (userId) {
-      if (this.follows()) {
-        this.userService.deleteFollowing(userId)
-  
+      if (this.follows) {
+        this.followService.deleteFollowing(userId)
+        this.follows = false
+        
       } else {
-        this.userService.addFollow(userId)
+        this.followService.addFollow(userId)
+        this.follows = true
       }
+      
+      this.followsignal.set(this.follows)
     }
   }
 

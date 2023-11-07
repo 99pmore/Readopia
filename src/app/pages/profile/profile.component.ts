@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MenuComponent } from 'src/app/components/menu/menu.component';
 import { LoginLinkComponent } from 'src/app/components/login-link/login-link.component';
@@ -15,6 +15,7 @@ import { RatingComponent } from 'src/app/components/rating/rating.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faEdit } from '@fortawesome/free-regular-svg-icons';
 import { Subscription } from 'rxjs';
+import { FollowService } from 'src/app/services/follow.service';
 
 @Component({
   selector: 'app-profile',
@@ -46,7 +47,8 @@ export class ProfileComponent implements OnInit {
 
   reviews: Review[] = []
 
-  public follows = this.userService.follows
+  public follows!: boolean
+  public followsignal = signal<boolean>(this.follows)
   private followersSubscription!: Subscription
 
   faEdit = faEdit
@@ -55,6 +57,7 @@ export class ProfileComponent implements OnInit {
     private userService: UserService,
     private authService: AuthService,
     private reviewsService: ReviewsService,
+    private followService: FollowService,
     private route: ActivatedRoute
   ) {}
 
@@ -69,12 +72,14 @@ export class ProfileComponent implements OnInit {
           const userId = paramMap.get('id')
 
           if (userId) {
-            this.follows()
+            this.follows = await this.followService.isFollowing(userId)
+            this.followsignal.set(this.follows)
+
             this.userId = userId
             this.getUserData()
             this.getUserReviews()
 
-            this.followersSubscription = this.userService.updatedFollowers$
+            this.followersSubscription = this.followService.updatedFollowers$
             .subscribe(() => {
               this.getUserData()
             })
@@ -92,12 +97,16 @@ export class ProfileComponent implements OnInit {
 
   public followUser(userId: string | undefined) {
     if (userId) {
-      if (this.follows()) {
-        this.userService.deleteFollowing(userId)
-  
+      if (this.follows) {
+        this.followService.deleteFollowing(userId)
+        this.follows = false
+        
       } else {
-        this.userService.addFollow(userId)
+        this.followService.addFollow(userId)
+        this.follows = true
       }
+      
+      this.followsignal.set(this.follows)
     }
   }
 

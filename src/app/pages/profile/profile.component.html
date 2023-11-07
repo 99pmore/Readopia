@@ -3,7 +3,7 @@
         <section class="info">
             <div class="user">
                 <a *ngIf="authId === userId" routerLink="/editUser" title="Editar perfil"><fa-icon [icon]="faEdit"></fa-icon></a>
-                <button *ngIf="authId !== userId" (click)="followUser(userId)">{{ follows() ? 'Siguiendo' : 'Seguir' }}</button>
+                <button *ngIf="authId !== userId" (click)="followUser(userId)">{{ followsignal() ? 'Siguiendo' : 'Seguir' }}</button>
                 <img [src]="photo || '../../../assets/images/profile.webp'" alt="">
                 <h2>{{ fullName }}</h2>
                 <p>{{ email }}</p>
