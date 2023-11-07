@@ -1,4 +1,4 @@
-@import '../../../variables';
+@import '../../../mixins';
 
 .card {
     padding: 20px;
@@ -41,18 +41,7 @@
         align-items: center;
 
         button {
-            cursor: pointer;
-            background-color: rgba($color: $main, $alpha: 0.5);
-            border: none;
-            border-radius: 5px;
-            
-            padding: 5px 10px;
-            
-            transition: all 0.2s;
-            
-            &:hover {
-                background-color: rgba($color: $main, $alpha: 0.75);
-            }
+            @include actionButton($main);
         }
     }
 }
