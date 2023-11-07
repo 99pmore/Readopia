@@ -33,6 +33,6 @@
     }
 
     button {
-        @include deleteButton();
+        @include actionButton(#ff4646);
     }
 }
