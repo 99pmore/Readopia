@@ -15,22 +15,24 @@ export class UserCardComponent implements OnInit {
 
   @Input() user!: UserDB
   
-  isFollowing!: boolean
+  public follows = this.userService.follows
 
   constructor (
     private userService: UserService,
   ) { }
 
   async ngOnInit(): Promise<void> {
-    if (this.user.id) this.isFollowing = await this.userService.isFollowing(this.user.id)
+    this.follows()
   }
 
-  followUser(userId: string | undefined) {
-    if (this.isFollowing) {
-      this.userService.deleteFollowing(userId as string)
-
-    } else {
-      this.userService.addFollow(userId as string)
+  public followUser(userId: string | undefined) {
+    if (userId) {
+      if (this.follows()) {
+        this.userService.deleteFollowing(userId)
+  
+      } else {
+        this.userService.addFollow(userId)
+      }
     }
   }
 

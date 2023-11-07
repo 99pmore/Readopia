@@ -14,6 +14,7 @@ import { Review } from 'src/app/models/review.interface';
 import { RatingComponent } from 'src/app/components/rating/rating.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faEdit } from '@fortawesome/free-regular-svg-icons';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -26,7 +27,7 @@ export class ProfileComponent implements OnInit {
 
   userLoggedIn: boolean = false
   user!: User | null
-  id!: string | undefined
+  authId!: string | undefined
 
   userId!: string | undefined
   fullName!: string | undefined
@@ -45,6 +46,9 @@ export class ProfileComponent implements OnInit {
 
   reviews: Review[] = []
 
+  public follows = this.userService.follows
+  private followersSubscription!: Subscription
+
   faEdit = faEdit
   
   constructor (
@@ -58,20 +62,43 @@ export class ProfileComponent implements OnInit {
     this.authService.authChanges().subscribe((user) => {
       this.user = user
       this.userLoggedIn = !!user
-      this.id = user?.uid
+      this.authId = user?.uid
 
       if (this.userLoggedIn) {
-        this.route.paramMap.subscribe((paramMap) => {
+        this.route.paramMap.subscribe(async (paramMap) => {
           const userId = paramMap.get('id')
 
           if (userId) {
+            this.follows()
             this.userId = userId
             this.getUserData()
             this.getUserReviews()
+
+            this.followersSubscription = this.userService.updatedFollowers$
+            .subscribe(() => {
+              this.getUserData()
+            })
           }
         })
       }
     })
+  }
+
+  ngOnDestroy(): void {
+    if (this.followersSubscription) {
+      this.followersSubscription.unsubscribe()
+    }
+  }
+
+  public followUser(userId: string | undefined) {
+    if (userId) {
+      if (this.follows()) {
+        this.userService.deleteFollowing(userId)
+  
+      } else {
+        this.userService.addFollow(userId)
+      }
+    }
   }
 
   private async getUserData() {
