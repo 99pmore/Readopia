@@ -37,7 +37,8 @@ export class BookDbService {
           this.hasBook.update((value: boolean) => !value)
 
           Swal.fire({
-            position: 'top-end',
+            toast: true,
+            position: 'center-end',
             icon: 'success',
             title: `${book.title} añadido a ${listName}`,
             showConfirmButton: false,
@@ -197,11 +198,15 @@ export class BookDbService {
       })
     }
 
-    Swal.fire(
-      'Eliminado',
-      'El libro se ha eliminado',
-      'success'
-    )
+    Swal.fire({
+      toast: true,
+      position: 'center-end',
+      icon: 'success',
+      title: 'Eliminado',
+      text: 'El libro se ha eliminado',
+      showConfirmButton: false,
+      timer: 1500,
+    })
   }
 
   private moveBook(book: BookDB, fromList: string, toList: string) {
