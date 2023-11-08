@@ -101,7 +101,8 @@ export class UserService {
       })
       .then(() => {
         Swal.fire({
-          position: 'top-end',
+          toast: true,
+          position: 'center-end',
           icon: 'success',
           title: 'Datos actualizados',
           showConfirmButton: false,
