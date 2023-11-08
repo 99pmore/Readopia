@@ -40,11 +40,11 @@ export class AddReviewComponent implements OnInit {
     })
   }
 
-  setRating(rating: number) {
+  public setRating(rating: number) {
     this.selectedRating = rating
   }
 
-  addReview() {
+  public addReview() {
     const userId = this.user.uid
     const bookId = this.bookId
     const bookTitle = this.bookTitle as string
@@ -60,7 +60,8 @@ export class AddReviewComponent implements OnInit {
     this.reviewService.addReview(review)
 
     Swal.fire({
-      position: 'top-end',
+      toast: true,
+      position: 'center-end',
       icon: 'success',
       title: 'Tu reseña se ha publicado',
       showConfirmButton: false,
