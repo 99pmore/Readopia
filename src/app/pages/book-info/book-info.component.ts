@@ -14,6 +14,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ReviewComponent } from 'src/app/components/review/review.component';
 import { User } from '@angular/fire/auth';
 import { AddReviewComponent } from 'src/app/components/add-review/add-review.component';
+import { ReviewsService } from 'src/app/services/reviews.service';
 
 @Component({
     selector: 'app-book-info',
@@ -24,28 +25,31 @@ import { AddReviewComponent } from 'src/app/components/add-review/add-review.com
 })
 export class BookInfoComponent implements OnInit {
 
-  formVisible: boolean = false
-  buttonText: string = 'Crear reseña'
+  public formVisible: boolean = false
+  public buttonText: string = 'Crear reseña'
 
-  user!: User
-  userLoggedIn: boolean = false
+  public user!: User
+  private userLoggedIn: boolean = false
   
-  book!: Book
-  id!: string
-  allBooks: BookDB[] = []
+  public book!: Book
+  public id!: string
+  public count!: number
+  public rating!: number
+  private allBooks: BookDB[] = []
 
   public selected: string = ''
   public option: string = ''
 
   public hasBook = this.bookDBService.hasBook
 
-  faTrash = faTrash
+  public faTrash = faTrash
 
   constructor(
     private route: ActivatedRoute,
     private bookService: BookService,
     private bookDBService: BookDbService,
     private authService: AuthService,
+    private reviewsService: ReviewsService
   ) { 
     this.book = {
       volumeInfo: {}
@@ -66,7 +70,7 @@ export class BookInfoComponent implements OnInit {
     })
   }
 
-  async deleteBook() {
+  public async deleteBook() {
     let bookList!: string
 
     this.allBooks = await this.bookDBService.getAllBooks()
@@ -94,7 +98,7 @@ export class BookInfoComponent implements OnInit {
     })
   }
 
-  addBookToList() {
+  public addBookToList() {
     if (this.selected === 'read') {
       this.read()
 
@@ -122,8 +126,12 @@ export class BookInfoComponent implements OnInit {
   }
 
   private async getBook() {
-    this.bookService.getBook(this.id).subscribe((data) => {
+    this.bookService.getBook(this.id)
+    .subscribe(async (data) => {
       this.book = data
+
+      this.rating = await this.reviewsService.getTotalRating(this.book.id, this.book.volumeInfo?.averageRating, this.book.volumeInfo?.ratingsCount)
+      this.count = await this.reviewsService.getTotalRatingsCount(this.book.id, this.book.volumeInfo?.ratingsCount)
     })
   }
 

@@ -26,9 +26,8 @@ export class ReviewsService {
   }
 
   public async addReview(review: Review) {
-    const reviewRef = collection(this.firestore, 'reviews')
-
     try {
+      const reviewRef = collection(this.firestore, 'reviews')
       const reviewDoc = await addDoc(reviewRef, {
         userId: review.userId,
         bookId: review.bookId,
@@ -51,6 +50,33 @@ export class ReviewsService {
     }
   }
 
+  public async getTotalRating(bookId: string | undefined, apiRating: number | undefined, apiRatingCount: number | undefined) {
+    if (bookId) {
+      const reviews = await this.getReviews(bookId)
+      const reviewsRatingSum = reviews.reduce((acc, review) => {
+        return acc + (review.rating || 0)
+      }, 0)
+  
+      if (apiRating && apiRatingCount) {
+        const totalRatingCount = reviews.length + apiRatingCount
+        const rating = (reviewsRatingSum + (apiRating * apiRatingCount)) / totalRatingCount
+        return rating
+      }
+    }
+
+    return 0
+  }
+
+  public async getTotalRatingsCount(bookId: string | undefined, apiRatingCount: number | undefined) {
+    if (bookId && apiRatingCount) {
+      const reviews = await this.getReviews(bookId)
+      const totalRatingCount = reviews.length + apiRatingCount
+      return totalRatingCount
+    }
+
+    return 0
+  }
+
   public async getReviews(bookId: string): Promise<Review[]> {
     try {
       const reviewRef = collection(this.firestore, 'reviews')
@@ -60,8 +86,8 @@ export class ReviewsService {
       const reviews: Review[] = []
 
       querySnapshot.forEach((doc) => {
-        const reviewData = doc.data();
-        const review = this.convertToReview(reviewData);
+        const reviewData = doc.data()
+        const review = this.convertToReview(reviewData)
         reviews.push(review)
       })
 

@@ -16,8 +16,8 @@
                     <h3 *ngFor="let author of book.volumeInfo?.authors">{{ author }}</h3>
         
                     <div class="rating">
-                        <app-rating [rating]="book.volumeInfo?.averageRating || 0"></app-rating>
-                        <span>( {{ book.volumeInfo?.ratingsCount || 0 }} )</span>
+                        <app-rating [rating]="rating || 0"></app-rating>
+                        <span>( {{ count || 0 }} )</span>
                     </div>
                 </div>
                 <div class="sec-info">
@@ -43,7 +43,7 @@
         </div>
     </section>
     <section class="reviews-section">
-        <h2>Reseñas y valoraciones</h2>
+        <h2>Reseñas y valoraciones <span>{{ rating }}</span><span> ({{ count }})</span></h2>
         <div class="reviews">
             <button class="toggle-button" (click)="toggleForm()">{{ buttonText }}</button>
             <app-add-review class="add-review" *ngIf="formVisible" [bookId]="id" [bookTitle]="book.volumeInfo?.title" [user]="user"></app-add-review>
