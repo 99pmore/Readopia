@@ -15,13 +15,14 @@ import { ReviewComponent } from 'src/app/components/review/review.component';
 import { User } from '@angular/fire/auth';
 import { AddReviewComponent } from 'src/app/components/add-review/add-review.component';
 import { ReviewsService } from 'src/app/services/reviews.service';
+import { TwoDecimalsPipe } from 'src/app/pipes/two-decimals.pipe';
 
 @Component({
     selector: 'app-book-info',
     templateUrl: './book-info.component.html',
     styleUrls: ['./book-info.component.scss'],
     standalone: true,
-    imports: [MenuComponent, NgFor, NgIf, RatingComponent, FormsModule, FontAwesomeModule, ReviewComponent, AddReviewComponent]
+    imports: [MenuComponent, NgFor, NgIf, RatingComponent, FormsModule, FontAwesomeModule, ReviewComponent, AddReviewComponent, TwoDecimalsPipe]
 })
 export class BookInfoComponent implements OnInit {
 
