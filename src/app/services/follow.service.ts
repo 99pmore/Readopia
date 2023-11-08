@@ -63,7 +63,8 @@ export class FollowService {
 
         // Swal
         Swal.fire({
-          position: 'top-end',
+          toast: true,
+          position: 'center-end',
           icon: 'success',
           title: `Ahora sigues a este usuario`,
           showConfirmButton: false,
@@ -119,7 +120,8 @@ export class FollowService {
 
       // Swal
       Swal.fire({
-        position: 'top-end',
+        toast: true,
+        position: 'center-end',
         icon: 'success',
         title: `Ya no sigues a este usuario`,
         showConfirmButton: false,
@@ -141,7 +143,6 @@ export class FollowService {
     if (userId) {
       const user = await this.userService.getUserById(userId)
       const following = user.following?.includes(followId) as boolean
-      // this.follows.set(following)
 
       return following
     }
