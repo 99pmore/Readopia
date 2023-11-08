@@ -12,15 +12,37 @@
             </div>
         </div>
     </div>
+
     <form [formGroup]="editForm" (ngSubmit)="edit()">
-        <input type="text" formControlName="name" placeholder="Nombre" value={{name}}>
-        <input type="text" formControlName="lastname" placeholder="Apellidos" value={{lastName}}>
+        <div class="form-field">
+            <input type="text" formControlName="name" placeholder="Nombre">
+            <ng-container *ngIf="validEdit('name')">
+                <p class="error">{{ errorMessage('name') }}</p>
+            </ng-container>
+        </div>
+        <div class="form-field">
+            <input type="text" formControlName="lastname" placeholder="Apellidos">
+            <ng-container *ngIf="validEdit('lastname')">
+                <p class="error">{{ errorMessage('lastname') }}</p>
+            </ng-container>
+        </div>
         <button type="submit">Actualizar</button>
     </form>
+
     <form class="pwd" [formGroup]="pwdForm" (ngSubmit)="changePassword()">
         <h4>Cambiar contraseña</h4>
-        <input type="password" formControlName="password" placeholder="Contraseña">
-        <input type="password" formControlName="passwordRep" placeholder="Repite la contraseña">
+        <div class="form-field">
+            <input type="password" formControlName="password" placeholder="Contraseña">
+            <ng-container *ngIf="validPassword('password')">
+                <p class="error">{{ errorMessage('password') }}</p>
+            </ng-container>
+        </div>
+        <div class="form-field">
+            <input type="password" formControlName="passwordRep" placeholder="Repite la contraseña">
+            <ng-container *ngIf="validPassword('passwordRep')">
+                <p class="error">{{ errorMessage('passwordRep') }}</p>
+            </ng-container>
+        </div>
         <button type="submit">Cambiar</button>
     </form>
 </main>

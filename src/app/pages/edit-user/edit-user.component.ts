@@ -7,6 +7,7 @@ import { ProfilePhotosService } from 'src/app/services/profile-photos.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from '@angular/fire/auth';
 import { UserService } from 'src/app/services/user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-edit-user',
@@ -21,9 +22,6 @@ export class EditUserComponent implements OnInit {
   user!: User | null
 
   userId!: string | undefined
-  name!: string | undefined
-  lastName!: string | undefined
-  email!: string | undefined
   
   profilePhotos!: any[]
   selectedPhoto!: string | undefined
@@ -44,8 +42,8 @@ export class EditUserComponent implements OnInit {
     this.getProfilePhotos()
 
     this.editForm = this.fb.group({
-      name: ['', []],
-      lastname: ['', []],
+      name: ['', [Validators.required]],
+      lastname: ['', [Validators.required]],
     })
 
     this.pwdForm = this.fbPwd.group({
@@ -66,43 +64,105 @@ export class EditUserComponent implements OnInit {
     })
   }
 
-  openPhotoSelection() {
+  public openPhotoSelection() {
     this.photoSelectionOpen = !this.photoSelectionOpen
   }
   
-  selectProfilePhoto(image: string) {
+  public selectProfilePhoto(image: string) {
     this.selectedPhoto = image
     this.photoSelectionOpen = false
   }
 
-  edit() {
-    const name = this.editForm.get('name')?.value
-    const lastname = this.editForm.get('lastname')?.value
-    const photo = this.selectedPhoto || ''
+  public edit() {
+    if (this.editForm.valid) {
+      const name = this.editForm.get('name')?.value
+      const lastname = this.editForm.get('lastname')?.value
+      const photo = this.selectedPhoto || ''
+  
+      if (this.userLoggedIn && this.userId) {
+        this.authService.editUser(name, lastname, photo)
+      }
 
-    if (this.userLoggedIn && this.userId) {
-      this.authService.editUser(name, lastname, photo)
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'El formulario no es válido',
+      })
     }
   }
 
-  changePassword() {
-    const password = this.pwdForm.get('password')?.value
-    const passwordRep = this.pwdForm.get('passwordRep')?.value
+  public changePassword() {
+    if (this.pwdForm.valid) {
+      const password = this.pwdForm.get('password')?.value
+      const passwordRep = this.pwdForm.get('passwordRep')?.value
+  
+      if (this.userLoggedIn && this.userId) {
+        this.authService.changePassword(password, passwordRep)
+      }
 
-    if (this.userLoggedIn && this.userId) {
-      this.authService.changePassword(password, passwordRep)
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'El formulario no es válido',
+      })
     }
+  }
+
+  public validEdit(info: string) {
+    return this.editForm.get(info)?.invalid && (this.editForm.get(info)?.dirty || this.editForm.get(info)?.touched)
+  }
+
+  public validPassword(info: string) {
+    return this.pwdForm.get(info)?.invalid && (this.pwdForm.get(info)?.dirty || this.pwdForm.get(info)?.touched)
+  }
+
+  public errorMessage(info: string) {
+    let error: string = ''
+
+    if (info === 'name') {
+      if (this.editForm.get(info)?.errors?.['required']) {
+        error = 'Introduce tu nombre'
+      }
+
+    } else if (info === 'lastname') {
+      if (this.editForm.get(info)?.errors?.['required']) {
+        error = 'Introduce tus apellidos'
+      }
+
+    } else if (info === 'password') {
+      if (this.pwdForm.get(info)?.errors?.['required']) {
+        error = 'Introduce una contraseña'
+      }
+      else if (this.pwdForm.get(info)?.errors?.['minlength']) {
+        error = 'La contraseña debe tener al menos 8 caracteres'
+      }
+
+    } else if (info === 'passwordRep') {
+      if (this.pwdForm.get(info)?.errors?.['required']) {
+        error = 'Repite la contraseña'
+      }
+      else if (this.pwdForm.get(info)?.errors?.['minlength']) {
+        error = 'La contraseña debe tener al menos 8 caracteres'
+      }
+
+    }
+
+    return error
   }
 
   private async getUserData() {
     if (this.userId) {
       const user = await this.userService.getUserById(this.userId)
 
-      const { name, lastname, email, photo } = user
+      const { name, lastname, photo } = user
 
-      this.name = name
-      this.lastName = lastname
-      this.email = email
+      this.editForm.patchValue({
+        name: name,
+        lastname: lastname
+      })
+
       this.selectedPhoto = photo
     }
   }
