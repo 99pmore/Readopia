@@ -25,7 +25,6 @@ export class AuthService {
     return new Observable((observer) => {
       const unsubscribe = onAuthStateChanged(this.auth, (user) => {
         observer.next(user)
-        
       }, (error) => {
         Swal.fire({
           icon: 'error',
@@ -142,6 +141,7 @@ export class AuthService {
         updatePassword(user, password)
         .then(() => {
           Swal.fire({
+            toast: true,
             position: 'top-end',
             icon: 'success',
             title: 'Contraseña actualizada',
