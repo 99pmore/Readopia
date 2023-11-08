@@ -57,20 +57,18 @@ export class ReviewsService {
         return acc + (review.rating || 0)
       }, 0)
   
-      if (apiRating && apiRatingCount) {
-        const totalRatingCount = reviews.length + apiRatingCount
-        const rating = (reviewsRatingSum + (apiRating * apiRatingCount)) / totalRatingCount
-        return rating
-      }
+      const totalRatingCount = reviews.length + (apiRatingCount || 0)
+      const rating = (reviewsRatingSum + ((apiRating || 0) * (apiRatingCount || 0))) / totalRatingCount
+      return rating
     }
 
     return 0
   }
 
   public async getTotalRatingsCount(bookId: string | undefined, apiRatingCount: number | undefined) {
-    if (bookId && apiRatingCount) {
+    if (bookId) {
       const reviews = await this.getReviews(bookId)
-      const totalRatingCount = reviews.length + apiRatingCount
+      const totalRatingCount = reviews.length + (apiRatingCount || 0)
       return totalRatingCount
     }
 
