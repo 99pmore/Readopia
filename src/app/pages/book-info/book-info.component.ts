@@ -66,6 +66,11 @@ export class BookInfoComponent implements OnInit {
 
       if (this.userLoggedIn) {
         this.getBookState()
+
+        this.reviewsService.updatedReviews$.subscribe(async () => {
+          this.rating = await this.reviewsService.getTotalRating(this.book.id, this.book.volumeInfo?.averageRating, this.book.volumeInfo?.ratingsCount);
+          this.count = await this.reviewsService.getTotalRatingsCount(this.book.id, this.book.volumeInfo?.ratingsCount);
+        })
       }
     })
   }
