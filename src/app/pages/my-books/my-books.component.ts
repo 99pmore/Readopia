@@ -11,6 +11,7 @@ import { User } from '@angular/fire/auth';
 import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Subscription } from 'rxjs';
+import { ReviewsService } from 'src/app/services/reviews.service';
 
 @Component({
     selector: 'app-my-books',
@@ -21,13 +22,12 @@ import { Subscription } from 'rxjs';
 })
 export class MyBooksComponent implements OnInit {
 
-  userLoggedIn: boolean = false
-  user!: User | null
+  public userLoggedIn: boolean = false
   
-  readBooks: BookDB[] = []
-  readingBooks: BookDB[] = []
-  wishBooks: BookDB[] = []
-  allBooks: BookDB[] = []
+  public readBooks: BookDB[] = []
+  public readingBooks: BookDB[] = []
+  public wishBooks: BookDB[] = []
+  public allBooks: BookDB[] = []
 
   public selectedOption: string = 'all'
 
@@ -41,7 +41,6 @@ export class MyBooksComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.authChanges().subscribe((user) => {
-      this.user = user
       this.userLoggedIn = !!user
 
       if (this.userLoggedIn) {
@@ -65,7 +64,7 @@ export class MyBooksComponent implements OnInit {
     }
   }
 
-  async getUserBooks() {
+  private async getUserBooks() {
     try {
       this.readBooks = await this.bookDBService.getUserBooks('readBooks')
       this.readingBooks = await this.bookDBService.getUserBooks('readingBooks')

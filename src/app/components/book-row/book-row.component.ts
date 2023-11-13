@@ -8,6 +8,7 @@ import { BookDbService } from 'src/app/services/book-db.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faEdit } from '@fortawesome/free-regular-svg-icons';
 import Swal from 'sweetalert2';
+import { ReviewsService } from 'src/app/services/reviews.service';
 
 @Component({
     selector: 'app-book-row',
@@ -20,20 +21,24 @@ export class BookRowComponent implements OnInit {
   
   @Input() book!: BookDB
 
-  allBooks: BookDB[] = []
+  private allBooks: BookDB[] = []
   public option: string = ''
+  public count!: number
+  public rating!: number
 
-  faEdit = faEdit
+  public faEdit = faEdit
 
   constructor(
-    private bookDBService: BookDbService
+    private bookDBService: BookDbService,
+    private reviewsService: ReviewsService,
   ) {}
 
-  async ngOnInit(): Promise<void> {
-    await this.getBookState()
+  ngOnInit(): void {
+    this.getBookState()
+    this.getRating()
   }
 
-  async deleteBook() {
+  public async deleteBook() {
     let bookList!: string
 
     this.allBooks = await this.bookDBService.getAllBooks()
@@ -78,7 +83,7 @@ export class BookRowComponent implements OnInit {
       } else {
         this.option = ''
       }
-  
+
     } catch (error) {
       Swal.fire({
         icon: 'error',
@@ -86,5 +91,10 @@ export class BookRowComponent implements OnInit {
         text: `${error}`,
       })
     }
+  }
+
+  private async getRating() {
+    this.rating = await this.reviewsService.getTotalRating(this.book.id, this.book.rating, this.book.ratingCount)
+    this.count = await this.reviewsService.getTotalRatingsCount(this.book.id, this.book.ratingCount)
   }
 }

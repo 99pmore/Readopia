@@ -8,8 +8,8 @@
             <p *ngFor="let author of book.authors">{{ author }}</p>
         </div>
         <div class="rate">
-            <app-rating [rating]="book.rating || 0"></app-rating>
-            <span>( {{ book.ratingCount || 0 }} )</span>
+            <app-rating [rating]="rating || 0"></app-rating>
+            <span>( {{ count || 0 }} )</span>
         </div>
         <div class="description">
             <p [innerHTML]="book.description"></p>
