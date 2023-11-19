@@ -1,4 +1,4 @@
-@import '../../../mixins.scss';
+@import '../../../mixins';
 
 .row {
     border-bottom: 1px solid #000;
@@ -16,8 +16,6 @@
         }
 
         .rate {
-            min-width: 90px;
-
             display: flex;
             align-items: flex-end;
             flex-direction: column;
@@ -27,7 +25,7 @@
         .description {
             overflow: auto;
 
-            min-width: 90px;
+            min-width: 80px;
             width: 100%;
             height: 120px;
 
