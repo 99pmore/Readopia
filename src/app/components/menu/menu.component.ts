@@ -1,31 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
-import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
-import { User } from '@angular/fire/auth';
+import { faArrowRightFromBracket, faBars, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgIf } from '@angular/common';
 import { UserService } from 'src/app/services/user.service';
 import { Subscription } from 'rxjs';
+import { NgClass } from '@angular/common';
 
 @Component({
     selector: 'app-menu',
     templateUrl: './menu.component.html',
     styleUrls: ['./menu.component.scss'],
     standalone: true,
-    imports: [RouterLink, NgIf, FontAwesomeModule]
+    imports: [RouterLink, NgIf, FontAwesomeModule, NgClass]
 })
 export class MenuComponent implements OnInit {
 
-  userLoggedIn: boolean = false
-  user!: User | null
-  id!: string | undefined
-  name!: string | null | undefined
-  photo!: string | null | undefined
+  public userLoggedIn: boolean = false
+  public id!: string | undefined
+  public name!: string | null | undefined
+  public photo!: string | null | undefined
 
-  userSubscription!: Subscription
+  public showMobileMenu: boolean = false
 
-  faLogout = faArrowRightFromBracket
+  private userSubscription!: Subscription
+
+  public faLogout = faArrowRightFromBracket
+  public faBars = faBars
 
   constructor(
     private authService: AuthService,
@@ -53,6 +55,10 @@ export class MenuComponent implements OnInit {
     if (this.userSubscription) {
       this.userSubscription.unsubscribe()
     }
+  }
+
+  public toggleMobileMenu() {
+    this.showMobileMenu = !this.showMobileMenu
   }
 
   public logout() {

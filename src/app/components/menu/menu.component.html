@@ -1,5 +1,35 @@
-<header class="container">
-        
+<header class="mobile-menu">
+    <fa-icon class="burger" [icon]="faBars" (click)="toggleMobileMenu()"></fa-icon>
+    <nav *ngIf="showMobileMenu">
+        <div class="logo" routerLink="/">
+            <img src="../../../assets/images/logo.svg" alt="Logo">
+        </div>
+
+        <ul class="links">
+            <li>
+                <a routerLink="/">Inicio</a>
+            </li>
+            <li>
+                <a routerLink="/search">Buscar</a>
+            </li>
+            <li>
+                <a routerLink="/mybooks">Mis libros</a>
+            </li>
+            <li>
+                <a [routerLink]="['/profile', id]">Perfil</a>
+            </li>
+        </ul>
+
+        <div class="user" *ngIf="userLoggedIn">
+            <img [src]="photo || '../../../assets/images/profile.webp'" [routerLink]="['/profile', id]" alt="Foto de perfil" title="Ver perfil">
+            <p>Hola, {{ name }}</p>
+            <button title="Cerrar sesión" (click)="logout()"><fa-icon [icon]="faLogout"></fa-icon></button>
+        </div>
+    </nav>
+    <div class="bg" *ngIf="showMobileMenu" (click)="toggleMobileMenu()"></div>
+</header>
+
+<header class="pc-menu">
     <nav class="left">
         <ul class="links">
             <li>
@@ -30,5 +60,4 @@
             <button title="Cerrar sesión" (click)="logout()"><fa-icon [icon]="faLogout"></fa-icon></button>
         </div>
     </nav>
-
 </header>
