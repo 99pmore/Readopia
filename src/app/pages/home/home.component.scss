@@ -6,8 +6,6 @@ main {
     display: flex;
     flex-direction: column;
     gap: 60px;
-    
-    position: relative;
 
     .lists {
         display: flex;
@@ -22,18 +20,14 @@ main {
                 justify-content: space-between;
     
                 h2 {
+                    font-size: 1.15rem;
                     padding-bottom: 20px;
                 }
     
                 a {
+                    font-size: 0.9rem;
                     text-decoration: none;
                     color: #222;
-    
-                    transition: all 0.2s;
-    
-                    &:hover {
-                        transform: scale(1.1);
-                    }
                 }
             }
     
@@ -42,10 +36,39 @@ main {
                 box-shadow: inset -10px 0 10px -12px rgba($color: #000, $alpha: 0.2), inset 10px 0 10px -12px rgba($color: #000, $alpha: 0.2);
                 border-radius: 6px;
     
-                padding: 35px 20px;
+                padding: 20px;
         
                 display: flex;
                 gap: 50px;
+            }
+        }
+    }
+}
+
+@media (width >= 480px) {
+    main {
+        .lists {
+            .books {
+                .books-list-header {
+        
+                    h2 {
+                        font-size: 1.5rem;
+                    }
+        
+                    a {
+                        font-size: 1rem;
+        
+                        transition: all 0.2s;
+        
+                        &:hover {
+                            transform: scale(1.1);
+                        }
+                    }
+                }
+        
+                .books-list {       
+                    padding: 35px 20px;
+                }
             }
         }
     }
