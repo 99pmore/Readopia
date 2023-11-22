@@ -1,19 +1,14 @@
 @import '../../../mixins';
 
 main {
-    padding: 5% 10%;
-    margin-top: 90px;
+    padding: 5%;
+    margin-top: 40px;
 
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: 30px;
 
     .searchbar-container {
-        width: 100%;
-        
-        display: flex;
-        justify-content: center;
-
         form {
             width: 100%;
 
@@ -32,10 +27,9 @@ main {
                 
                 transition: all 0.3s ease-in-out;
                 
-                // &:focus {
-                    //     box-shadow: 0 0 10px rgba($color: #000, $alpha: 0.25);
-                    //     width: 75%;
-                    // }
+                &:focus {
+                    box-shadow: 0 0 20px rgba($color: #000, $alpha: 0.1);
+                }
             }
                 
             button {
@@ -67,7 +61,30 @@ main {
 
     .books {
         display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        grid-gap: 20px;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        grid-gap: 15px;
+    }
+}
+
+@media (width >= 480px) {
+    main {
+        padding: 5% 10%;
+        margin-top: 90px;
+
+        .searchbar-container {
+            form {
+                input[type=search] {  
+                    &:focus {
+                        width: 50%;
+                    }
+                }
+            }
+        }
+    
+        .books {
+            // grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
     }
 }
