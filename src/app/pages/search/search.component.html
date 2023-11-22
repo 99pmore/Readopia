@@ -10,7 +10,7 @@
         </form>
     </section>
 
-    <p *ngIf="search">Resultados para: {{ search }}</p>
+    <p *ngIf="search && books">Resultados para: {{ search }}</p>
     
     <section class="books">
         <app-book-card *ngFor="let book of books" [book]="book"></app-book-card>
