@@ -80,16 +80,6 @@
 			transform: rotate3d(0, 1, 0, 90deg);
 		}
 	  
-		.book-card__info {
-			display: flex;
-			flex-direction: column;
-			gap: 10px;
-		  
-			h4 {
-				color: #888;
-			}
-		}
-	  
 		&:hover {
 			.book-card__book{
 				transform: rotate3d(0, -1, 0, 30deg) translate(-15px, -25px);
