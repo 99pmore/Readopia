@@ -1,91 +1,128 @@
 .book-card {
 	cursor: pointer;
 
-    width: 200px;
+    width: 150px;
+	aspect-ratio: 2/3;
 
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
-  
-    .book-card__cover {
-		height: 300px;
-		aspect-ratio: 2/3;
-		
-		position: relative;
-		perspective: 1000px;
-		
-		.book-card__book {
-			height: 100%;
 
-			transform-style: preserve-3d;
-			transition: all 250ms ease;
+	.book-card__cover {
+		width: 100%;
+		height: 100%;
+
+		.book-card__book {
+			width: 100%;
+			height: 100%;
 
 			.book-card__book-front {
 				height: 100%;
 				width: 100%;
 
-				position: absolute;
-
 				.book-card__img {
-					background-color: #e1e1e1;
-
 					height: 100%;
 					width: 100%;
 
 					object-fit: cover;
 					object-position: center;
 				}
-		  	}
+			  }
 		}
-    }
-	
-	.book-card__book-back {
-		height: 100%;
-		width: 100%;
-
-		position: absolute;
-		top: 0;
-
-		transform: translateZ(-40px);
 	}
 
-	.book-card__book-side {
-		background-image: linear-gradient(to right, #ccc 35%, #e1e1e1 35%);
-		background-color: #e1e1e1;
-		background-size: 5px;
-		opacity: 0;
-
-		width: 40px;
-
-		position: absolute;
-		top: 4px;
-		bottom: 3px;
-		right: -29px;
-		
-		transform: rotate3d(0, 1, 0, 90deg);
-	}
-  
 	.book-card__info {
 		display: flex;
 		flex-direction: column;
-		gap: 10px;
+		gap: 6px;
 	  
+		h3 {
+			font-size: 1rem;
+		}
+
 		h4 {
+			font-size: 0.85rem;
 			color: #888;
 		}
 	}
-  
-    &:hover {
-		.book-card__book{
-			transform: rotate3d(0, -1, 0, 30deg) translate(-15px, -25px);
+}
+
+@media (width >= 480px) {
+	.book-card {
+		width: 200px;
+		aspect-ratio: 2/3;
+	  
+		.book-card__cover {	
+			position: relative;
+			perspective: 1000px;
+			
+			.book-card__book {
+				transform-style: preserve-3d;
+				transition: all 250ms ease;
+	
+				.book-card__book-front {
+					position: absolute;
+	
+					.book-card__img {
+						background-color: #e1e1e1;
+	
+						object-fit: cover;
+						object-position: center;
+					}
+				  }
+			}
 		}
-      
+		
 		.book-card__book-back {
-			box-shadow: 5px 10px 15px rgba($color: #000, $alpha: 0.25);
+			height: 100%;
+			width: 100%;
+	
+			position: absolute;
+			top: 0;
+	
+			transform: translateZ(-40px);
 		}
-      
+	
 		.book-card__book-side {
-			opacity: 1;
+			background-image: linear-gradient(to right, #ccc 35%, #e1e1e1 35%);
+			background-color: #e1e1e1;
+			background-size: 5px;
+			opacity: 0;
+	
+			width: 40px;
+	
+			position: absolute;
+			top: 4px;
+			bottom: 3px;
+			right: -29px;
+			
+			transform: rotate3d(0, 1, 0, 90deg);
 		}
-    }
+	  
+		.book-card__info {
+			gap: 10px;
+		  
+			h3 {
+				font-size: 1.15rem;
+			}
+
+			h4 {
+				font-size: 1rem;
+			}
+		}
+	  
+		&:hover {
+			.book-card__book{
+				transform: rotate3d(0, -1, 0, 30deg) translate(-15px, -25px);
+			}
+		  
+			.book-card__book-back {
+				box-shadow: 5px 10px 15px rgba($color: #000, $alpha: 0.25);
+			}
+		  
+			.book-card__book-side {
+				opacity: 1;
+			}
+		}
+	}
 }
