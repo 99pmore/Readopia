@@ -1,4 +1,4 @@
-@import '../../../variables';
+@import '../../../mixins';
 
 main {
     margin-top: 90px;
@@ -21,8 +21,13 @@ main {
             gap: 40px;
     
             .cover {
-                height: 400px;
+                height: 100%;
                 aspect-ratio: 2/3;
+
+                display: flex;
+                align-content: space-between;
+                flex-direction: column;
+                gap: 30px;
                 
                 position: relative;
                 perspective: 1000px;
@@ -64,6 +69,45 @@ main {
                         opacity: 1;
                     }
                 }
+
+                .actions {
+                    width: 266.66px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: flex-end;
+            
+                    form {
+                        width: 100%;
+            
+                        display: flex;
+                        align-items: flex-end;
+                        gap: 20px;
+            
+                        .select {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 10px;
+            
+                            select {
+                                box-shadow: 0 0 10px rgba($color: #000, $alpha: 0.2);
+                                border-radius: 5px;
+                                border: none;
+                                outline: none;
+                                
+                                padding: 10px;
+                            }
+                        }
+            
+                        button {
+                            @include invertColorBtn($main);
+                            width: 70px;
+                        }
+                    }
+            
+                    button {
+                        @include invertColorBtn(#ff4646);
+                    }
+                }
             }
     
             .book-card__book-back {
@@ -103,6 +147,15 @@ main {
                     display: flex;
                     flex-direction: column;
                     gap: 20px;
+
+                    .authors {
+                        display: flex;
+                        gap: 5px;
+
+                        .comma:not(:last-child)::after {
+                            content: ',';
+                        }
+                    }
         
                     .rating {
                         display: flex;
@@ -116,89 +169,12 @@ main {
                     gap: 15px;
         
                     .description {
-                        height: 176px;
-                        // height: 507px;
+                        height: 275px;
                         overflow: auto;
                     }
                 }
             }
         }
-    
-        .actions {
-            width: 266.66px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-    
-            form {
-                width: 100%;
-    
-                display: flex;
-                align-items: flex-end;
-                gap: 20px;
-    
-                .select {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 10px;
-    
-                    select {
-                        box-shadow: 0 0 10px rgba($color: #000, $alpha: 0.2);
-                        border-radius: 5px;
-                        border: none;
-                        outline: none;
-                        
-                        padding: 10px;
-                    }
-                }
-    
-                button {
-                    cursor: pointer;
-                    background-color: transparent;
-                    color: $main;
-                    border: 1px solid $main;
-                    border-radius: 5px;
-                    box-shadow: 0 0 10px rgba($color: #000, $alpha: 0.2);
-            
-                    width: 70px;
-                    padding: 10px;
-        
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-            
-                    transition: transform 0.3s;
-            
-                    &:hover {
-                        background-color: $main;
-                        color: #fff;
-                    }
-                }
-            }
-    
-            button {
-                cursor: pointer;
-                background-color: transparent;
-                color: rgba($color: #ff4646, $alpha: 0.75);
-                border: 1px solid rgba($color: #ff4646, $alpha: 0.75);
-                border-radius: 5px;
-                box-shadow: 0 0 10px rgba($color: #000, $alpha: 0.2);
-    
-                padding: 10px;
-    
-                display: flex;
-                justify-content: center;
-                align-items: center;
-        
-                transition: transform 0.3s;
-        
-                &:hover {
-                    background-color: rgba($color: #ff4646, $alpha: 0.85);
-                    color: #fff;
-                }
-            }
-        }
-          
     }
 
     .reviews-section {
@@ -213,14 +189,7 @@ main {
             gap: 30px;
 
             .toggle-button {
-                cursor: pointer;
-                background-color: transparent;
-                color: $main;
-                border: 1px solid $main;
-                border-radius: 5px;
-                box-shadow: 0 0 10px rgba($color: #000, $alpha: 0.2);
-    
-                padding: 10px;
+                @include invertColorBtn($main);
                 width: 100px;
             }
 
@@ -235,4 +204,7 @@ main {
             }
         }
     }
+}
+
+@media (width >= 480px) {    
 }
