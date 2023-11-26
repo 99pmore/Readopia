@@ -6,7 +6,7 @@ import { BookDbService } from 'src/app/services/book-db.service';
 import { BookService } from 'src/app/services/book.service';
 import { FormsModule } from '@angular/forms';
 import { RatingComponent } from '../../components/rating/rating.component';
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor, NgIf, NgClass } from '@angular/common';
 import { MenuComponent } from '../../components/menu/menu.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -22,7 +22,7 @@ import { TwoDecimalsPipe } from 'src/app/pipes/two-decimals.pipe';
     templateUrl: './book-info.component.html',
     styleUrls: ['./book-info.component.scss'],
     standalone: true,
-    imports: [MenuComponent, NgFor, NgIf, RatingComponent, FormsModule, FontAwesomeModule, ReviewComponent, AddReviewComponent, TwoDecimalsPipe]
+    imports: [MenuComponent, NgFor, NgIf, NgClass, RatingComponent, FormsModule, FontAwesomeModule, ReviewComponent, AddReviewComponent, TwoDecimalsPipe]
 })
 export class BookInfoComponent implements OnInit {
 
@@ -42,6 +42,7 @@ export class BookInfoComponent implements OnInit {
   public option: string = ''
 
   public hasBook = this.bookDBService.hasBook
+  public moreThanOneAuthor!: boolean
 
   public faTrash = faTrash
 
@@ -74,6 +75,11 @@ export class BookInfoComponent implements OnInit {
         })
       }
     })
+  }
+
+  public toggleForm() {
+    this.formVisible = !this.formVisible
+    this.buttonText = this.formVisible ? 'Cerrar' : 'Crear reseña'
   }
 
   public async deleteBook() {
@@ -138,6 +144,8 @@ export class BookInfoComponent implements OnInit {
 
       this.rating = await this.reviewsService.getTotalRating(this.book.id, this.book.volumeInfo?.averageRating, this.book.volumeInfo?.ratingsCount)
       this.count = await this.reviewsService.getTotalRatingsCount(this.book.id, this.book.volumeInfo?.ratingsCount)
+
+      this.moreThanOneAuthor = this.book.volumeInfo?.authors ? this.book.volumeInfo?.authors.length > 1 : false
     })
   }
 
@@ -190,10 +198,4 @@ export class BookInfoComponent implements OnInit {
 
     return bookDB
   }
-
-  toggleForm() {
-    this.formVisible = !this.formVisible
-    this.buttonText = this.formVisible ? 'Cerrar' : 'Crear reseña'
-  }
-
 }
