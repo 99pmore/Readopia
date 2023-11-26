@@ -34,3 +34,25 @@
         background-color: rgba($color: $bg-color, $alpha: 0.75);
     }
 }
+
+@mixin invertColorBtn($color) {
+    cursor: pointer;
+    background-color: transparent;
+    color: $color;
+    border: 1px solid $color;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba($color: #000, $alpha: 0.2);
+
+    padding: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: transform 0.3s;
+
+    &:hover {
+        background-color: $color;
+        color: #fff;
+    }
+}
