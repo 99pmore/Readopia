@@ -1,47 +1,32 @@
 <main>
-    <section class="info">
-        <div class="book">
-            <div class="cover">
-                <div class="book-card__book">
-                    <div class="book-card__book-front">
-                        <img class="book-card__img" [src]="book.volumeInfo?.imageLinks?.thumbnail || '../../../assets/images/sin-imagen.webp'" [alt]="book.volumeInfo?.title + ' cover'">
-                    </div>
-                    <div class="book-card__book-back"></div>
-                    <div class="book-card__book-side"></div>
+    <section class="book">
+        <div class="cover">
+            <div class="book-card__book">
+                <div class="book-card__book-front">
+                    <img class="book-card__img" [src]="book.volumeInfo?.imageLinks?.thumbnail || '../../../assets/images/sin-imagen.webp'" [alt]="book.volumeInfo?.title + ' cover'">
                 </div>
-                <div class="actions">
-                    <form action="" (ngSubmit)="addBookToList()">
-                        <div class="select">
-                            <label for="bookState">Marcar como:</label>
-                            <select [(ngModel)]="selected" name="bookState">
-                                <option value="reading" [selected]="option === 'reading'">Leyendo</option>
-                                <option value="read" [selected]="option === 'read'">Leído</option>
-                                <option value="wish" [selected]="option === 'wish'">Quiero leer</option>
-                            </select>
-                        </div>
-                        <button type="submit">Aceptar</button>
-                    </form>
-                    <button *ngIf="hasBook()" (click)="deleteBook()" title="Eliminar de la lista"><fa-icon [icon]="faTrash"></fa-icon></button>
+                <div class="book-card__book-back"></div>
+                <div class="book-card__book-side"></div>
+            </div>
+            <app-state-selector [book]="book"></app-state-selector>
+        </div>
+        <div class="info">
+            <div class="main-info">
+                <h2>{{ book.volumeInfo?.title }}</h2>
+
+                <div class="authors">
+                    <h3 *ngFor="let author of book.volumeInfo?.authors" [ngClass]="{ 'comma': moreThanOneAuthor }">{{ author }}</h3>
+                </div>
+    
+                <div class="rating">
+                    <app-rating [rating]="rating | twoDecimals"></app-rating>
+                    <span>( {{ count }} )</span>
                 </div>
             </div>
-            <div class="info">
-                <div class="main-info">
-                    <h2>{{ book.volumeInfo?.title }}</h2>
-
-                    <div class="authors">
-                        <h3 *ngFor="let author of book.volumeInfo?.authors" [ngClass]="{ 'comma': moreThanOneAuthor }">{{ author }}</h3>
-                    </div>
-        
-                    <div class="rating">
-                        <app-rating [rating]="rating | twoDecimals"></app-rating>
-                        <span>( {{ count }} )</span>
-                    </div>
-                </div>
-                <div class="sec-info">
-                    <p>Páginas: {{ book.volumeInfo?.pageCount }}</p>
-                    <p>Publicación: {{ book.volumeInfo?.publishedDate }}</p>
-                    <p class="description" [innerHTML]="book.volumeInfo?.description"></p>
-                </div>
+            <div class="sec-info">
+                <p>Páginas: {{ book.volumeInfo?.pageCount }}</p>
+                <p>Publicación: {{ book.volumeInfo?.publishedDate }}</p>
+                <p class="description" [innerHTML]="book.volumeInfo?.description"></p>
             </div>
         </div>
     </section>
