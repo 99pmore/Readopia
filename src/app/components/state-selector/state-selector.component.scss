@@ -1,0 +1,40 @@
+@import '../../../mixins';
+
+.actions {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    form {
+        width: 100%;
+
+        display: flex;
+        align-items: flex-end;
+        gap: 20px;
+
+        .select {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            select {
+                box-shadow: 0 0 10px rgba($color: #000, $alpha: 0.2);
+                border-radius: 5px;
+                border: none;
+                outline: none;
+                
+                padding: 10px;
+            }
+        }
+
+        button {
+            @include invertColorBtn($main);
+            width: 70px;
+        }
+    }
+
+    button {
+        @include invertColorBtn(#ff4646);
+    }
+}

@@ -1,0 +1,14 @@
+<div class="actions">
+    <form action="" (ngSubmit)="addBookToList()">
+        <div class="select">
+            <label for="bookState">Marcar como:</label>
+            <select [(ngModel)]="selected" name="bookState">
+                <option value="reading" [selected]="option === 'reading'">Leyendo</option>
+                <option value="read" [selected]="option === 'read'">Leído</option>
+                <option value="wish" [selected]="option === 'wish'">Quiero leer</option>
+            </select>
+        </div>
+        <button type="submit">Aceptar</button>
+    </form>
+    <button *ngIf="hasBook()" (click)="deleteBook()" title="Eliminar de la lista"><fa-icon [icon]="faTrash"></fa-icon></button>
+</div>
