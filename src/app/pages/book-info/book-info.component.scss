@@ -1,177 +1,89 @@
 @import '../../../mixins';
 
 main {
-    margin-top: 90px;
-    padding: 5% 10%;
+    margin-top: 40px;
+    padding: 5%;
 
     display: flex;
     flex-direction: column;
     gap: 60px;
 
-    .info {
+    .book {
         display: flex;
         flex-direction: column;
+        align-content: space-between;
         gap: 40px;
+
+        .cover {
+            width: 100%;
+
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            .book-card__book {
+                width: 180px;
+                height: 100%;
+
+                align-self: center;
     
-        .book {
+                .book-card__book-front {
+                    height: 100%;
+                    width: 100%;
+    
+                    .book-card__img {
+                        background-color: #e1e1e1;
+    
+                        height: 100%;
+                        width: 100%;
+    
+                        object-fit: cover;
+                        object-position: center;
+                    }
+                }
+            }
+        }
+
+        .info {
             width: 100%;
     
             display: flex;
+            flex-direction: column;
             justify-content: space-between;
-            gap: 40px;
-    
-            .cover {
-                height: 100%;
-                aspect-ratio: 2/3;
-
-                display: flex;
-                align-content: space-between;
-                flex-direction: column;
-                gap: 30px;
-                
-                position: relative;
-                perspective: 1000px;
-    
-                .book-card__book {
-                    height: 100%;
-        
-                    transform-style: preserve-3d;
-                    transition: all 250ms ease;
-        
-                    .book-card__book-front {
-                        height: 100%;
-                        width: 100%;
-        
-                        position: absolute;
-        
-                        .book-card__img {
-                            background-color: #e1e1e1;
-        
-                            height: 100%;
-                            width: 100%;
-        
-                            object-fit: cover;
-                            object-position: center;
-                        }
-                    }
-                }
-    
-                &:hover {
-                    .book-card__book{
-                        transform: rotate3d(0, -1, 0, 30deg) translate(-15px, -25px);
-                    }
-                  
-                    .book-card__book-back {
-                        box-shadow: 5px 10px 15px rgba($color: #000, $alpha: 0.25);
-                    }
-                  
-                    .book-card__book-side {
-                        opacity: 1;
-                    }
-                }
-
-                .actions {
-                    width: 266.66px;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: flex-end;
+            gap: 20px;
             
-                    form {
-                        width: 100%;
-            
-                        display: flex;
-                        align-items: flex-end;
-                        gap: 20px;
-            
-                        .select {
-                            display: flex;
-                            flex-direction: column;
-                            gap: 10px;
-            
-                            select {
-                                box-shadow: 0 0 10px rgba($color: #000, $alpha: 0.2);
-                                border-radius: 5px;
-                                border: none;
-                                outline: none;
-                                
-                                padding: 10px;
-                            }
-                        }
-            
-                        button {
-                            @include invertColorBtn($main);
-                            width: 70px;
-                        }
-                    }
-            
-                    button {
-                        @include invertColorBtn(#ff4646);
-                    }
-                }
-            }
-    
-            .book-card__book-back {
-                height: 100%;
-                width: 100%;
-        
-                position: absolute;
-                top: 0;
-        
-                transform: translateZ(-40px);
-            }
-    
-            .book-card__book-side {
-                background-image: linear-gradient(to right, #ccc 35%, #e1e1e1 35%);
-                background-color: #e1e1e1;
-                background-size: 5px;
-                opacity: 0;
-        
-                width: 60px;
-        
-                position: absolute;
-                top: 7px;
-                bottom: 5px;
-                right: -42px;
-                
-                transform: rotate3d(0, 1, 0, 90deg);
-            }
-    
-            .info {
-                width: 75%;
-        
+            .main-info {
                 display: flex;
                 flex-direction: column;
-                gap: 40px;
-                
-                .main-info {
+                gap: 10px;
+
+                h2, .authors h3 {
+                    font-size: 1.1rem;
+                }
+
+                .authors {
                     display: flex;
-                    flex-direction: column;
-                    gap: 20px;
+                    gap: 5px;
 
-                    .authors {
-                        display: flex;
-                        gap: 5px;
-
-                        .comma:not(:last-child)::after {
-                            content: ',';
-                        }
-                    }
-        
-                    .rating {
-                        display: flex;
-                        gap: 10px;
+                    .comma:not(:last-child)::after {
+                        content: ',';
                     }
                 }
-                
-                .sec-info {
+    
+                .rating {
                     display: flex;
-                    flex-direction: column;
-                    gap: 15px;
-        
-                    .description {
-                        height: 275px;
-                        overflow: auto;
-                    }
+                    gap: 10px;
+                }
+            }
+            
+            .sec-info {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+    
+                .description {
+                    height: 280px;
+                    overflow: auto;
                 }
             }
         }
@@ -182,11 +94,15 @@ main {
         flex-direction: column;
         gap: 40px;
 
+        h2 {
+            font-size: 1.1rem;
+        }
+
         .reviews {
             display: flex;
             align-items: center;
             flex-direction: column;
-            gap: 30px;
+            gap: 20px;
 
             .toggle-button {
                 @include invertColorBtn($main);
@@ -200,11 +116,112 @@ main {
             .review {
                 display: flex;
                 flex-direction: column;
-                gap: 60px;
+                gap: 20px;
             }
         }
     }
 }
 
-@media (width >= 480px) {    
+@media (width >= 480px) {
+    main {
+        margin-top: 90px;
+        padding: 5% 10%;
+    
+        .book {
+            flex-direction: row;
+        
+            .cover {
+                width: 275px;
+                height: 100%;
+                aspect-ratio: 2/3;
+
+                align-content: space-between;
+                gap: 30px;
+                
+                position: relative;
+                perspective: 1000px;
+    
+                .book-card__book {
+                    width: 100%;
+        
+                    transform-style: preserve-3d;
+                    transition: all 220ms ease;
+        
+                    .book-card__book-front {
+                        position: absolute;
+                    }
+                }
+    
+                &:hover {
+                    .book-card__book{
+                        transform: rotate3d(0, -1, 0, 30deg) translate(-15px, -25px);
+                    }
+                    
+                    .book-card__book-back {
+                        box-shadow: 5px 10px 15px rgba($color: #000, $alpha: 0.25);
+                    }
+                    
+                    .book-card__book-side {
+                        opacity: 1;
+                    }
+                }
+            }
+    
+            .book-card__book-back {
+                height: 100%;
+                width: 100%;
+        
+                position: absolute;
+                top: 0;
+        
+                transform: translateZ(-52px);
+            }
+    
+            .book-card__book-side {
+                background-image: linear-gradient(to right, #ccc 35%, #e1e1e1 35%);
+                background-color: #e1e1e1;
+                background-size: 5px;
+                opacity: 0;
+        
+                width: 50px;
+        
+                position: absolute;
+                top: 8px;
+                bottom: 4px;
+                right: -36px;
+                
+                transform: rotate3d(0, 1, 0, 90deg);
+            }
+    
+            .info {
+                width: 75%;
+                
+                .main-info {
+                    gap: 20px;
+
+                    h2 {
+                        font-size: 1.5rem;
+                    }
+
+                    .authors h3 {
+                        font-size: 1.2rem;
+                    }
+                }
+            }
+        }
+    
+        .reviews-section {
+            h2 {
+                font-size: 1.5rem;
+            }
+    
+            .reviews {
+                gap: 30px;
+
+                .review {
+                    gap: 40px;
+                }
+            }
+        }
+    }
 }
