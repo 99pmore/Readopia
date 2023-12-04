@@ -1,8 +1,7 @@
-@import '../../../variables';
+@import '../../../mixins';
 
 form {
-    margin: auto;
-    width: 75%;
+    width: 100%;
 
     display: flex;
     flex-direction: column;
@@ -32,26 +31,15 @@ form {
     }
 
     button {
-        cursor: pointer;
-        background-color: transparent;
-        color: $main;
-        border: 1px solid $main;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba($color: #000, $alpha: 0.2);
-
-        width: 70px;
-        padding: 10px;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        @include invertColorBtn($main);
+        width: 100px;
         align-self: center;
+    }
+}
 
-        transition: transform 0.3s;
-
-        &:hover {
-            background-color: $main;
-            color: #fff;
-        }
+@media (width >= 480px) {
+    form {
+        margin: auto;
+        width: 80%;
     }
 }

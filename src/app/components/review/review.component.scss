@@ -1,38 +1,85 @@
-@import '../../../mixins.scss';
+@import '../../../mixins';
 
 .container {
     border-bottom: 1px solid rgba($color: $main, $alpha: 0.25);
-    margin: auto;
     padding: 20px 0;
-    width: 75%;
 
     display: flex;
+    justify-content: space-between;
+    flex-direction: column;
     gap: 20px;
 
     .user {
         cursor: pointer;
-        width: 150px;
 
         display: flex;
-        align-items: center;
         flex-direction: column;
         gap: 10px;
 
         img {
             border-radius: 50%;
-            width: 50px;
+            width: 35px;
+        }
+
+        p {
+            text-align: left;
         }
     }
 
     .review {
-        width: 100%;
-
         display: flex;
         flex-direction: column;
         gap: 10px;
+
+        .text {
+            max-height: 100px;
+            overflow: auto;
+        }
     }
 
-    button {
-        @include actionButton(#ff4646);
+    .delete {
+        button {
+            @include actionButton(#ff4646);
+        }
+    }
+}
+
+@media (width >= 480px) {
+    .container {
+        width: 80%;
+        flex-direction: row;
+    
+        .user {
+            cursor: pointer;
+            width: 150px;
+    
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            gap: 10px;
+    
+            img {
+                border-radius: 50%;
+                width: 50px;
+            }
+
+            p {
+                text-align: center;
+            }
+        }
+    
+        .review {
+            width: 100%;
+    
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+    
+        .delete {
+            button {
+                @include actionButton(#ff4646);
+            }
+        }
     }
 }
