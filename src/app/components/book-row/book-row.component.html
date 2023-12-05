@@ -1,11 +1,11 @@
 <div class="row">
     <div class="items">
-        <app-sm-cover [book]="book"></app-sm-cover>
+        <app-sm-cover class="cover" [book]="book"></app-sm-cover>
         <div class="title item">
             <h4>{{ book.title }}</h4>
         </div>
         <div class="author item">
-            <p *ngFor="let author of book.authors">{{ author }}</p>
+            <p *ngFor="let author of book.authors" [ngClass]="{ 'comma': moreThanOneAuthor }">{{ author }}</p>
         </div>
         <div class="rate">
             <app-rating [rating]="rating || 0"></app-rating>

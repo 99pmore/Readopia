@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { BookDB } from 'src/app/models/bookDB.interface';
 import { RatingComponent } from '../rating/rating.component';
 import { SmCoverComponent } from '../sm-cover/sm-cover.component';
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor, NgIf, NgClass } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { BookDbService } from 'src/app/services/book-db.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -15,16 +15,18 @@ import { ReviewsService } from 'src/app/services/reviews.service';
     templateUrl: './book-row.component.html',
     styleUrls: ['./book-row.component.scss'],
     standalone: true,
-    imports: [NgFor, NgIf, RatingComponent, SmCoverComponent, RouterLink, FontAwesomeModule]
+    imports: [NgFor, NgIf, NgClass, RatingComponent, SmCoverComponent, RouterLink, FontAwesomeModule]
 })
 export class BookRowComponent implements OnInit {
   
   @Input() book!: BookDB
 
-  private allBooks: BookDB[] = []
   public option: string = ''
   public count!: number
   public rating!: number
+  public moreThanOneAuthor!: boolean
+  
+  private allBooks: BookDB[] = []
 
   public faEdit = faEdit
 
@@ -36,6 +38,8 @@ export class BookRowComponent implements OnInit {
   ngOnInit(): void {
     this.getBookState()
     this.getRating()
+
+    this.moreThanOneAuthor = this.book.authors ? this.book.authors.length > 1 : false
   }
 
   public async deleteBook() {
