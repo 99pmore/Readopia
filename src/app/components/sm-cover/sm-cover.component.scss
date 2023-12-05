@@ -1,7 +1,7 @@
 .cover {
     .book-card__cover {
         cursor: pointer;
-        height: 150px;
+        height: 100px;
         aspect-ratio: 2/3;
         
         position: relative;
@@ -31,44 +31,12 @@
               }
         }
     }
-    
-    .book-card__book-back {
-        height: 100%;
-        width: 100%;
-    
-        position: absolute;
-        top: 0;
-    
-        transform: translateZ(-20px);
-    }
-    
-    .book-card__book-side {
-        background-image: linear-gradient(to right, #ccc 35%, #e1e1e1 35%);
-        background-color: #e1e1e1;
-        background-size: 5px;
-        opacity: 0;
-    
-        width: 20px;
-    
-        position: absolute;
-        top: 1px;
-        bottom: 1px;
-        right: -16px;
-        
-        transform: rotate3d(0, 1, 0, 90deg);
-    }
-    
-    &:hover {
-        .book-card__book{
-            transform: rotate3d(0, -1, 0, 30deg) translate(-10px, -10px);
-        }
-      
-        .book-card__book-back {
-            box-shadow: 5px 10px 15px rgba($color: #000, $alpha: 0.25);
-        }
-      
-        .book-card__book-side {
-            opacity: 1;
+}
+
+@media (width >= 480px) {
+    .cover {
+        .book-card__cover {
+            height: 150px;
         }
     }
 }

@@ -1,33 +1,50 @@
 @import '../../../mixins';
 
 .row {
-    border-bottom: 1px solid #000;
-    padding-bottom: 30px;
+    border-bottom: 1px solid rgba($color: $main, $alpha: 0.25);
+    padding-bottom: 20px;
+
+    & > * {
+        font-size: 14px;
+    }
 
     .items {
-        display: flex;
-        gap: 40px;
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+        grid-column-gap: 0px;
+        grid-row-gap: 10px;
+
+        .cover { grid-area: 1 / 1 / 4 / 2; }
+        .title { grid-area: 1 / 2 / 2 / 3; }
+        .author { grid-area: 2 / 2 / 3 / 3; }
+        .rate { grid-area: 3 / 2 / 4 / 3; }
+        .description { grid-area: 4 / 1 / 5 / 3; }
+        .actions { grid-area: 5 / 1 / 6 / 3; }
     
         transition: all 0.2s;
 
-        .item {
-            min-width: 80px;
-            max-width: 80px;
+        .author {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+
+            .comma:not(:last-child)::after {
+                content: ',';
+            }
         }
 
         .rate {
             display: flex;
-            align-items: flex-end;
-            flex-direction: column;
+            align-items: flex-start;
             gap: 5px;
         }
 
         .description {
+            font-size: 12px;
             overflow: auto;
 
-            min-width: 80px;
             width: 100%;
-            height: 120px;
+            height: 80px;
 
             &::-webkit-scrollbar {
                 background-color: transparent;
@@ -48,12 +65,10 @@
         }
 
         .actions {
-            min-width: 90px;
-
             display: flex;
             align-items: flex-end;
-            flex-direction: column;
-            gap: 20px;
+            justify-content: space-between;
+            gap: 5px;
 
             .state {
                 display: flex;
@@ -66,6 +81,49 @@
 
             button {
                 @include actionButton(#ff4646);
+            }
+        }
+    }
+}
+
+@media (width >= 480px) {
+    .row {
+        padding-bottom: 30px;
+
+        & > * {
+            font-size: 1rem;
+        }
+
+        .items {
+            display: flex;
+            gap: 40px;
+        
+            transition: all 0.2s;
+    
+            .item {
+                min-width: 80px;
+                max-width: 80px;
+            }
+    
+            .rate {
+                align-items: flex-end;
+                flex-direction: column;
+            }
+    
+            .description {
+                font-size: 1rem;
+    
+                min-width: 80px;
+                width: 100%;
+                height: 120px;
+            }
+    
+            .actions {
+                min-width: 90px;
+
+                justify-content: flex-start;
+                flex-direction: column;
+                gap: 20px;
             }
         }
     }
