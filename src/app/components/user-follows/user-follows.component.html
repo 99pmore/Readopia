@@ -1,0 +1,34 @@
+<div class="following-container">
+    <h3>Siguiendo <a routerLink="/searchUsers">(Buscar usuarios)</a></h3>
+    <div class="following" *ngIf="following.length > 0; else messageFollowing">
+        <div class="users">
+            <div class="user-follow" *ngFor="let follow of following" [routerLink]="['/profile', follow.id]">
+                <img [src]="follow?.photo ? follow?.photo : '../../../assets/images/profile.webp'" alt="">
+                <p>{{ follow.name }}</p>
+            </div>
+        </div>
+        <div class="see-all">
+            Ver todos
+        </div>
+    </div>
+    <ng-template #messageFollowing>
+        <p>No hay usuarios seguidos</p>
+    </ng-template>
+</div>
+<div class="followers-container">
+    <h3>Seguidores <a routerLink="/searchUsers">(Buscar usuarios)</a></h3>
+    <div class="followers" *ngIf="followers.length > 0; else messageFollowers">
+        <div class="users">
+            <div class="user-follow" *ngFor="let follower of followers" [routerLink]="['/profile', follower.id]">
+                <img [src]="follower?.photo ? follower?.photo : '../../../assets/images/profile.webp'" alt="">
+                <p>{{ follower.name }}</p>
+            </div>
+        </div>
+        <button class="see-all">
+            Ver todos
+        </button>
+    </div>
+    <ng-template #messageFollowers>
+        <p>No hay seguidores</p>
+    </ng-template>
+</div>
