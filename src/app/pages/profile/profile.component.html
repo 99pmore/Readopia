@@ -9,39 +9,19 @@
                 <p>{{ email }}</p>
             </div>
             <div class="follows">
-                <div class="following-container">
-                    <h3>Siguiendo <a routerLink="/searchUsers">(Buscar usuarios)</a></h3>
-                    <div class="following" *ngIf="following.length > 0; else messageFollowing">
-                        <div class="user-follow" *ngFor="let follow of following" [routerLink]="['/profile', follow.id]">
-                            <img [src]="follow?.photo ? follow?.photo : '../../../assets/images/profile.webp'" alt="">
-                            <p>{{ follow.name }}</p>
-                        </div>
-                    </div>
-                    <ng-template #messageFollowing>
-                        <p>No hay usuarios seguidos</p>
-                    </ng-template>
-                </div>
-                <div class="followers-container">
-                    <h3>Seguidores <a routerLink="/searchUsers">(Buscar usuarios)</a></h3>
-                    <div class="followers" *ngIf="followers.length > 0; else messageFollowers">
-                        <div class="user-follow" *ngFor="let follower of followers" [routerLink]="['/profile', follower.id]">
-                            <img [src]="follower?.photo ? follower?.photo : '../../../assets/images/profile.webp'" alt="">
-                            <p>{{ follower.name }}</p>
-                        </div>
-                    </div>
-                    <ng-template #messageFollowers>
-                        <p>No hay seguidores</p>
-                    </ng-template>
-                </div>
+                <app-user-follows [following]="following" [followers]="followers"></app-user-follows>
             </div>
             <div class="reviews">
                 <h3>Reseñas y valoraciones</h3>
                 <ng-container *ngIf="reviews.length > 0; else messageReviews">
-                    <div class="review" *ngFor="let review of reviews">
+                    <div class="review" *ngFor="let review of getDisplayedReviews()">
                         <p class="title">{{ review.bookTitle }}</p>
                         <app-rating [rating]="review.rating"></app-rating>
                         <p>{{ review.comment }}</p>
                     </div>
+                    <button class="see-more" (click)="toggleShowAllReviews()">
+                        {{ showAllReviews ? 'Ver menos' : 'Ver más' }}
+                    </button>
                 </ng-container>
                 <ng-template #messageReviews>
                     <p>No hay reseñas y valoraciones</p>

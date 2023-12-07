@@ -16,42 +16,42 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faEdit } from '@fortawesome/free-regular-svg-icons';
 import { Subscription } from 'rxjs';
 import { FollowService } from 'src/app/services/follow.service';
+import { UserFollowsComponent } from 'src/app/components/user-follows/user-follows.component';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, MenuComponent, LoginLinkComponent, SmCoverComponent, RatingComponent, RouterLink, FontAwesomeModule],
+  imports: [CommonModule, MenuComponent, LoginLinkComponent, SmCoverComponent, RatingComponent, RouterLink, FontAwesomeModule, UserFollowsComponent],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
 
-  userLoggedIn: boolean = false
-  user!: User | null
-  authId!: string | undefined
+  public userLoggedIn: boolean = false
+  public authId!: string | undefined
 
-  userId!: string | undefined
-  fullName!: string | undefined
-  email!: string | undefined
-  photo!: string | undefined
+  public userId!: string | undefined
+  public fullName!: string | undefined
+  public email!: string | undefined
+  public photo!: string | undefined
   
-  followingIds!: string[]
-  followersIds!: string[]
+  private followingIds!: string[]
+  private followersIds!: string[]
 
-  following: UserDB[] = []
-  followers: UserDB[] = []
+  public following: UserDB[] = []
+  public followers: UserDB[] = []
 
-  readBooks: BookDB[] = []
-  readingBooks: BookDB[] = []
-  wishBooks: BookDB[] = []
+  public readingBooks: BookDB[] = []
 
-  reviews: Review[] = []
+  public reviews: Review[] = []
 
   public follows!: boolean
   public followsignal = signal<boolean>(this.follows)
   private followersSubscription!: Subscription
 
-  faEdit = faEdit
+  public showAllReviews: boolean = false
+
+  public faEdit = faEdit
   
   constructor (
     private userService: UserService,
@@ -63,7 +63,6 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.authChanges().subscribe((user) => {
-      this.user = user
       this.userLoggedIn = !!user
       this.authId = user?.uid
 
@@ -93,6 +92,15 @@ export class ProfileComponent implements OnInit {
     if (this.followersSubscription) {
       this.followersSubscription.unsubscribe()
     }
+  }
+
+  public toggleShowAllReviews() {
+    this.showAllReviews = !this.showAllReviews
+  }
+
+  public getDisplayedReviews(): Review[] {
+    const maxReviewsToShow = this.showAllReviews ? this.reviews.length : 3
+    return this.reviews.slice(0, maxReviewsToShow)
   }
 
   public followUser(userId: string | undefined) {
@@ -126,9 +134,7 @@ export class ProfileComponent implements OnInit {
         this.getUserFollows()
       }
 
-      this.readBooks = readBooks?.reverse() || []
       this.readingBooks = readingBooks?.reverse() || []
-      this.wishBooks = wishBooks?.reverse() || []
     }
   }
 
