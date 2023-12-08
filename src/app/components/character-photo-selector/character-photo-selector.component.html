@@ -4,7 +4,7 @@
         <h4>Selecciona un personaje:</h4>
         <div class="characters">
             <div *ngFor="let photo of profilePhotos" class="character">
-                <img class="photo" [src]="photo.url" [class.selected]="selectedPhoto === photo.url"/>
+                <img class="photo" [src]="photo.url" [class.selected]="selectedPhoto === photo.url" [alt]="'Imagen de ' + photo.character" />
                 <div class="name" (click)="selectProfilePhoto(photo.url)">{{ photo.name }}</div>
             </div>
         </div>
