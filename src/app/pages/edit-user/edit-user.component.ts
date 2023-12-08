@@ -3,44 +3,36 @@ import { CommonModule } from '@angular/common';
 import { MenuComponent } from 'src/app/components/menu/menu.component';
 import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgFor, NgIf } from '@angular/common';
-import { ProfilePhotosService } from 'src/app/services/profile-photos.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { User } from '@angular/fire/auth';
 import { UserService } from 'src/app/services/user.service';
+import { CharacterPhotoSelectorComponent } from 'src/app/components/character-photo-selector/character-photo-selector.component';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-edit-user',
   standalone: true,
-  imports: [CommonModule, MenuComponent, FormsModule, ReactiveFormsModule, NgFor, NgIf],
+  imports: [CommonModule, MenuComponent, FormsModule, ReactiveFormsModule, NgFor, NgIf, CharacterPhotoSelectorComponent],
   templateUrl: './edit-user.component.html',
   styleUrls: ['./edit-user.component.scss']
 })
 export class EditUserComponent implements OnInit {
   
-  userLoggedIn: boolean = false
-  user!: User | null
-
-  userId!: string | undefined
+  private userLoggedIn: boolean = false
+  private userId!: string | undefined
   
-  profilePhotos!: any[]
-  selectedPhoto!: string | undefined
-  photoSelectionOpen: boolean = false
+  public selectedPhoto: string | undefined
 
   constructor(
     private fb: FormBuilder,
     private fbPwd: FormBuilder,
     private authService: AuthService,
-    private profilePhotosService: ProfilePhotosService,
     private userService: UserService,
   ) { }
 
-  editForm!: FormGroup
-  pwdForm!: FormGroup
+  public editForm!: FormGroup
+  public pwdForm!: FormGroup
 
   ngOnInit(): void {
-    this.getProfilePhotos()
-
     this.editForm = this.fb.group({
       name: ['', [Validators.required]],
       lastname: ['', [Validators.required]],
@@ -52,7 +44,6 @@ export class EditUserComponent implements OnInit {
     })
 
     this.authService.authChanges().subscribe((user) => {
-      this.user = user
       this.userLoggedIn = !!user
       this.userId = user?.uid
 
@@ -64,13 +55,8 @@ export class EditUserComponent implements OnInit {
     })
   }
 
-  public openPhotoSelection() {
-    this.photoSelectionOpen = !this.photoSelectionOpen
-  }
-  
-  public selectProfilePhoto(image: string) {
-    this.selectedPhoto = image
-    this.photoSelectionOpen = false
+  public receiveDataFromChild(photo: string) {
+    this.selectedPhoto = photo
   }
 
   public edit() {
@@ -165,11 +151,5 @@ export class EditUserComponent implements OnInit {
 
       this.selectedPhoto = photo
     }
-  }
-
-  private getProfilePhotos() {
-    this.profilePhotosService.getPhotos().subscribe(images => {
-      this.profilePhotos = images
-    })
   }
 }
