@@ -1,10 +1,10 @@
 <div class="photo-selection">
-    <img class="selected-photo" [src]="actualPhoto || '../../../assets/images/profile.webp'" alt="" (click)="openPhotoSelection()">
+    <img class="selected-photo" [src]="actualPhoto || '../../../assets/images/profile.webp'" alt="" (click)="openPhotoSelection()" [width]="130" [height]="130" />
     <div class="character-selection" *ngIf="photoSelectionOpen">
         <h4>Selecciona un personaje:</h4>
         <div class="characters">
             <div *ngFor="let photo of profilePhotos" class="character">
-                <img class="photo" [src]="photo.url" [class.selected]="selectedPhoto === photo.url" [alt]="'Imagen de ' + photo.character" />
+                <img class="photo" [src]="photo.url" [class.selected]="selectedPhoto === photo.url" [alt]="'Imagen de ' + photo.name" [width]="115" [height]="115" />
                 <div class="name" (click)="selectProfilePhoto(photo.url)">{{ photo.name }}</div>
             </div>
         </div>
