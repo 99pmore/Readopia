@@ -8,27 +8,9 @@
     gap: 30px;
 
     a {
+        @include invertColorBtn($main);
         text-decoration: none;
-        color: $main;
-        outline: 1px solid $main;
-        border-radius: 5px;
-        // box-shadow: 0 0 10px rgba($color: #000, $alpha: 0.2);
-
-        height: 35px;
+        height: 37px;
         width: 70px;
-        padding: 10px;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        transition: all 0.1s;
-
-        &:hover {
-            background-color: $main;
-            color: #fff;
-
-            outline-offset: 3px;
-        }
     }
 }
