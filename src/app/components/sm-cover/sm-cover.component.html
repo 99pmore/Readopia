@@ -2,7 +2,7 @@
     <div class="book-card__cover" [routerLink]="['/books', book.id]">
         <div class="book-card__book">
             <div class="book-card__book-front">
-                <img class="book-card__img" [src]="book.cover" [alt]="book.title + ' cover'">
+                <img class="book-card__img" [src]="book.cover || '../../../assets/images/sin-imagen.webp'" [alt]="book.title + ' cover'" loading="lazy" />
             </div>
             <div class="book-card__book-back"></div>
             <div class="book-card__book-side"></div>
