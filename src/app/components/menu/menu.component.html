@@ -1,8 +1,8 @@
 <header class="mobile-menu">
     <fa-icon class="burger" [icon]="faBars" (click)="toggleMobileMenu()"></fa-icon>
     <nav *ngIf="showMobileMenu">
-        <div class="logo" routerLink="/">
-            <img src="../../../assets/images/logo.svg" alt="Logo">
+        <div class="logo" routerLink="/" (click)="toggleMobileMenu()">
+            <img src="../../../assets/images/logo.svg" alt="Logo" />
         </div>
 
         <ul class="links">
@@ -21,7 +21,7 @@
         </ul>
 
         <div class="user" *ngIf="userLoggedIn">
-            <img [src]="photo || '../../../assets/images/profile.webp'" [routerLink]="['/profile', id]" alt="Foto de perfil" title="Ver perfil">
+            <img [src]="photo || '../../../assets/images/profile.webp'" [routerLink]="['/profile', id]" alt="Foto de perfil" title="Ver perfil" (click)="toggleMobileMenu()" />
             <p>Hola, {{ name }}</p>
             <button title="Cerrar sesión" (click)="logout()"><fa-icon [icon]="faLogout"></fa-icon></button>
         </div>
@@ -42,7 +42,7 @@
     </nav>
 
     <div class="logo" routerLink="/">
-        <img src="../../../assets/images/logo.svg" alt="Logo">
+        <img src="../../../assets/images/logo.svg" alt="Logo" />
     </div>
     
     <nav class="right">
