@@ -40,11 +40,19 @@
             overflow: auto;
             box-shadow: inset -8px 0 8px -10px rgba($color: #000, $alpha: 0.2), inset 10px 0 10px -12px rgba($color: #000, $alpha: 0.2);
             border-radius: 6px;
-            padding: 5px;
-            width: 85%;
+            padding: 10px 5px;
+            width: 90%;
 
             display: flex;
             gap: 20px;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        
+            &::-webkit-scrollbar:horizontal {
+                display: none;
+            }
 
             .user-follow {
                 cursor: pointer;
@@ -74,6 +82,33 @@
             text-align: center;
             background: none;
             border: none;
+        }
+    }
+}
+
+@media (width >= 480px) {
+    .following-container, .followers-container {
+        .followers, .following {
+            .users {
+                &::-webkit-scrollbar {
+                    display: block;
+                    background-color: transparent;
+                    width: 8px;
+                }
+            
+                &::-webkit-scrollbar:horizontal {
+                    display: block;
+                    height: 6px;
+                }
+            
+                &::-webkit-scrollbar-thumb {
+                    background-color: #f0f0f0;
+            
+                    &:hover {
+                        background-color: #e7e7e7;
+                    }
+                }
+            }
         }
     }
 }

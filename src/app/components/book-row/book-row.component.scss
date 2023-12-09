@@ -47,20 +47,11 @@
             height: 80px;
 
             &::-webkit-scrollbar {
-                background-color: transparent;
-                width: 8px;
+                display: none;
             }
         
             &::-webkit-scrollbar:horizontal {
-                height: 8px;
-            }
-        
-            &::-webkit-scrollbar-thumb {
-                background-color: #f0f0f0;
-        
-                &:hover {
-                    background-color: #e7e7e7;
-                }
+                display: none;
             }
         }
 
@@ -116,6 +107,25 @@
                 min-width: 80px;
                 width: 100%;
                 height: 120px;
+
+                &::-webkit-scrollbar {
+                    display: block;
+                    background-color: transparent;
+                    width: 8px;
+                }
+            
+                &::-webkit-scrollbar:horizontal {
+                    display: block;
+                    height: 6px;
+                }
+            
+                &::-webkit-scrollbar-thumb {
+                    background-color: #f0f0f0;
+            
+                    &:hover {
+                        background-color: #e7e7e7;
+                    }
+                }
             }
     
             .actions {

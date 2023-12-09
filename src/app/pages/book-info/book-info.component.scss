@@ -57,13 +57,19 @@ main {
                 flex-direction: column;
                 gap: 10px;
 
-                h2, .authors h3 {
-                    font-size: 1.1rem;
+                h2 {
+                    font-size: 1.15rem;
                 }
 
                 .authors {
                     display: flex;
                     gap: 5px;
+                    flex-wrap: wrap;
+
+                    h3 {
+                        font-weight: 600;
+                        font-size: 1rem;
+                    }
 
                     .comma:not(:last-child)::after {
                         content: ',';
@@ -84,6 +90,14 @@ main {
                 .description {
                     height: 280px;
                     overflow: auto;
+
+                    &::-webkit-scrollbar {
+                        display: none;
+                    }
+                
+                    &::-webkit-scrollbar:horizontal {
+                        display: none;
+                    }
                 }
             }
         }
@@ -205,6 +219,29 @@ main {
 
                     .authors h3 {
                         font-size: 1.2rem;
+                    }
+                }
+
+                .sec-info {
+                    .description {
+                        &::-webkit-scrollbar {
+                            display: block;
+                            background-color: transparent;
+                            width: 8px;
+                        }
+                    
+                        &::-webkit-scrollbar:horizontal {
+                            display: block;
+                            height: 6px;
+                        }
+                    
+                        &::-webkit-scrollbar-thumb {
+                            background-color: #f0f0f0;
+                    
+                            &:hover {
+                                background-color: #e7e7e7;
+                            }
+                        }
                     }
                 }
             }
