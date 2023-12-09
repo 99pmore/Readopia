@@ -74,10 +74,7 @@ main.user-logged-in {
             }
 
             .see-more {
-                cursor: pointer;
-                font-size: 0.85rem;
-                background: none;
-                border: none;
+                @include seeMoreButton();
             }
         }
     }
