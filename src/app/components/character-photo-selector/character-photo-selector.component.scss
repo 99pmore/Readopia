@@ -1,9 +1,16 @@
 @import '../../../mixins';
 
+:host {
+    width: 100%;
+}
+
 .photo-selection {
+    width: 100%;
+
     display: flex;
     align-items: center;
     flex-direction: column;
+    gap: 20px;
 
     .selected-photo {
         cursor: pointer;
@@ -18,20 +25,27 @@
     }
 
     .character-selection {
+        width: 100%;
+
         display: flex;
         justify-content: center;
         flex-direction: column;
         gap: 20px;
 
         .characters {
+            overflow: hidden;
+            width: 100%;
+
             display: grid;
-            grid-template-columns: repeat(9, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(115px, 1fr));
             grid-gap: 20px;
 
             .character {
                 display: flex;
                 justify-content: center;
                 align-items: center;
+
+                animation: characterAppear 0.25s ease-out;
 
                 &:hover {
                     .name {
@@ -79,3 +93,12 @@
         }
     }
 }
+
+@keyframes characterAppear {
+    0% {
+        transform: scale(0.5);
+    }
+    100% {
+        transform: scale(1);
+    }
+   }
