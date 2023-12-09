@@ -10,59 +10,14 @@ main {
 
     .searchbar-container {
         form {
-            width: 100%;
-
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-
-            input[type=search] {
-                box-shadow: 0 0 10px rgba($color: #000, $alpha: 0.2);
-                border-radius: 5px;
-                border: none;
-                outline: none;
-                
-                padding: 10px;
-                width: 400px;
-                
-                transition: all 0.3s ease-in-out;
-                
-                &:focus {
-                    box-shadow: 0 0 20px rgba($color: #000, $alpha: 0.1);
-                }
-            }
-                
-            button {
-                cursor: pointer;
-                background-color: transparent;
-                border: 1px solid $main;
-                border-radius: 5px;
-                box-shadow: 0 0 10px rgba($color: #000, $alpha: 0.2);
-
-                width: 35px;
-                padding: 5px;
-
-                transition: transform 0.3s;
-
-                &:hover {
-                    background-color: $main;
-
-                    svg {
-                        fill: #fff;
-                    }
-                }
-
-                svg {
-                    fill: $main;
-                }
-            }
+            @include searchBar();
         }
     }
 
     .books {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        grid-gap: 15px;
+        gap: 15px;
     }
 }
 
@@ -70,19 +25,8 @@ main {
     main {
         padding: 5% 10%;
         margin-top: 90px;
-
-        .searchbar-container {
-            form {
-                input[type=search] {  
-                    &:focus {
-                        width: 50%;
-                    }
-                }
-            }
-        }
     
         .books {
-            // grid-template-columns: repeat(5, 1fr);
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 30px;
         }

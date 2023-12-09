@@ -1,72 +1,35 @@
-@import '../../../variables';
+@import '../../../mixins';
 
 main {
-    padding: 5% 10%;
-    margin-top: 90px;
+    padding: 5%;
+    margin-top: 40px;
 
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: 30px;
 
     .searchbar-container {
-        width: 100%;
-        
-        display: flex;
-        justify-content: center;
-
         form {
-            width: 100%;
-
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-
-            input[type=search] {
-                box-shadow: 0 0 10px rgba($color: #000, $alpha: 0.2);
-                border-radius: 5px;
-                border: none;
-                outline: none;
-                
-                padding: 10px;
-                width: 400px;
-                
-                transition: all 0.3s ease-in-out;
-            }
-                
-            button {
-                cursor: pointer;
-                background-color: transparent;
-                border: 1px solid $main;
-                border-radius: 5px;
-                box-shadow: 0 0 10px rgba($color: #000, $alpha: 0.2);
-
-                width: 35px;
-                padding: 5px;
-
-                transition: transform 0.3s;
-
-                &:hover {
-                    background-color: $main;
-
-                    svg {
-                        fill: #fff;
-                    }
-                }
-
-                svg {
-                    fill: $main;
-                }
-            }
+            @include searchBar();
         }
     }
 
     .users {
-        padding-top: 60px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(125px, 1fr));
+        justify-items: center;
+        gap: 15px;
+    }
+}
 
-        display: flex;
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 50px;
+@media (width >= 480px) {
+    main {
+        padding: 5% 10%;
+        margin-top: 90px;
+
+        .users {
+            grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+            gap: 30px;
+        }
     }
 }
