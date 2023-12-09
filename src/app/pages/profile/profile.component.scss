@@ -91,6 +91,18 @@ main.user-logged-in {
             display: flex;
             align-items: center;
             gap: 15px;
+
+            .book-info {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+
+                p {
+                    .comma:not(:last-child)::after {
+                        content: ',';
+                    }
+                }
+            }
         }
     }
 }

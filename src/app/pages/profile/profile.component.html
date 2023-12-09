@@ -33,7 +33,10 @@
             <ng-container *ngIf="readingBooks.length > 0; else messageReading">
                 <div class="reading-book" *ngFor="let book of readingBooks">
                     <app-sm-cover [book]="book"></app-sm-cover>
-                    <h4>{{ book.title }}</h4>
+                    <div class="book-info">
+                        <h4>{{ book.title }}</h4>
+                        <p>{{ book.authors }}</p>
+                    </div>
                 </div>
             </ng-container>
             <ng-template #messageReading>
