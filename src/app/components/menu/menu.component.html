@@ -7,16 +7,16 @@
 
         <ul class="links">
             <li>
-                <a routerLink="/">Inicio</a>
+                <a routerLink="/" (click)="toggleMobileMenu()">Inicio</a>
             </li>
             <li>
-                <a routerLink="/search">Buscar</a>
+                <a routerLink="/search" (click)="toggleMobileMenu()">Buscar</a>
             </li>
             <li>
-                <a routerLink="/mybooks">Mis libros</a>
+                <a routerLink="/mybooks" (click)="toggleMobileMenu()">Mis libros</a>
             </li>
             <li>
-                <a [routerLink]="['/profile', id]">Perfil</a>
+                <a [routerLink]="['/profile', id]" (click)="toggleMobileMenu()">Perfil</a>
             </li>
         </ul>
 
