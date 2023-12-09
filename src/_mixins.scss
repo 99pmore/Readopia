@@ -49,7 +49,7 @@
     justify-content: center;
     align-items: center;
 
-    transition: transform 0.3s;
+    transition: all 0.2s;
 
     &:hover {
         background-color: $color;
@@ -66,7 +66,11 @@
     padding: 10px;
     width: 100%;
     
-    transition: all 0.3s ease-in-out;
+    transition: all 0.2s ease-in-out;
+
+    @media (width >= 480px) {
+        width: 400px;
+    }
 }
 
 @mixin loginRegisterForm() {
@@ -107,6 +111,44 @@
                 input {
                     width: 400px;
                 }
+            }
+        }
+    }
+}
+
+@mixin searchBar() {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+
+    input[type=search] {
+        @include input();
+        
+        &:focus {
+            box-shadow: 0 0 20px rgba($color: #000, $alpha: 0.1);
+        }
+    }
+        
+    button {
+        @include invertColorBtn($main);
+
+        &:hover {
+            svg {
+                fill: #fff;
+            }
+        }
+
+        svg {
+            fill: $main;
+        }
+    }
+
+    @media (width >= 480px) {
+        input[type=search] {  
+            &:focus {
+                width: 50%;
             }
         }
     }
