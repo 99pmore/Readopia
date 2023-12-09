@@ -40,6 +40,14 @@ main {
         
                 display: flex;
                 gap: 50px;
+
+                &::-webkit-scrollbar {
+                    display: none;
+                }
+            
+                &::-webkit-scrollbar:horizontal {
+                    display: none;
+                }
             }
         }
     }
@@ -52,7 +60,6 @@ main {
         .lists {
             .books {
                 .books-list-header {
-        
                     h2 {
                         font-size: 1.5rem;
                     }
@@ -70,6 +77,25 @@ main {
         
                 .books-list {       
                     padding: 35px 20px;
+
+                    &::-webkit-scrollbar {
+                        display: block;
+                        background-color: transparent;
+                        width: 8px;
+                    }
+                
+                    &::-webkit-scrollbar:horizontal {
+                        display: block;
+                        height: 6px;
+                    }
+                
+                    &::-webkit-scrollbar-thumb {
+                        background-color: #f0f0f0;
+                
+                        &:hover {
+                            background-color: #e7e7e7;
+                        }
+                    }
                 }
             }
         }
