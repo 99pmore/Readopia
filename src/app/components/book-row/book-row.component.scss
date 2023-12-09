@@ -23,6 +23,12 @@
     
         transition: all 0.2s;
 
+        .title {
+            h4 {
+                font-size: 1rem;
+            }
+        }
+
         .author {
             display: flex;
             gap: 5px;
@@ -40,18 +46,27 @@
         }
 
         .description {
-            font-size: 12px;
-            overflow: auto;
-
             width: 100%;
-            height: 80px;
 
-            &::-webkit-scrollbar {
-                display: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            p {
+                overflow: hidden;
+                height: 80px;
             }
-        
-            &::-webkit-scrollbar:horizontal {
-                display: none;
+
+            p.expanded {
+                height: 100%;
+            }
+
+            .see-more {
+                cursor: pointer;
+                font-size: 0.85rem;
+                font-weight: bold;
+                background: none;
+                border: none;
             }
         }
 
@@ -102,29 +117,11 @@
             }
     
             .description {
-                font-size: 1rem;
-    
                 min-width: 80px;
                 width: 100%;
-                height: 120px;
-
-                &::-webkit-scrollbar {
-                    display: block;
-                    background-color: transparent;
-                    width: 8px;
-                }
-            
-                &::-webkit-scrollbar:horizontal {
-                    display: block;
-                    height: 6px;
-                }
-            
-                &::-webkit-scrollbar-thumb {
-                    background-color: #f0f0f0;
-            
-                    &:hover {
-                        background-color: #e7e7e7;
-                    }
+                
+                p {
+                    height: 120px;
                 }
             }
     

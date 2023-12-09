@@ -12,7 +12,10 @@
             <span>( {{ count || 0 }} )</span>
         </div>
         <div class="description">
-            <p [innerHTML]="book.description"></p>
+            <p [innerHTML]="book.description" [class.expanded]="showFullDescription"></p>
+            <button class="see-more" (click)="toggleDescription()">
+                {{ showFullDescription ? 'Ver menos' : 'Ver más' }}
+            </button>
         </div>
         <div class="actions">
             <div class="state">

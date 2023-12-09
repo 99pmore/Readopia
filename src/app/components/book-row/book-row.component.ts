@@ -25,7 +25,8 @@ export class BookRowComponent implements OnInit {
   public count!: number
   public rating!: number
   public moreThanOneAuthor!: boolean
-  
+  public showFullDescription: boolean = false
+
   private allBooks: BookDB[] = []
 
   public faEdit = faEdit
@@ -41,6 +42,10 @@ export class BookRowComponent implements OnInit {
 
     this.moreThanOneAuthor = this.book.authors ? this.book.authors.length > 1 : false
   }
+
+  public toggleDescription(): void {
+    this.showFullDescription = !this.showFullDescription
+}
 
   public async deleteBook() {
     let bookList!: string
