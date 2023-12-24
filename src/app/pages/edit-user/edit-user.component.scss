@@ -35,12 +35,6 @@ main {
                 font-size: smaller;
             }
         }
-
-        label {
-            cursor: pointer;
-            align-self: self-start;
-            margin-top: 10px;
-        }
     
         button {
             @include invertColorBtn($main);
