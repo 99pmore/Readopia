@@ -76,7 +76,11 @@ export class AuthService {
       
     })
     .catch((error) => {
-      console.log('Error en el registro: ', error)
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: `${error}`,
+      })
     })
   }
   
