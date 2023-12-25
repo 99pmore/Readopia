@@ -1,0 +1,42 @@
+@import '../../../mixins';
+
+main {
+    margin-top: 40px;
+    padding: 5%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+        img {
+            border-radius: 10%;
+            mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 0%,rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0.9) 60%, rgba(0, 0, 0, 0.2) 80%, rgba(0, 0, 0, 0.1) 90%, rgba(0, 0, 0, 0) 100%);
+            width: 100%;
+            max-width: 450px;
+        }
+
+        div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 20px;
+
+            h1 {
+                font-size: 4rem;
+                color: $main;
+            }
+
+            a {
+                text-decoration: none;
+                @include invertColorBtn($main);
+            }
+        }
+    }
+}
