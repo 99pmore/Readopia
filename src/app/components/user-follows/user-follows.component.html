@@ -7,7 +7,7 @@
                 <p>{{ follow.name }}</p>
             </div>
         </div>
-        <div class="see-all">
+        <div class="see-all" [routerLink]="'/profile/' + userId + '/following'">
             Ver todos
         </div>
     </div>
@@ -24,7 +24,7 @@
                 <p>{{ follower.name }}</p>
             </div>
         </div>
-        <button class="see-all">
+        <button class="see-all" [routerLink]="'/profile/' + userId + '/followers'">
             Ver todos
         </button>
     </div>
