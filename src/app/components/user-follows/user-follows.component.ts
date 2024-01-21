@@ -14,5 +14,6 @@ export class UserFollowsComponent {
 
   @Input() following: UserDB[] = []
   @Input() followers: UserDB[] = []
+  @Input() userId!: string | undefined
 
 }
