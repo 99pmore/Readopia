@@ -9,6 +9,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { SearchUsersComponent } from './pages/search-users/search-users.component';
 import { EditUserComponent } from './pages/edit-user/edit-user.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
+import { FollowsListComponent } from './pages/follows-list/follows-list.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent},
@@ -20,6 +21,8 @@ export const routes: Routes = [
     { path: 'register', component: RegisterComponent},
     { path: 'profile/:id', component: ProfileComponent},
     { path: 'editUser', component: EditUserComponent},
+    { path: 'profile/:id/followers', component: FollowsListComponent},
+    { path: 'profile/:id/following', component: FollowsListComponent},
     { path: 'notFound', component: NotFoundPageComponent},
     { path: '**', pathMatch: 'full', redirectTo: 'notFound'}
 ];
