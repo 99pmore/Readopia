@@ -1,0 +1,48 @@
+main {
+    padding: 5%;
+    margin-top: 40px;
+    
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    .users {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 30px;
+        
+        .user {
+            cursor: pointer;
+        
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 10px;
+    
+            img {
+                border-radius: 50%;
+                width: 80px;
+    
+                transition: all 0.2s;
+    
+                &:hover {
+                    transform: scale(1.1);
+                }
+            }
+        }
+    }
+
+}
+
+@media (width >= 480px) {
+    main {
+        padding: 5% 20%;
+        margin-top: 90px;
+
+        .users {
+            justify-content: flex-start;
+        }
+    }
+}
