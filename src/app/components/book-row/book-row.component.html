@@ -13,10 +13,13 @@
         </div>
         <div class="description">
             <p [innerHTML]="book.description" [class.expanded]="showFullDescription"></p>
-            <button class="see-more" (click)="toggleDescription()">
-                {{ showFullDescription ? 'Ver menos' : 'Ver más' }}
+            <button *ngIf="!showFullDescription && !isContentFullyVisible()" class="see-more" (click)="toggleDescription()">
+              Ver más
             </button>
-        </div>
+            <button *ngIf="showFullDescription" class="see-more" (click)="toggleDescription()">
+              Ver menos
+            </button>
+          </div>          
         <div class="actions">
             <div class="state">
                 <p>{{ option === 'reading' ? 'Leyendo' : option === 'read' ? 'Leído' : 'Quiero leer' }}</p>

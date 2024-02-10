@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { BookDB } from 'src/app/models/bookDB.interface';
 import { RatingComponent } from '../rating/rating.component';
 import { SmCoverComponent } from '../sm-cover/sm-cover.component';
@@ -34,6 +34,7 @@ export class BookRowComponent implements OnInit {
   constructor(
     private bookDBService: BookDbService,
     private reviewsService: ReviewsService,
+    private elementRef: ElementRef
   ) {}
 
   ngOnInit(): void {
@@ -43,9 +44,31 @@ export class BookRowComponent implements OnInit {
     this.moreThanOneAuthor = this.book.authors ? this.book.authors.length > 1 : false
   }
 
+  public isContentFullyVisible() {
+    let div = this.getElementByClass('.description');
+    let ps = div?.getElementsByTagName('p');
+  
+    let contentHeight = 0;
+  
+    if (ps) {
+      for (let i = 0; i < ps?.length; i++) {
+        contentHeight += ps[i].scrollHeight;
+      }
+    }
+  
+    let containerHeight = div?.clientHeight || 0;
+    let containerScrollHeight = div?.scrollHeight || 0;
+  
+    return contentHeight <= containerHeight && contentHeight <= containerScrollHeight;
+  }
+
+  private getElementByClass(className: string): HTMLElement | null {
+    return this.elementRef.nativeElement.querySelector(className)
+  }
+
   public toggleDescription(): void {
     this.showFullDescription = !this.showFullDescription
-}
+  }
 
   public async deleteBook() {
     let bookList!: string
