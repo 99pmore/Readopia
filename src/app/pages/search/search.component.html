@@ -12,7 +12,7 @@
 
     <p *ngIf="search && books">Resultados para: {{ search }}</p>
     
-    <section class="books">
+    <section class="books" *ngIf="search !== ''">
         <app-book-card *ngFor="let book of books" [book]="book"></app-book-card>
     </section>
 </main>
