@@ -2,14 +2,16 @@
     <div class="book-card__cover">
         <div class="book-card__book">
             <div class="book-card__book-front">
-                <img class="book-card__img" [src]="book.volumeInfo?.imageLinks?.thumbnail || '../../../assets/images/sin-imagen.webp'" [alt]="book.volumeInfo?.title + ' cover'" loading="lazy" />
+                <img class="book-card__img" [src]="isBookDB(book) ? book.cover || '../../../assets/images/sin-imagen.webp' : book.volumeInfo?.imageLinks?.thumbnail || '../../../assets/images/sin-imagen.webp'" [alt]="isBookDB(book) ? book.title + ' cover' : book.volumeInfo?.title + ' cover'" loading="lazy" />
             </div>
             <div class="book-card__book-back"></div>
             <div class="book-card__book-side"></div>
         </div>
     </div>
     <div class="book-card__info">
-        <h3>{{ book.volumeInfo?.title }}</h3>
-        <h4 *ngFor="let author of book.volumeInfo?.authors">{{ author }}</h4>
+        <h3 *ngIf="!isBookDB(book)">{{ book.volumeInfo?.title }}</h3>
+        <ng-container *ngIf="!isBookDB(book)">
+            <h4 *ngFor="let author of book.volumeInfo?.authors">{{ author }}</h4>
+        </ng-container>
     </div>
 </div>
