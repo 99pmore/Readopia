@@ -1,16 +1,7 @@
 <main>
     <h2>{{ list === 'following' ? 'Seguidos' : 'Seguidores' }}</h2>
 
-    <div class="users">
-        <div *ngFor="let follow of follows" class="user">
-            <img [src]="follow?.photo ? follow?.photo : '../../../assets/images/profile.webp'" [alt]="'Foto de perfil de ' + follow.name" [routerLink]="['/profile', follow.id]">
-            <div class="info">
-                <p>{{ follow.name }}</p>
-                <p>{{ follow.lastname }}</p>
-            </div>
-            <div class="actions" *ngIf="!isMyUser(follow.id)">
-                <button (click)="unfollowUser(follow.id)">Dejar de seguir</button>
-            </div>
-        </div>
-    </div>
+    <section class="users">
+        <app-user-card *ngFor="let follow of follows" [user]="follow"></app-user-card>
+    </section>
 </main>

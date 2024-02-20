@@ -8,11 +8,12 @@ import Swal from 'sweetalert2';
 import { FollowService } from 'src/app/services/follow.service';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
+import { UserCardComponent } from 'src/app/components/user-card/user-card.component';
 
 @Component({
   selector: 'app-follows-list',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, UserCardComponent],
   templateUrl: './follows-list.component.html',
   styleUrls: ['./follows-list.component.scss']
 })
@@ -44,26 +45,12 @@ export class FollowsListComponent implements OnInit {
     .subscribe(() => {
       this.getUserData()
     })
-
-    this.authService.authChanges().subscribe((userAuth) => {
-      this.authId = userAuth?.uid
-    })
   }
 
   ngOnDestroy(): void {
     if (this.followingSubscription) {
       this.followingSubscription.unsubscribe()
     }
-  }
-
-  public unfollowUser(userId: string | undefined) {
-    if (userId) {
-      this.followService.deleteFollowing(userId)
-    }
-  }
-
-  public isMyUser(followId: string | undefined) {
-    return followId === this.authId
   }
 
   private async getUserData() {

@@ -13,46 +13,7 @@ main {
         justify-content: space-evenly;
         flex-wrap: wrap;
         gap: 30px;
-        
-        .user {
-            cursor: pointer;
-        
-            display: flex;
-            align-items: center;
-            flex-direction: column;
-            gap: 10px;
-    
-            img {
-                border-radius: 50%;
-                width: 80px;
-    
-                transition: all 0.2s;
-    
-                &:hover {
-                    transform: scale(1.1);
-                }
-            }
-
-            .info {
-                display: flex;
-                align-items: center;
-                flex-direction: column;
-            }
-
-            .actions {
-                width: 100%;
-        
-                display: flex;
-                justify-content: center;
-                align-items: center;
-        
-                button {
-                    @include actionButton($main);
-                }
-            }
-        }
     }
-
 }
 
 @media (width >= 480px) {
