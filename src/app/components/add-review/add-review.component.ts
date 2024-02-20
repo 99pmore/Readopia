@@ -21,10 +21,11 @@ export class AddReviewComponent implements OnInit {
   @Input() bookTitle!: string | undefined
   @Input() user!: User
 
-  faStarSol = faStarSol
-  faStarReg = faStarReg
+  public faStarSol = faStarSol
+  public faStarReg = faStarReg
 
-  selectedRating: number = 0
+  public selectedRating: number = 0
+  public tempRating: number = 0
 
   constructor (
     private fb: FormBuilder,
@@ -40,8 +41,17 @@ export class AddReviewComponent implements OnInit {
     })
   }
 
-  public setRating(rating: number) {
-    this.selectedRating = rating
+  public setRating(rating: number, isClicked: boolean) {
+    if (isClicked) {
+      this.selectedRating = rating
+
+    } else {
+      this.tempRating = rating
+    }
+  }
+
+  public resetTempRating() {
+    this.tempRating = this.selectedRating;
   }
 
   public addReview() {

@@ -2,8 +2,12 @@
     <div class="rating">
         <p>Valoración:</p>
         <div class="stars">
-            <fa-icon *ngFor="let i of [1, 2, 3, 4, 5]" [icon]="i <= selectedRating ? faStarSol : faStarReg"
-            (mouseover)="setRating(i)" (click)="setRating(i)"></fa-icon>
+            <fa-icon *ngFor="let i of [1, 2, 3, 4, 5]"
+                [icon]="i <= tempRating ? faStarSol : faStarReg"
+                (mouseover)="setRating(i, false)"
+                (mouseleave)="resetTempRating()"
+                (click)="setRating(i, true)">
+            </fa-icon>
         </div>
     </div>
     <textarea rows="10" formControlName="comment" placeholder="Escribe tu reseña ..."></textarea>
