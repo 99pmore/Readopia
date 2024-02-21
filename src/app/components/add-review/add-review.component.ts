@@ -55,6 +55,15 @@ export class AddReviewComponent implements OnInit {
   }
 
   public addReview() {
+    if (this.selectedRating === 0) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Error',
+        text: 'Por favor, selecciona una valoración antes de enviar la reseña.',
+      })
+      return
+    }
+
     const userId = this.user.uid
     const bookId = this.bookId
     const bookTitle = this.bookTitle as string
