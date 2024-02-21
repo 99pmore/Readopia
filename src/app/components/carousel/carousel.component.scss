@@ -1,0 +1,99 @@
+.carousel-container {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    .books-list {
+        overflow: auto;
+        box-shadow: inset -10px 0 10px -12px rgba($color: #000, $alpha: 0.2), inset 10px 0 10px -12px rgba($color: #000, $alpha: 0.2);
+        border-radius: 6px;
+    
+        width: 100%;
+        padding: 20px;
+    
+        display: flex;
+        gap: 50px;
+    
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    
+        &::-webkit-scrollbar:horizontal {
+            display: none;
+        }
+
+        overflow-x: auto;
+        scroll-behavior: smooth;
+    }
+  
+    button {
+        display: none;
+    }
+}
+
+@media (width >= 480px) {
+
+    .carousel-container {
+        position: relative;
+
+        .books-list {       
+            padding: 35px 20px;
+    
+            &::-webkit-scrollbar {
+                display: block;
+                background-color: transparent;
+                width: 8px;
+            }
+        
+            &::-webkit-scrollbar:horizontal {
+                display: block;
+                height: 6px;
+            }
+        
+            &::-webkit-scrollbar-thumb {
+                background-color: #f0f0f0;
+        
+                &:hover {
+                    background-color: #e7e7e7;
+                }
+            }
+        }
+
+        button {
+            display: block;
+            cursor: pointer;
+            background: rgba($color: #000, $alpha: 0.1);
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            padding: 5px 10px;
+
+            position: absolute;
+            z-index: 10;
+
+            transition: all 0.2s;
+
+            &:hover {
+                background: rgba($color: #000, $alpha: 0.3);
+                
+                .chevron {
+                    color: rgba($color: #fff, $alpha: 1);
+                }
+            }
+
+            .chevron {
+                color: rgba($color: #fff, $alpha: 0.7);
+            }
+        }
+
+        .left-btn {
+            left: 10px;
+        }
+        
+        .right-btn {
+            right: 10px;
+        }
+    }
+}
+  

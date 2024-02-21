@@ -1,0 +1,12 @@
+<div class="carousel-container">
+    <button class="left-btn" (click)="scrollLeft()"><fa-icon class="chevron" [icon]="faChevronLeft"></fa-icon></button>
+    <div class="books-list" [id]=carouselId>
+        <ng-container *ngIf="books.length > 0; else messageRead">
+            <app-book-card *ngFor="let book of books" [book]="book"></app-book-card>
+        </ng-container>
+        <ng-template #messageRead>
+            <p>No has leído ningún libro</p>
+        </ng-template>
+    </div>
+    <button class="right-btn" (click)="scrollRight()"><fa-icon class="chevron" [icon]="faChevronRight"></fa-icon></button>
+</div>

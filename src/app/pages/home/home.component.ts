@@ -8,13 +8,14 @@ import { NgIf, NgFor } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { HeaderComponent } from '../../components/header/header.component';
 import { LoginLinkComponent } from 'src/app/components/login-link/login-link.component';
+import { CarouselComponent } from 'src/app/components/carousel/carousel.component';
 
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss'],
     standalone: true,
-    imports: [HeaderComponent, RouterLink, NgIf, NgFor, BookCardComponent, LoginLinkComponent]
+    imports: [HeaderComponent, RouterLink, NgIf, NgFor, BookCardComponent, LoginLinkComponent, CarouselComponent]
 })
 export class HomeComponent implements OnInit {
 
