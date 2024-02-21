@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnInit } from '@angular/core';
 import { BookDB } from 'src/app/models/bookDB.interface';
 import { RatingComponent } from '../rating/rating.component';
 import { SmCoverComponent } from '../sm-cover/sm-cover.component';
@@ -42,6 +42,11 @@ export class BookRowComponent implements OnInit {
     this.getRating()
 
     this.moreThanOneAuthor = this.book.authors ? this.book.authors.length > 1 : false
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    this.isContentFullyVisible()
   }
 
   public isContentFullyVisible() {
