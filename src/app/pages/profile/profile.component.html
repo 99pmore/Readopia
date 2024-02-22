@@ -19,7 +19,7 @@
                         <app-rating [rating]="review.rating"></app-rating>
                         <p>{{ review.comment }}</p>
                     </div>
-                    <button class="see-more" (click)="toggleShowAllReviews()">
+                    <button *ngIf="reviews.length > 3" class="see-more" (click)="toggleShowAllReviews()">
                         {{ showAllReviews ? 'Ver menos' : 'Ver más' }}
                     </button>
                 </ng-container>
