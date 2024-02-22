@@ -42,12 +42,6 @@ main.user-logged-in {
             img {
                 border-radius: 50%;
                 width: 80px;
-
-                transition: transform 0.2s;
-
-                &:hover {
-                    transform: scale(1.1);
-                }
             }
 
             h2 {
@@ -122,20 +116,12 @@ main.user-not-logged-in {
         gap: 60px;
     
         .info {
-            display: flex;
-            flex-direction: column;
             gap: 60px;
     
             .user {
-                display: flex;
-                flex-direction: column;
                 gap: 20px;
     
-                position: relative;
-    
                 a {
-                    color: $main;
-                    position: absolute;
                     left: 120px;
     
                     transition: color 0.2s;
@@ -150,50 +136,12 @@ main.user-not-logged-in {
                 }
     
                 img {
-                    border-radius: 50%;
                     width: 120px;
-    
-                    transition: transform 0.2s;
-    
-                    &:hover {
-                        transform: scale(1.1);
-                    }
                 }
 
                 h2 {
                     font-size: 1.5rem;
                 }
-            }
-    
-            .reviews {
-                display: flex;
-                flex-direction: column;
-                gap: 10px;
-    
-                .review {
-                    border-bottom: 1px solid rgba($color: $main, $alpha: 0.25);
-                    padding: 10px 0;
-    
-                    display: flex;
-                    flex-direction: column;
-                    gap: 10px;
-    
-                    .title {
-                        font-weight: 600;
-                    }
-                }
-            }
-        }
-    
-        .reading {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-    
-            .reading-book {
-                display: flex;
-                align-items: center;
-                gap: 15px;
             }
         }
     }
@@ -201,8 +149,5 @@ main.user-not-logged-in {
     main.user-not-logged-in {
         padding: 5% 10%;
         margin-top: 90px;
-    
-        display: flex;
-        justify-content: center;
     }
 }
