@@ -84,10 +84,36 @@ export class AuthService {
     })
   }
   
+  // public logout() {
+  //   signOut(this.auth)
+  //   .then(() => {
+  //     this.router.navigate(['/'])
+  //   })
+  //   .catch((error) => {
+  //     Swal.fire({
+  //       icon: 'error',
+  //       title: 'Error',
+  //       text: `${error}`,
+  //     })
+  //   })
+  // }
+
   public logout() {
-    signOut(this.auth)
-    .then(() => {
-      this.router.navigate(['/'])
+    Swal.fire({
+      title: '¿Estás seguro/a?',
+      text: `Se cerrará tu sesión`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#90abc4',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Cerrar sesión',
+      cancelButtonText: 'Cancelar'    
+    })
+    .then((result) => {
+      if (result.isConfirmed) {
+        signOut(this.auth)
+        this.router.navigate(['/'])
+      }
     })
     .catch((error) => {
       Swal.fire({
