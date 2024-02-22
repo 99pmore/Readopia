@@ -11,7 +11,7 @@
     <div class="book-card__info">
         <h3 *ngIf="!isBookDB(book)">{{ book.volumeInfo?.title }}</h3>
         <ng-container *ngIf="!isBookDB(book)">
-            <h4 *ngFor="let author of book.volumeInfo?.authors">{{ author }}</h4>
+            <h4 *ngFor="let author of getDisplayedAuthors(book)">{{ author }}</h4>
         </ng-container>
     </div>
 </div>
