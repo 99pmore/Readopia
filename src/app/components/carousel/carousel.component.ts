@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BookCardComponent } from '../book-card/book-card.component';
 import { BookDB } from 'src/app/models/bookDB.interface';
@@ -16,10 +16,10 @@ export class CarouselComponent {
 
   @Input() books!: BookDB[]
   @Input() carouselId!: string
-
-  private scrollPosition: number = 0
+  
+  public scrollPosition: number = 0
   private scrollStep: number = 750
-
+  
   public faChevronLeft = faChevronLeft
   public faChevronRight = faChevronRight
 
