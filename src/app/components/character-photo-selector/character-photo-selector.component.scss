@@ -12,15 +12,50 @@
     flex-direction: column;
     gap: 20px;
 
-    .selected-photo {
-        cursor: pointer;
-        border-radius: 50%;
-        width: 130px;
-
-        transition: all 0.2s;
+    .photo {
+        position: relative;
 
         &:hover {
-            filter: contrast(0.5);
+            .selected-photo {
+                filter: contrast(0.95);
+            }
+
+            button {
+                background: rgba($color: #000, $alpha: 0.2);
+                transform: scale(1.1);
+
+                .plus {
+                    color: rgba($color: #000, $alpha: 0.9);
+                }
+            }
+        }
+
+        .selected-photo {
+            cursor: pointer;
+            border-radius: 50%;
+            width: 130px;
+    
+            transition: all 0.2s;
+        }
+
+        button {
+            cursor: pointer;
+            position: absolute;
+            background: rgba($color: #000, $alpha: 0.1);
+            border: none;
+            border-radius: 50%;
+
+            width: 30px;
+            height: 30px;
+
+            right: 0;
+
+            transition: all 0.2s;
+
+            .plus {
+                color: rgba($color: #000, $alpha: 0.7);
+                transition: color 0.2s;
+            }
         }
     }
 

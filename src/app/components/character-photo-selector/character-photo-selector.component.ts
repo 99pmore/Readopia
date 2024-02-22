@@ -1,11 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProfilePhotosService } from 'src/app/services/profile-photos.service';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-character-photo-selector',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FontAwesomeModule],
   templateUrl: './character-photo-selector.component.html',
   styleUrls: ['./character-photo-selector.component.scss']
 })
@@ -16,6 +18,8 @@ export class CharacterPhotoSelectorComponent implements OnInit {
 
   public profilePhotos!: any[]
   public photoSelectionOpen: boolean = false
+
+  public faPlus = faPlus
 
   constructor(
     private profilePhotosService: ProfilePhotosService,
