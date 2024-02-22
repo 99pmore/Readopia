@@ -7,11 +7,9 @@ import { NgIf, NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MenuComponent } from '../../components/menu/menu.component';
 import { AuthService } from 'src/app/services/auth.service';
-import { User } from '@angular/fire/auth';
 import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Subscription } from 'rxjs';
-import { ReviewsService } from 'src/app/services/reviews.service';
 
 @Component({
     selector: 'app-my-books',
