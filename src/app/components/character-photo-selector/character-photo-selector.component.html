@@ -1,7 +1,7 @@
 <div class="photo-selection">
     <div class="photo" title="Selecciona un personaje">
         <img class="selected-photo" [src]="actualPhoto || '../../../assets/images/profile.webp'" alt="" (click)="openPhotoSelection()" [width]="130" [height]="130" />
-        <button><fa-icon class="plus" [icon]="faPlus"></fa-icon></button>
+        <button><fa-icon class="plus" [icon]="faPaintBrush"></fa-icon></button>
     </div>
     <div class="character-selection" *ngIf="photoSelectionOpen">
         <h4>Selecciona un personaje:</h4>

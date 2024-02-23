@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProfilePhotosService } from 'src/app/services/profile-photos.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faPaintBrush } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-character-photo-selector',
@@ -20,6 +20,7 @@ export class CharacterPhotoSelectorComponent implements OnInit {
   public photoSelectionOpen: boolean = false
 
   public faPlus = faPlus
+  public faPaintBrush = faPaintBrush
 
   constructor(
     private profilePhotosService: ProfilePhotosService,
