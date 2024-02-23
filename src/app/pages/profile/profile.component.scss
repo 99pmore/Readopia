@@ -116,7 +116,7 @@ main.user-not-logged-in {
     justify-content: center;
 }
 
-@media (width >= 480px) {
+@media (width >= 768px) {
     main.user-logged-in {
         padding: 5% 20%;
         margin-top: 90px;
