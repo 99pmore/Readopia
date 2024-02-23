@@ -24,7 +24,7 @@
                 background: rgba($color: #000, $alpha: 0.2);
                 transform: scale(1.1);
 
-                .plus {
+                .edit {
                     color: rgba($color: #000, $alpha: 0.9);
                 }
             }
@@ -52,7 +52,7 @@
 
             transition: all 0.2s;
 
-            .plus {
+            .edit {
                 color: rgba($color: #000, $alpha: 0.7);
                 transition: color 0.2s;
             }

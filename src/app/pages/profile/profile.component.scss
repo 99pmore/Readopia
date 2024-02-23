@@ -21,9 +21,19 @@ main.user-logged-in {
             position: relative;
 
             a {
+                font-size: 0.85rem;
                 color: $main;
+                border: 2px solid $main;
+                padding: 2px;
+                border-radius: 6px;
+                width: 25px;
+                height: 25px;
                 position: absolute;
                 left: 80px;
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
 
                 transition: color 0.2s;
 
@@ -122,13 +132,10 @@ main.user-not-logged-in {
                 gap: 20px;
     
                 a {
+                    font-size: 1rem;
+                    width: 28px;
+                    height: 28px;
                     left: 120px;
-    
-                    transition: color 0.2s;
-    
-                    &:hover {
-                        color: $main-dark;
-                    }
                 }
 
                 button {

@@ -14,6 +14,7 @@ import { Review } from 'src/app/models/review.interface';
 import { RatingComponent } from 'src/app/components/rating/rating.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faEdit } from '@fortawesome/free-regular-svg-icons';
+import { faPaintBrush } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { FollowService } from 'src/app/services/follow.service';
 import { UserFollowsComponent } from 'src/app/components/user-follows/user-follows.component';
@@ -52,6 +53,7 @@ export class ProfileComponent implements OnInit {
   public showAllReviews: boolean = false
 
   public faEdit = faEdit
+  public faPaintBrush = faPaintBrush
   
   constructor (
     private userService: UserService,

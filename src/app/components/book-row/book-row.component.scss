@@ -77,7 +77,23 @@
                 gap: 10px;
 
                 a {
+                    font-size: 0.85rem;
                     color: $main;
+                    border: 2px solid $main;
+                    padding: 2px;
+                    border-radius: 6px;
+                    width: 25px;
+                    height: 25px;
+
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+    
+                    transition: color 0.2s;
+    
+                    &:hover {
+                        color: $main-dark;
+                    }
                 }
             }
 
@@ -127,6 +143,14 @@
                 justify-content: flex-start;
                 flex-direction: column;
                 gap: 20px;
+
+                .state {
+                    a {
+                        font-size: 1rem;
+                        width: 28px;
+                        height: 28px;
+                    }
+                }
             }
         }
     }
