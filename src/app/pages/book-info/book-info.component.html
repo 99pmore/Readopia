@@ -31,7 +31,7 @@
         </div>
     </section>
     <section class="reviews-section">
-        <h2>Reseñas y valoraciones <span>{{ rating | twoDecimals }}</span><span> ({{ count }})</span></h2>
+        <h2>Reseñas y valoraciones: <span>{{ rating | twoDecimals }}</span><span> ({{ count }})</span></h2>
         <div class="reviews">
             <button class="toggle-button" (click)="toggleForm()">{{ buttonText }}</button>
             <app-add-review class="add-review" *ngIf="formVisible" [bookId]="id" [bookTitle]="book.volumeInfo?.title" [user]="user"></app-add-review>
