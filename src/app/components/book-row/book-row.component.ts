@@ -7,7 +7,7 @@ import { RouterLink } from '@angular/router';
 import { BookDbService } from 'src/app/services/book-db.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faEdit } from '@fortawesome/free-regular-svg-icons';
-import { faPaintBrush } from '@fortawesome/free-solid-svg-icons';
+import { faPaintBrush, faBookOpen, faBook, faBookmark } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 import { ReviewsService } from 'src/app/services/reviews.service';
 
@@ -32,6 +32,9 @@ export class BookRowComponent implements OnInit {
 
   public faEdit = faEdit
   public faPaintBrush = faPaintBrush
+  public faBookOpen = faBookOpen
+  public faBook = faBook
+  public faBookmark = faBookmark
 
   constructor(
     private bookDBService: BookDbService,

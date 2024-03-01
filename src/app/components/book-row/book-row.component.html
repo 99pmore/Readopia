@@ -23,7 +23,8 @@
         <div class="actions">
             <div class="state">
                 <p>{{ option === 'reading' ? 'Leyendo' : option === 'read' ? 'Leído' : 'Quiero leer' }}</p>
-                <a [routerLink]="['/books', book.id]" title="Editar" ><fa-icon [icon]="faPaintBrush"></fa-icon></a>
+                <!-- <a [routerLink]="['/books', book.id]" title="Editar" ><fa-icon [icon]="faPaintBrush"></fa-icon></a> -->
+                <fa-icon class="state-icon" [icon]="option === 'reading' ? faBookOpen : option === 'read' ? faBook : faBookmark"></fa-icon>
             </div>
             <button (click)="deleteBook()">Eliminar</button>
         </div>
