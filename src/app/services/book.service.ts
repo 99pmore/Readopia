@@ -16,7 +16,7 @@ export class BookService {
   ) { }
 
   public getBooks(query: string): Observable<Book[]> {
-    const params = new HttpParams().set('q', query).set('key', this.API_KEY);
+    const params = new HttpParams().set('q', query).set('key', this.API_KEY).set('maxResults', 10);
     return this.httpClient.get<Book[]>(this.URL, { params })
   }
   
