@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 export class BookService {
 
   private readonly URL = 'https://www.googleapis.com/books/v1/volumes'
-  private readonly API_KEY = environment.firebase.apiKey
+  private readonly API_KEY = environment.API_KEY
 
   constructor(
     private httpClient: HttpClient
