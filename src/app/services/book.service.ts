@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Book } from '../models/book.interface';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { Book } from '../models/book.interface';
 export class BookService {
 
   private readonly URL = 'https://www.googleapis.com/books/v1/volumes'
-  private readonly API_KEY = 'AIzaSyB_4ExWBN4_VFog7sy042-GvvonRTuUIJw'
+  private readonly API_KEY = environment.firebase.apiKey
 
   constructor(
     private httpClient: HttpClient
