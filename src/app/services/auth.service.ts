@@ -83,20 +83,6 @@ export class AuthService {
       })
     })
   }
-  
-  // public logout() {
-  //   signOut(this.auth)
-  //   .then(() => {
-  //     this.router.navigate(['/'])
-  //   })
-  //   .catch((error) => {
-  //     Swal.fire({
-  //       icon: 'error',
-  //       title: 'Error',
-  //       text: `${error}`,
-  //     })
-  //   })
-  // }
 
   public logout() {
     Swal.fire({
@@ -112,17 +98,20 @@ export class AuthService {
     .then((result) => {
       if (result.isConfirmed) {
         signOut(this.auth)
-        this.router.navigate(['/'])
+        .then(() => {
+          this.router.navigate(['/'])
+        })
+        .catch((error) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: `${error}`,
+          })
+        })
       }
     })
-    .catch((error) => {
-      Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: `${error}`,
-      })
-    })
   }
+  
 
   public editUser(name: string, lastname: string, photo: string) {
     const user = this.auth.currentUser
