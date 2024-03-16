@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { UserDB } from 'src/app/models/userDB.interface';
@@ -17,7 +17,7 @@ import { UserCardComponent } from 'src/app/components/user-card/user-card.compon
   templateUrl: './follows-list.component.html',
   styleUrls: ['./follows-list.component.scss']
 })
-export class FollowsListComponent implements OnInit {
+export class FollowsListComponent implements OnInit, OnDestroy {
 
   private authId!: string | undefined
   private userId!: string

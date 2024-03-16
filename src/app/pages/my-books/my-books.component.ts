@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BookDB } from 'src/app/models/bookDB.interface';
 import { BookDbService } from 'src/app/services/book-db.service';
 import { BookRowComponent } from '../../components/book-row/book-row.component';
@@ -18,7 +18,7 @@ import { Subscription } from 'rxjs';
     standalone: true,
     imports: [MenuComponent, FormsModule, NgIf, NgFor, BookRowComponent, LoginLinkComponent]
 })
-export class MyBooksComponent implements OnInit {
+export class MyBooksComponent implements OnInit, OnDestroy {
 
   public userLoggedIn: boolean = false
   

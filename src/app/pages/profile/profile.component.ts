@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MenuComponent } from 'src/app/components/menu/menu.component';
 import { LoginLinkComponent } from 'src/app/components/login-link/login-link.component';
@@ -26,7 +26,7 @@ import { UserFollowsComponent } from 'src/app/components/user-follows/user-follo
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
 
   public userLoggedIn: boolean = false
   public authId!: string | undefined

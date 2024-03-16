@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { faArrowRightFromBracket, faBars, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { RouterLink } from '@angular/router';
@@ -15,7 +15,7 @@ import { NgClass } from '@angular/common';
     standalone: true,
     imports: [RouterLink, NgIf, FontAwesomeModule, NgClass]
 })
-export class MenuComponent implements OnInit {
+export class MenuComponent implements OnInit, OnDestroy {
 
   public userLoggedIn: boolean = false
   public id!: string | undefined
