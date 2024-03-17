@@ -6,7 +6,6 @@ import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
 import { FollowService } from 'src/app/services/follow.service';
 import { Subscription } from 'rxjs';
-import { AuthService } from 'src/app/services/auth.service';
 import { UserCardComponent } from 'src/app/components/user-card/user-card.component';
 
 @Component({
