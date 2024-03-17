@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DocumentData, Firestore, addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, updateDoc, where } from '@angular/fire/firestore';
+import { DocumentData, Firestore, addDoc, collection, deleteDoc, doc, getDocs, query, updateDoc, where } from '@angular/fire/firestore';
 import { AuthService } from './auth.service';
 import { User } from '@angular/fire/auth';
 import { Review } from '../models/review.interface';
@@ -54,11 +54,11 @@ export class ReviewsService {
     if (bookId) {
       const reviews = await this.getReviews(bookId)
       const reviewsRatingSum = reviews.reduce((acc, review) => {
-        return acc + (review.rating || 0)
+        return acc + (review.rating ?? 0)
       }, 0)
   
-      const totalRatingCount = reviews.length + (apiRatingCount || 0)
-      const rating = (reviewsRatingSum + ((apiRating || 0) * (apiRatingCount || 0))) / totalRatingCount
+      const totalRatingCount = reviews.length + (apiRatingCount ?? 0)
+      const rating = (reviewsRatingSum + ((apiRating ?? 0) * (apiRatingCount ?? 0))) / totalRatingCount
       return rating
     }
 
@@ -68,7 +68,7 @@ export class ReviewsService {
   public async getTotalRatingsCount(bookId: string | undefined, apiRatingCount: number | undefined) {
     if (bookId) {
       const reviews = await this.getReviews(bookId)
-      const totalRatingCount = reviews.length + (apiRatingCount || 0)
+      const totalRatingCount = reviews.length + (apiRatingCount ?? 0)
       return totalRatingCount
     }
 

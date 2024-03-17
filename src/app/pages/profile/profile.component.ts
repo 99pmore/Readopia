@@ -123,19 +123,19 @@ export class ProfileComponent implements OnInit, OnDestroy {
     if (this.userId) {
       const user = await this.userService.getUserById(this.userId)
 
-      const { name, lastname, email, photo, following, followers, readBooks, readingBooks, wishBooks } = user
+      const { name, lastname, email, photo, following, followers, readingBooks } = user
 
       this.fullName = `${name} ${lastname}`
       this.email = email
       this.photo = photo
-      this.followingIds = following || []
-      this.followersIds = followers || []
+      this.followingIds = following ?? []
+      this.followersIds = followers ?? []
 
       if (this.followingIds && this.followersIds) {
         this.getUserFollows()
       }
 
-      this.readingBooks = readingBooks?.reverse() || []
+      this.readingBooks = readingBooks?.reverse() ?? []
     }
   }
 

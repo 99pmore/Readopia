@@ -3,7 +3,7 @@ import { Auth } from '@angular/fire/auth';
 import { Firestore, arrayRemove, arrayUnion, doc, getDoc, updateDoc } from '@angular/fire/firestore';
 import { BookDB } from '../models/bookDB.interface';
 import Swal from 'sweetalert2';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -88,10 +88,7 @@ export class BookDbService {
 
         if (userDoc.exists()) {
           const userData = userDoc.data()
-          
-          if (userData && userData[booksList]) {
-            return userData[booksList]
-          }
+          return userData?.[booksList]
         }
 
       } else {
@@ -217,29 +214,38 @@ export class BookDbService {
   }
 
   private getListName(booksList: string): string {
-    const listName = booksList === 'readingBooks'
-                    ? 'Leyendo'
-                    : booksList === 'readBooks'
-                    ? 'Leídos'
-                    : 'Quiero leer'
+    let listName: string
+    if (booksList === 'readingBooks') {
+      listName = 'Leyendo'
+    } else if (booksList === 'readBooks') {
+      listName = 'Leídos'
+    } else {
+      listName = 'Quiero leer'
+    }
     return listName
   }
-
+  
   private getListType(book: BookDB) {
-    const nowList = book?.state === 'reading'
-                  ? 'readingBooks'
-                  : book?.state === 'read'
-                  ? 'readBooks'
-                  : 'wishBooks'
+    let nowList: string
+    if (book?.state === 'reading') {
+      nowList = 'readingBooks'
+    } else if (book?.state === 'read') {
+      nowList = 'readBooks'
+    } else {
+      nowList = 'wishBooks'
+    }
     return nowList
   }
-
+  
   private getState(booksList: string) {
-    const state = booksList === 'readingBooks'
-                    ? 'reading'
-                    : booksList === 'readBooks'
-                    ? 'read'
-                    : 'wish'
+    let state: string
+    if (booksList === 'readingBooks') {
+      state = 'reading'
+    } else if (booksList === 'readBooks') {
+      state = 'read'
+    } else {
+      state = 'wish'
+    }
     return state
   }
 }

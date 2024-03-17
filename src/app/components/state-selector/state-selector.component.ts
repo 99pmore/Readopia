@@ -145,13 +145,13 @@ export class StateSelectorComponent implements OnInit {
 
     const bookDB: BookDB = {
       id: this.id,
-      cover: this.book.volumeInfo?.imageLinks?.thumbnail || '',
-      title: this.book.volumeInfo?.title || '',
-      authors: this.book.volumeInfo?.authors || [],
-      categories: this.book.volumeInfo?.categories || [],
-      rating: this.book.volumeInfo?.averageRating || 0,
-      ratingCount: this.book.volumeInfo?.ratingsCount || 0,
-      description: this.book.volumeInfo?.description || '',
+      cover: this.book.volumeInfo?.imageLinks?.thumbnail ?? '',
+      title: this.book.volumeInfo?.title ?? '',
+      authors: this.book.volumeInfo?.authors ?? [],
+      categories: this.book.volumeInfo?.categories ?? [],
+      rating: this.book.volumeInfo?.averageRating ?? 0,
+      ratingCount: this.book.volumeInfo?.ratingsCount ?? 0,
+      description: this.book.volumeInfo?.description ?? '',
       state: state,
     }
 

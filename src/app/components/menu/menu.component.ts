@@ -1,12 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
-import { faArrowRightFromBracket, faBars, faMinus } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRightFromBracket, faBars } from '@fortawesome/free-solid-svg-icons';
 import { RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { NgIf } from '@angular/common';
+import { NgIf, NgClass } from '@angular/common';
 import { UserService } from 'src/app/services/user.service';
 import { Subscription } from 'rxjs';
-import { NgClass } from '@angular/common';
 
 @Component({
     selector: 'app-menu',

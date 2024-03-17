@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { MenuComponent } from 'src/app/components/menu/menu.component';
 import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgFor, NgIf } from '@angular/common';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 import { CharacterPhotoSelectorComponent } from 'src/app/components/character-photo-selector/character-photo-selector.component';
@@ -63,7 +62,7 @@ export class EditUserComponent implements OnInit {
     if (this.editForm.valid) {
       const name = this.editForm.get('name')?.value
       const lastname = this.editForm.get('lastname')?.value
-      const photo = this.selectedPhoto || ''
+      const photo = this.selectedPhoto ?? ''
   
       if (this.userLoggedIn && this.userId) {
         this.authService.editUser(name, lastname, photo)

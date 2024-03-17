@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
 import { Firestore, arrayRemove, arrayUnion, doc, updateDoc } from '@angular/fire/firestore';
 import { Subject } from 'rxjs';

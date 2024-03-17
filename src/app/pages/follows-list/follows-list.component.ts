@@ -1,9 +1,8 @@
-import { Component, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { UserDB } from 'src/app/models/userDB.interface';
 import { UserService } from 'src/app/services/user.service';
-import { RouterLink } from '@angular/router';
 import Swal from 'sweetalert2';
 import { FollowService } from 'src/app/services/follow.service';
 import { Subscription } from 'rxjs';
@@ -19,7 +18,6 @@ import { UserCardComponent } from 'src/app/components/user-card/user-card.compon
 })
 export class FollowsListComponent implements OnInit, OnDestroy {
 
-  private authId!: string | undefined
   private userId!: string
   public list!: string
 
@@ -32,7 +30,6 @@ export class FollowsListComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private userService: UserService,
     private followService: FollowService,
-    private authService: AuthService
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -59,11 +56,11 @@ export class FollowsListComponent implements OnInit, OnDestroy {
 
       if (this.list === 'following') {
         const { following } = user
-        this.followIds = following || []
+        this.followIds = following ?? []
 
       } else if (this.list === 'followers') {
         const { followers } = user
-        this.followIds = followers || []
+        this.followIds = followers ?? []
       }
 
       if (this.followIds) {

@@ -1,5 +1,5 @@
 import { BookService } from 'src/app/services/book.service';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Book } from 'src/app/models/book.interface';
 import { BookCardComponent } from '../../components/book-card/book-card.component';
 import { NgIf, NgFor } from '@angular/common';
@@ -13,7 +13,7 @@ import { MenuComponent } from '../../components/menu/menu.component';
     standalone: true,
     imports: [MenuComponent, FormsModule, NgIf, NgFor, BookCardComponent]
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent {
 
   books!: Book[]
   search!: string
@@ -21,9 +21,6 @@ export class SearchComponent implements OnInit {
   constructor(
     private bookService: BookService
   ) { }
-
-  ngOnInit(): void {
-  }
 
   searchBooks() {
     const query = this.search

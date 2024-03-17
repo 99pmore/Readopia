@@ -66,8 +66,8 @@ export class BookRowComponent implements OnInit {
       }
     }
   
-    let containerHeight = div?.clientHeight || 0;
-    let containerScrollHeight = div?.scrollHeight || 0;
+    let containerHeight = div?.clientHeight ?? 0;
+    let containerScrollHeight = div?.scrollHeight ?? 0;
   
     return contentHeight <= containerHeight && contentHeight <= containerScrollHeight;
   }

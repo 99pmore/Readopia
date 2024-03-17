@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Auth, User, browserLocalPersistence, createUserWithEmailAndPassword, onAuthStateChanged, sendEmailVerification, signInWithEmailAndPassword, signOut, updateEmail, updatePassword, updateProfile } from '@angular/fire/auth';
+import { Auth, User, browserLocalPersistence, createUserWithEmailAndPassword, onAuthStateChanged, sendEmailVerification, signInWithEmailAndPassword, signOut, updatePassword, updateProfile } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { UserService } from './user.service';
 import { Observable, Subject } from 'rxjs';
@@ -118,10 +118,17 @@ export class AuthService {
 
     if (user) {
       const newName = name !== '' ? name : user.displayName?.split(' ')[0]
-      const newLastname = lastname !== '' ? lastname
-                                          : user.displayName?.split(' ')[2]
-                                          ? user.displayName?.split(' ')[1].concat(' ').concat(user.displayName?.split(' ')[2])
-                                          : user.displayName?.split(' ')[1]
+      
+      let newLastname = '';
+      if (lastname !== '') {
+          newLastname = lastname;
+      } else {
+          const displayNameParts = user.displayName?.split(' ');
+          if (displayNameParts?.length ?? 0 >= 2) {
+              newLastname = displayNameParts?.slice(1, 3).join(' ') ?? '';
+          }
+      }
+
       const newDisplayName = `${newName} ${newLastname}`
       const newPhoto = photo !== '' ? photo : user.photoURL
 

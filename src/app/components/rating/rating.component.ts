@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { faStar as faStarSol, faStarHalfAlt as faStarHalf } from '@fortawesome/free-solid-svg-icons'
 import { faStar as faStarReg } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -11,18 +11,13 @@ import { NgFor } from '@angular/common';
     standalone: true,
     imports: [NgFor, FontAwesomeModule]
 })
-export class RatingComponent implements OnInit {
+export class RatingComponent {
 
   @Input() rating!: number | undefined
 
   public faStarSol = faStarSol
   public faStarReg = faStarReg
   public faStarHalf = faStarHalf
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
   public showHalfStar(index: number): boolean {
     if (this.rating === undefined) {

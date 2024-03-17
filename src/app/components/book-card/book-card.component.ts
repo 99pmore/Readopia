@@ -1,4 +1,3 @@
-import { VolumeInfo } from './../../models/book.interface';
 import { Component, Input } from '@angular/core';
 import { Book } from 'src/app/models/book.interface';
 import { NgFor, NgIf } from '@angular/common';
@@ -21,6 +20,6 @@ export class BookCardComponent {
   }
 
   public getDisplayedAuthors(book: Book): string[] {
-    return book.volumeInfo?.authors?.slice(0, 3) || []
+    return book.volumeInfo?.authors?.slice(0, 3) ?? []
   }
 }

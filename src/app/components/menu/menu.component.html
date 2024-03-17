@@ -1,6 +1,6 @@
 <header class="mobile-menu">
     <fa-icon class="burger" [icon]="faBars" (click)="toggleMobileMenu()"></fa-icon>
-    <nav *ngIf="showMobileMenu">
+    <nav *ngIf="showMobileMenu" aria-label="Menú de navegación móvil">
         <div class="logo" routerLink="/" (click)="toggleMobileMenu()">
             <img src="../../../assets/images/logo.svg" alt="Logo" />
         </div>
@@ -30,7 +30,7 @@
 </header>
 
 <header class="pc-menu">
-    <nav class="left">
+    <nav class="left" aria-label="Menú de navegación">
         <ul class="links">
             <li>
                 <a routerLink="/">Inicio</a>
@@ -45,7 +45,7 @@
         <img src="../../../assets/images/logo.svg" alt="Logo" />
     </div>
     
-    <nav class="right">
+    <nav class="right" aria-label="Menú de navegación">
         <ul class="links">
             <li>
                 <a routerLink="/mybooks">Mis libros</a>
