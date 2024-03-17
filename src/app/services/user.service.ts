@@ -93,37 +93,27 @@ export class UserService {
   public editUser(userId: string, name: string | undefined, lastname: string | undefined, photo: string | null) {
     const userRef = doc(this.firestore, 'users', userId)
 
-    try {
-      updateDoc(userRef, {
-        name: name,
-        lastname: lastname,
-        photo: photo
+    updateDoc(userRef, {
+      name: name,
+      lastname: lastname,
+      photo: photo
+    })
+    .then(() => {
+      Swal.fire({
+        toast: true,
+        position: 'center-end',
+        icon: 'success',
+        title: 'Datos actualizados',
+        showConfirmButton: false,
+        timer: 1500
       })
-      .then(() => {
-        Swal.fire({
-          toast: true,
-          position: 'center-end',
-          icon: 'success',
-          title: 'Datos actualizados',
-          showConfirmButton: false,
-          timer: 1500
-        })
-      })
-      .catch((error) => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: `${error}`,
-        })
-      })
-
-    } catch (error) {
+    })
+    .catch((error) => {
       Swal.fire({
         icon: 'error',
         title: 'Error',
         text: `${error}`,
       })
-      throw(error)
-    }
+    })
   }
 }

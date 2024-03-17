@@ -5,7 +5,6 @@ import { LoginLinkComponent } from 'src/app/components/login-link/login-link.com
 import { SmCoverComponent } from 'src/app/components/sm-cover/sm-cover.component';
 import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { User } from '@angular/fire/auth';
 import { BookDB } from 'src/app/models/bookDB.interface';
 import { UserDB } from 'src/app/models/userDB.interface';
 import { ActivatedRoute, RouterLink } from '@angular/router';

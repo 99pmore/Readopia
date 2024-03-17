@@ -68,7 +68,7 @@ export class BookInfoComponent implements OnInit {
     this.buttonText = this.formVisible ? 'Cerrar' : 'Crear reseña'
   }
 
-  private async getBook() {
+  private getBook() {
     this.bookService.getBook(this.id)
     .subscribe(async (data) => {
       this.book = data

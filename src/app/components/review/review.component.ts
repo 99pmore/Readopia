@@ -36,7 +36,7 @@ export class ReviewComponent implements OnInit, OnDestroy {
     private authService: AuthService
   ) {}
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit(): void {
     this.authService.authChanges().subscribe((user) => {
       this.authId = user?.uid
     })
@@ -47,7 +47,7 @@ export class ReviewComponent implements OnInit, OnDestroy {
       this.getReviews()
 
       this.reviewsSubscription = this.reviewsService.updatedReviews$
-      .subscribe(async () => {
+      .subscribe(() => {
         this.getReviews()
       })
 
@@ -70,7 +70,7 @@ export class ReviewComponent implements OnInit, OnDestroy {
   }
 
   private async getUser() {
-    this.reviews.map(async (review) => {
+    this.reviews.forEach(async (review) => {
       if (review.userId) {
         const user = await this.userService.getUserById(review.userId)
 

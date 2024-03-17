@@ -125,30 +125,21 @@ export class AuthService {
       const newDisplayName = `${newName} ${newLastname}`
       const newPhoto = photo !== '' ? photo : user.photoURL
 
-      try {
-        updateProfile(user, {
-          displayName: newDisplayName,
-          photoURL: newPhoto
-        })
-        .then(() => {
-          this.userService.editUser(user.uid, newName, newLastname, newPhoto)
-          this.userUpdatedSubject.next(user)
-        })
-        .catch((error) => {
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: `${error}`,
-          })
-        })
-
-      } catch (error) {
+      updateProfile(user, {
+        displayName: newDisplayName,
+        photoURL: newPhoto
+      })
+      .then(() => {
+        this.userService.editUser(user.uid, newName, newLastname, newPhoto)
+        this.userUpdatedSubject.next(user)
+      })
+      .catch((error) => {
         Swal.fire({
           icon: 'error',
           title: 'Error',
           text: `${error}`,
         })
-      }
+      })
     }
   }
 
