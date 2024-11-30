@@ -147,7 +147,6 @@ main {
             .cover {
                 width: 275px;
                 height: 100%;
-                aspect-ratio: 2/3;
 
                 align-content: space-between;
                 gap: 30px;
@@ -157,6 +156,7 @@ main {
     
                 .book-card__book {
                     width: 100%;
+                    aspect-ratio: 2/3;
         
                     transform-style: preserve-3d;
                     transition: all 220ms ease;
